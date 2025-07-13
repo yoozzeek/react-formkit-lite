@@ -1,4 +1,4 @@
-import { FC, FocusEventHandler } from "react";
+import type { FocusEventHandler } from "react";
 
 type SwitchFieldProps = {
   id: string;
@@ -10,7 +10,7 @@ type SwitchFieldProps = {
   onFocus?: FocusEventHandler;
 };
 
-const UISwitchField: FC<SwitchFieldProps> = ({
+const UISwitchField = ({
   id,
   name,
   label,
@@ -18,22 +18,17 @@ const UISwitchField: FC<SwitchFieldProps> = ({
   value,
   onFocus,
   onChange,
-}) => {
+}: SwitchFieldProps) => {
   return (
     <div className="flex items-start justify-between">
       {(!!label || !!helpText) && (
         <div className="mt-1 mr-2">
           {!!label && <span className="mr-3 text-gray-900">{label}</span>}
-          {!!helpText && (
-            <p className="mt-2 text-sm text-gray-300">{helpText}</p>
-          )}
+          {!!helpText && <p className="mt-2 text-sm text-gray-300">{helpText}</p>}
         </div>
       )}
 
-      <label
-        htmlFor={id}
-        className="relative inline-flex cursor-pointer items-center"
-      >
+      <label htmlFor={id} className="relative inline-flex cursor-pointer items-center">
         <input
           id={id}
           name={name}

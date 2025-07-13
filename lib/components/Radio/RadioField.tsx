@@ -1,18 +1,19 @@
-import { FC, memo, ReactElement, ReactNode, useMemo } from "react";
-import classNames from "classnames";
+import { memo, useMemo } from "react";
+import type { JSX, ReactElement } from "react";
+import { clsx } from "clsx";
 
-type UIRadioFieldProps = {
+type RadioFieldProps = {
   label?: string | ReactElement;
   name: string;
   value: string | number;
   disabled?: boolean;
   lightVariant?: boolean;
   checkedValue?: string | number;
-  onChange?: any;
-  onFocus?: any;
+  onChange?: () => void;
+  onFocus?: () => void;
 };
 
-const RadioField: FC<UIRadioFieldProps> = ({
+const RadioField: (props: RadioFieldProps) => JSX.Element | null = ({
   name,
   value,
   label,
@@ -21,14 +22,14 @@ const RadioField: FC<UIRadioFieldProps> = ({
   checkedValue,
   onChange,
   onFocus,
-}) => {
+}: RadioFieldProps) => {
   const isChecked = useMemo(
     () => (checkedValue ? checkedValue === value : false),
-    [checkedValue, value]
+    [checkedValue, value],
   );
   return (
     <label
-      className={classNames("flex cursor-pointer items-center text-lg", {
+      className={clsx("flex cursor-pointer items-center text-lg", {
         "opacity-50": disabled,
         "cursor-pointer": !disabled,
         "text-gray-900": isChecked,
@@ -36,7 +37,7 @@ const RadioField: FC<UIRadioFieldProps> = ({
       })}
     >
       <input
-        className={classNames(
+        className={clsx(
           "grid h-7 w-7 shrink-0 cursor-pointer appearance-none place-content-center rounded-full border-2 bg-white",
           "before:h-5 before:w-5 before:scale-0 before:rounded-full before:bg-green-500",
           "checked:before:scale-95",
@@ -44,7 +45,7 @@ const RadioField: FC<UIRadioFieldProps> = ({
             "mr-3": label,
             "border-green-500": !lightVariant,
             "border-gray-200 checked:border-green-500": lightVariant,
-          }
+          },
         )}
         disabled={disabled}
         checked={isChecked}
@@ -59,28 +60,4 @@ const RadioField: FC<UIRadioFieldProps> = ({
   );
 };
 
-export const UIRadioField = memo(RadioField);
-
-type UIRadioGroupProps = {
-  label: string;
-  ariaLabel?: string;
-  error?: string;
-  children: ReactNode;
-};
-
-const UIRadioGroup: FC<UIRadioGroupProps> = ({
-  ariaLabel = "radio-group",
-  label,
-  error,
-  children,
-}) => {
-  return (
-    <div role="group" aria-labelledby={ariaLabel}>
-      <span className="block pb-4 font-semibold text-gray-900">{label}</span>
-      {children}
-      {error && <p className="mt-4 text-xs text-red-500">{error}</p>}
-    </div>
-  );
-};
-
-export default UIRadioGroup;
+export default memo(RadioField);

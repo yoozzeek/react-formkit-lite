@@ -1,23 +1,13 @@
-import {
-  ChangeEvent,
-  ReactElement,
-  memo,
-  RefObject,
-  useState,
-  useMemo,
-  MouseEvent,
-  FocusEvent,
-  FC,
-  useEffect,
-} from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import type { JSX, MouseEvent, FocusEvent, ChangeEvent, ReactElement, RefObject } from "react";
+import MaskedDynamic from "imask/masked/dynamic";
 import { useIMask } from "react-imask";
-import classNames from "classnames";
-import { UIBaseFieldProps } from "../../types";
-import RemoveIcon from "../../../../assets/icons/remove.svg";
-import { AnyMaskedOptions } from "imask";
-import textAreaAutoHeight from "../../../../lib/utils/textAreaAutoHeight";
+import { clsx } from "clsx";
+import RemoveIcon from "@/assets/icons/remove.svg?react";
+import type { CommonFieldProps } from "@/types";
+import textAreaAutoHeight from "@/utils/textAreaAutoHeight";
 
-type TextFieldProps = UIBaseFieldProps & {
+interface TextFieldProps extends CommonFieldProps {
   ref?: RefObject<HTMLInputElement>;
   secure?: boolean;
   textarea?: boolean;
@@ -33,7 +23,7 @@ type TextFieldProps = UIBaseFieldProps & {
     | "phone";
   spellCheck?: boolean;
   pattern?: string;
-  mask?: AnyMaskedOptions | AnyMaskedOptions[];
+  mask?: MaskedDynamic | MaskedDynamic[];
   isPrimary?: boolean;
   leftIcon?: ReactElement;
   iconCompact?: boolean;
@@ -56,11 +46,11 @@ type TextFieldProps = UIBaseFieldProps & {
     | undefined;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onComplete?: (value: string) => void;
-  onFocus?: any;
-  onBlur?: any;
-};
+  onFocus?: () => void;
+  onBlur?: () => void;
+}
 
-const UITextField: FC<TextFieldProps> = ({
+const TextField: (props: TextFieldProps) => JSX.Element = ({
   id,
   label,
   value,
@@ -94,13 +84,13 @@ const UITextField: FC<TextFieldProps> = ({
   onComplete,
   onFocus,
   onBlur,
-}) => {
+}: TextFieldProps) => {
   const [focused, onFocused] = useState<boolean>(false);
   const resetVisible = useMemo(
     () => Boolean(value) && focused && !resetDisabled,
     [value, focused, resetDisabled],
   );
-  const classes = classNames(
+  const classes = clsx(
     "block flex-1 text-sm px-3 rounded-lg py-2.5 placeholder-gray-250 text-gray-900",
     "appearance-none focus:outline-none focus:ring-1",
     {
@@ -118,40 +108,40 @@ const UITextField: FC<TextFieldProps> = ({
   );
 
   // Use IMask for input masking
-  const [maskOpts, setMaskOpts] = useState<AnyMaskedOptions>({
-    mask: String,
+  const [maskOpts, setMaskOpts] = useState({
+    mask: MaskedDynamic,
     ...mask,
   });
 
   // If mask changes, update the mask options
   useEffect(() => {
-    setMaskOpts({ mask: String, ...mask });
+    setMaskOpts({ mask: MaskedDynamic, ...mask });
   }, [mask]);
 
-  const { ref, unmaskedValue, setValue, setUnmaskedValue } = useIMask(
-    maskOpts,
-    {
-      // When the mask changes emulating input change event
-      onAccept: (value, maskRef) => {
-        if (onChange) {
-          onChange({
-            target: {
-              value: maskRef.unmaskedValue,
-              name,
-            },
-          } as ChangeEvent<HTMLInputElement>);
-        }
-      },
+  const inputRef = useRef<HTMLInputElement>(null!);
 
-      // When the mask is complete, call onComplete
-      // and pass the unmasked value
-      onComplete: (value, maskRef) => {
-        if (onComplete) {
-          onComplete(maskRef.unmaskedValue);
-        }
-      },
+  const { setValue, setUnmaskedValue } = useIMask(maskOpts, {
+    ref: inputRef,
+    // When the mask changes emulating input change event
+    onAccept: (_, maskRef) => {
+      if (onChange) {
+        onChange({
+          target: {
+            value: maskRef.unmaskedValue,
+            name,
+          },
+        } as ChangeEvent<HTMLInputElement>);
+      }
     },
-  );
+
+    // When the mask is complete, call onComplete
+    // and pass the unmasked value
+    onComplete: (_, maskRef) => {
+      if (onComplete) {
+        onComplete(maskRef.unmaskedValue);
+      }
+    },
+  });
 
   // If initialValue changes, update the unmasked value
   useEffect(() => {
@@ -166,7 +156,7 @@ const UITextField: FC<TextFieldProps> = ({
   function handleFocus(e: FocusEvent) {
     onFocused(true);
 
-    if (onFocus) onFocus(e);
+    if (onFocus) onFocus();
     if (textareaAutoHeight) {
       // Expand textarea to fit the content
       const el = e.target as HTMLTextAreaElement;
@@ -176,11 +166,11 @@ const UITextField: FC<TextFieldProps> = ({
     }
   }
 
-  function handleBlur(e: FocusEvent) {
+  function handleBlur(e: FocusEvent<HTMLTextAreaElement>) {
     e.stopPropagation();
     onFocused(false);
 
-    if (onBlur) onBlur(e);
+    if (onBlur) onBlur();
     if (textareaAutoHeight) {
       // Reset el height to parent height
       const ta = e.target as HTMLTextAreaElement;
@@ -199,7 +189,9 @@ const UITextField: FC<TextFieldProps> = ({
   const inputEl = useMemo(() => {
     // If textarea is true, render a textarea
     if (textarea) {
-      const dynamicProps: any = {};
+      const dynamicProps: {
+        onInput?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+      } = {};
       if (textareaAutoHeight) {
         dynamicProps.onInput = textAreaAutoHeight;
       }
@@ -213,7 +205,7 @@ const UITextField: FC<TextFieldProps> = ({
           rows={rows}
           disabled={disabled}
           placeholder={placeholder || undefined}
-          className={classNames("resize-none", classes)}
+          className={clsx("resize-none", classes)}
           style={{
             minHeight: textareaAutoHeight ? rows * 1.5 + "rem" : "auto",
             maxHeight: textareaAutoHeight ? "360px" : "auto",
@@ -246,7 +238,7 @@ const UITextField: FC<TextFieldProps> = ({
     // Render text input
     return (
       <input
-        ref={ref}
+        ref={inputRef}
         id={id}
         name={name}
         autoComplete={autoComplete}
@@ -269,7 +261,7 @@ const UITextField: FC<TextFieldProps> = ({
     id,
     name,
     placeholder,
-    ref,
+    inputRef,
     rows,
     secure,
     textarea,
@@ -279,25 +271,21 @@ const UITextField: FC<TextFieldProps> = ({
 
   return (
     <div
-      className={classNames("", {
+      className={clsx("", {
         "flex-1": fullWidth,
       })}
     >
       {label && (
-        <label
-          htmlFor={id}
-          className="block pb-1.5 font-semibold text-gray-900"
-        >
+        <label htmlFor={id} className="block pb-1.5 font-semibold text-gray-900">
           {label}
           {required && <span className="ml-1 text-red-400">*</span>}
         </label>
       )}
       <div
-        className={classNames("relative flex items-center rounded-lg border", {
+        className={clsx("relative flex items-center rounded-lg border", {
           "w-full": fullWidth,
           "border-red-400 focus:ring-red-500": error,
-          "border-gray-150 focus:ring-green-500 md:hover:border-green-500":
-            !error,
+          "border-gray-150 focus:ring-green-500 md:hover:border-green-500": !error,
           "opacity-60": disabled,
           "focus:ring-1": !disabled,
           "bg-gray-100": isPrimary,
@@ -308,7 +296,7 @@ const UITextField: FC<TextFieldProps> = ({
             leftIcon
           ) : (
             <span
-              className={classNames(
+              className={clsx(
                 "flex w-auto flex-shrink items-center justify-center self-stretch px-2",
                 {
                   "border-r border-gray-200 text-gray-900": !iconCompact,
@@ -316,11 +304,7 @@ const UITextField: FC<TextFieldProps> = ({
                 },
               )}
             >
-              {iconCompact ? (
-                <span className="h-5 w-5">{leftIcon}</span>
-              ) : (
-                leftIcon
-              )}
+              {iconCompact ? <span className="h-5 w-5">{leftIcon}</span> : leftIcon}
             </span>
           ))}
         {inputEl}
@@ -329,7 +313,7 @@ const UITextField: FC<TextFieldProps> = ({
             rightIcon
           ) : (
             <span
-              className={classNames(
+              className={clsx(
                 "absolute right-2 flex w-auto flex-shrink items-center justify-center self-stretch px-2",
                 {
                   "border-l border-gray-200 text-gray-900": !iconCompact,
@@ -337,24 +321,17 @@ const UITextField: FC<TextFieldProps> = ({
                 },
               )}
             >
-              {iconCompact ? (
-                <span className="h-5 w-5">{rightIcon}</span>
-              ) : (
-                rightIcon
-              )}
+              {iconCompact ? <span className="h-5 w-5">{rightIcon}</span> : rightIcon}
             </span>
           ))}
         {resetVisible && (
           <button
             tabIndex={-1}
-            className={classNames(
-              "absolute top-2.5 z-10 h-6 w-6 cursor-pointer",
-              {
-                "right-2.5": !rightIcon,
-                "right-10": rightIcon && !customIconContainer,
-                "right-12": rightIcon && !!customIconContainer,
-              },
-            )}
+            className={clsx("absolute top-2.5 z-10 h-6 w-6 cursor-pointer", {
+              "right-2.5": !rightIcon,
+              "right-10": rightIcon && !customIconContainer,
+              "right-12": rightIcon && !!customIconContainer,
+            })}
             type="button"
             onClick={handleReset}
           >
@@ -362,14 +339,10 @@ const UITextField: FC<TextFieldProps> = ({
           </button>
         )}
       </div>
-      {error && (
-        <span className="block pt-1.5 text-xs text-red-400">{error}</span>
-      )}
-      {helpText && (
-        <span className="block pt-1.5 text-xs text-gray-300">{helpText}</span>
-      )}
+      {error && <span className="block pt-1.5 text-xs text-red-400">{error}</span>}
+      {helpText && <span className="block pt-1.5 text-xs text-gray-300">{helpText}</span>}
     </div>
   );
 };
 
-export default memo(UITextField);
+export default TextField;

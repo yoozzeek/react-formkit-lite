@@ -1,31 +1,22 @@
-import React, {
-  FC,
-  MouseEvent,
-  FocusEvent,
-  memo,
-  RefObject,
-  useState,
-} from "react";
+import { memo, useState, useRef } from "react";
 import { useIMask } from "react-imask";
-import classNames from "classnames";
-import { UIBaseFieldProps } from "../../types";
-import RemoveIcon from "../../../../assets/icons/remove.svg";
-import { dateMask } from "../../../../lib/form/masks";
+import { clsx } from "clsx";
+import RemoveIcon from "@/assets/icons/remove.svg?react";
+import { dateMask } from "@/utils/masks";
+import type { MouseEvent, RefObject, FocusEvent, JSX } from "react";
+import type { CommonFieldProps } from "@/types";
 
-type DateFieldProps = UIBaseFieldProps & {
+interface DateFieldProps extends CommonFieldProps {
   ref?: RefObject<HTMLInputElement>;
   rows?: number;
   value: string;
-  onChange?: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined,
-  ) => void;
-};
+  onChange?: (field: string, value: string, shouldValidate?: boolean | undefined) => void;
+}
 
-const UIDateField: FC<DateFieldProps> = (props) => {
+const UIDateField: (props: DateFieldProps) => JSX.Element = (props: DateFieldProps) => {
+  const inputRef = useRef<HTMLInputElement>(null!);
   const [focused, onFocused] = useState<boolean>(false);
-  const classes = classNames(
+  const classes = clsx(
     "block rounded-lg border px-3 py-2.5 text-sm placeholder-gray-250 text-gray-900 appearance-none focus:outline-none focus:ring-1",
     {
       "w-full": props.fullWidth,
@@ -35,18 +26,24 @@ const UIDateField: FC<DateFieldProps> = (props) => {
   );
 
   // Use IMask for input masking
-  const maskProps = useIMask(dateMask, {
-    onComplete: (value, maskRef) => {
-      if (props.onChange) props.onChange(props.id, value, true);
+  const maskProps = useIMask(
+    {
+      mask: dateMask,
     },
-  });
+    {
+      ref: inputRef,
+      onComplete: (value) => {
+        if (props.onChange) props.onChange(props.id, value, true);
+      },
+    },
+  );
 
-  function handleReset(e: MouseEvent) {
+  function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
     if (props.onReset) props.onReset(props.id, "", true);
   }
 
-  function handleFocus(e: FocusEvent) {
+  function handleFocus(e: FocusEvent<HTMLInputElement>) {
     onFocused(true);
     if (props.onFocus) {
       props.onFocus(e);
@@ -55,15 +52,12 @@ const UIDateField: FC<DateFieldProps> = (props) => {
 
   return (
     <div
-      className={classNames("", {
+      className={clsx("", {
         "flex-1": props.fullWidth,
       })}
     >
       {props.label && (
-        <label
-          htmlFor={props.id}
-          className="block pb-1.5 font-semibold text-gray-900"
-        >
+        <label htmlFor={props.id} className="block pb-1.5 font-semibold text-gray-900">
           {props.label}
           {props.required && <span className="ml-1 text-red-400">*</span>}
         </label>
@@ -74,7 +68,7 @@ const UIDateField: FC<DateFieldProps> = (props) => {
           className={classes}
           type="text"
           id={props.id}
-          name={props.name}
+          name={props.name as string}
           placeholder={props.placeholder || "MM-DD-YYYY"}
           defaultValue={props.value}
           onFocus={handleFocus}
@@ -89,13 +83,9 @@ const UIDateField: FC<DateFieldProps> = (props) => {
           </button>
         )}
       </div>
-      {props.error && (
-        <span className="block pt-1.5 text-xs text-red-400">{props.error}</span>
-      )}
+      {props.error && <span className="block pt-1.5 text-xs text-red-400">{props.error}</span>}
       {props.helpText && (
-        <span className="block pt-1.5 text-xs text-gray-300">
-          {props.helpText}
-        </span>
+        <span className="block pt-1.5 text-xs text-gray-300">{props.helpText}</span>
       )}
     </div>
   );

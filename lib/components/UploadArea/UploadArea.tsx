@@ -1,13 +1,14 @@
-import React, { DragEvent, FC, ReactElement, useRef } from "react";
-import { UIVariant } from "../types";
-import classNames from "classnames";
+import React, { useRef } from "react";
+import type { DragEvent, FC, ReactElement } from "react";
+import type { Variant } from "@/types";
+import { clsx } from "clsx";
 
 const UIUploadArea: FC<{
   title?: string | null;
   description?: string | null;
   icon?: ReactElement;
   accept?: string;
-  variant?: UIVariant;
+  variant?: Variant;
   onSelectFile: (files: FileList | null) => void;
 }> = ({
   title = "Drop video to upload, or browse",
@@ -17,10 +18,10 @@ const UIUploadArea: FC<{
   description,
   onSelectFile,
 }) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null!);
   const [dragHover, setDragHover] = React.useState(false);
 
-  function dropHandler(ev: any) {
+  function dropHandler(ev: DragEvent<HTMLDivElement>) {
     ev.preventDefault();
 
     onSelectFile(ev.dataTransfer.files);
@@ -60,7 +61,7 @@ const UIUploadArea: FC<{
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         "flex h-full w-full flex-col items-center justify-center",
         "cursor-pointer rounded-3xl py-10 text-center",
         "border border-dashed border-green-500",
@@ -70,7 +71,7 @@ const UIUploadArea: FC<{
           "bg-gray-800": variant === "dark" && !dragHover,
           "bg-gray-150": dragHover && variant === "light",
           "bg-gray-700": dragHover && variant === "dark",
-        }
+        },
       )}
       onDrop={dropHandler}
       onDragOver={dragOverHandler}
@@ -81,7 +82,7 @@ const UIUploadArea: FC<{
     >
       {icon && <span className="mb-4">{icon}</span>}
       <h5
-        className={classNames("mx-8 mb-2", {
+        className={clsx("mx-8 mb-2", {
           "text-gray-900": variant === "light",
           "text-gray-100": variant === "dark",
         })}
@@ -90,7 +91,7 @@ const UIUploadArea: FC<{
       </h5>
       {description && (
         <p
-          className={classNames("mx-4 text-xs", {
+          className={clsx("mx-4 text-xs", {
             "text-gray-300": variant === "light",
             "text-gray-200": variant === "dark",
           })}

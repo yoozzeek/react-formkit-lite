@@ -1,13 +1,7 @@
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  FC,
-  FocusEventHandler,
-  useEffect,
-  useState,
-} from "react";
-import classNames from "classnames";
-import useDebounce from "../../../../lib/hooks/useDebounce";
+import { useEffect, useState } from "react";
+import type { ChangeEvent, ChangeEventHandler, FocusEventHandler } from "react";
+import classNames from "clsx";
+import useDebounce from "@/hooks/useDebounce";
 
 type RangeFieldProps = {
   id: string;
@@ -25,7 +19,7 @@ type RangeFieldProps = {
   onFocus?: FocusEventHandler;
 };
 
-const UIRangeField: FC<RangeFieldProps> = ({
+const UIRangeField = ({
   id,
   name,
   min = 0,
@@ -36,10 +30,9 @@ const UIRangeField: FC<RangeFieldProps> = ({
   label,
   disabled = false,
   value,
-  onChange,
   onValueChange,
   onFocus,
-}) => {
+}: RangeFieldProps) => {
   const [internalValue, setInternalValue] = useState<number>(value);
   const debouncedValue = useDebounce(internalValue, 50);
 
@@ -50,7 +43,7 @@ const UIRangeField: FC<RangeFieldProps> = ({
 
   // Emit the debounced value to the parent component
   useEffect(() => {
-    onValueChange && onValueChange(debouncedValue);
+    onValueChange?.(debouncedValue);
   }, [debouncedValue]);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -61,10 +54,7 @@ const UIRangeField: FC<RangeFieldProps> = ({
   return (
     <div>
       {!!label && (
-        <label
-          htmlFor={id}
-          className="mb-1.5 block font-semibold text-gray-900"
-        >
+        <label htmlFor={id} className="mb-1.5 block font-semibold text-gray-900">
           {label}
         </label>
       )}
@@ -73,9 +63,7 @@ const UIRangeField: FC<RangeFieldProps> = ({
           "opacity-50": disabled,
         })}
       >
-        {minPlaceholder && (
-          <span className="gray-300 mr-2 font-light">{minPlaceholder}</span>
-        )}
+        {minPlaceholder && <span className="gray-300 mr-2 font-light">{minPlaceholder}</span>}
         <input
           id={id}
           name={name}
@@ -89,9 +77,7 @@ const UIRangeField: FC<RangeFieldProps> = ({
           onFocus={onFocus}
           className="slider-thumb h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-gray-150"
         />
-        {maxPlaceholder && (
-          <span className="gray-300 ml-2 font-light">{maxPlaceholder}</span>
-        )}
+        {maxPlaceholder && <span className="gray-300 ml-2 font-light">{maxPlaceholder}</span>}
       </div>
     </div>
   );

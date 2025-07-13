@@ -1,52 +1,36 @@
-import React, {
-  ChangeEvent,
-  FC,
-  FocusEvent,
-  memo,
-  MouseEvent,
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import type { UIBaseFieldProps, UIPosition } from "../../types";
-import useResponsiveBreakpoints from "../../hooks/useResponsiveBreakpoints";
-import classNames from "classnames";
-import UIModal from "../modal/Modal";
-import UIHeader from "../Header";
-import UILoader from "../Loader";
-import LoadMoreElement from "../../../../lib/components/LoadMoreElement";
-import UITextField from "./TextField";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { clsx } from "clsx";
+import type { JSX, ReactElement, ReactNode, ChangeEvent, FocusEvent } from "react";
+import type { SelectOptionType } from "./SelectOption.tsx";
+// import UIModal from "../modal/Modal";
+import Header from "@/components/Header";
+import Loader from "@/components/Loader";
+import LoadMoreElement from "./LoadMoreElement";
+import TextField from "@/components/Text";
 import { ViewportList } from "react-viewport-list";
-import CheckIcon from "../../../../assets/icons/check.svg";
-import useOutsideClick from "../../../../lib/hooks/useOutsiteClick";
-import UIButton from "../Button";
-import UIBadge from "../Badge";
-import ChevronDownIcon from "../../../../assets/icons/chevron-down.svg";
-import useModal from "../../hooks/useModal";
-import PlusIcon from "../../../../assets/icons/plus.svg";
-import { flushSync } from "react-dom";
+import useClickOutside from "@/hooks/useClickOutside.ts";
+import UIButton from "@/components/Button";
+import UIBadge from "@/components/Badge";
+//import useModal from "@/hooks/useModal";
 import SimpleBar from "simplebar-react";
-import { useTranslation } from "next-i18next";
+import type { CommonFieldProps, Position } from "@/types";
+import useGteSm from "@/hooks/useGteSm.ts";
+import ChevronDownIcon from "@/assets/icons/chevron-down.svg?react";
+import PlusIcon from "@/assets/icons/plus.svg?react";
+import SingleSelectOption from "./SelectOption.tsx";
+import MultipleSelectOption from "@/components/Select/SelectMultipleOption.tsx";
 
-type SelectValueType = string[] | number[] | string | number;
+export type SelectValueType = string[] | number[] | string | number;
+
 export type SelectFormikHandler = (
   field: string,
-  value: any,
+  value: SelectValueType,
   shouldValidate?: boolean | undefined,
 ) => void;
 
-type SelectSimpleHandler = (
-  value: SelectValueType,
-  opt?: SelectOptionType,
-) => void;
+export type SelectSimpleHandler<T> = (value: SelectValueType, opt?: SelectOptionType<T>) => void;
 
-export type SelectHandlerType = SelectSimpleHandler | SelectFormikHandler;
-
-export interface UISelectFieldProps extends UIBaseFieldProps {
+export interface SelectFieldProps<T> extends CommonFieldProps {
   multiple?: boolean;
   value: SelectValueType;
   max?: number;
@@ -55,195 +39,36 @@ export interface UISelectFieldProps extends UIBaseFieldProps {
   popupLabel?: string | null;
   isLoading?: boolean;
   dpWidth?: number;
-  dpPosition?: UIPosition;
+  dpPosition?: Position;
   dpFullscreen?: boolean;
   formikHandler?: boolean;
-  options: SelectOptionType[];
-  valueGetter?: (rawData: any) => string | number;
-  valueRender?: (opt: SelectOptionType) => ReactElement;
+  options: SelectOptionType<T>[];
+  valueGetter?: (rawData: T) => string | number;
+  valueRender?: (opt: SelectOptionType<T>) => ReactElement;
   onLoadMore?: () => void;
   onSearch?: (term: string) => void;
-  onChange: SelectHandlerType;
+  onChange: SelectSimpleHandler<T> | SelectFormikHandler;
 }
 
-export type SelectOptionType = {
-  label: string;
-  value: string | number;
-  selected?: boolean;
-  classes?: string;
-  helpText?: string;
-  iconEl?: ReactElement | null;
-  badgeIconEl?: ReactElement | null;
-  rawData?: any;
-};
-
-export type SelectFieldOptionProps = {
-  label: string;
-  value: string | number;
-  classes?: string;
-  helpText?: string;
-  iconEl?: ReactElement | null;
-  badgeIconEl?: ReactElement | null;
-  rawData?: any;
-  selected?: boolean;
-  disabled?: boolean;
-  onSelect: (option: SelectOptionType) => void;
-};
-
-type SelectFieldDropdownProps = {
+type SelectFieldDropdownProps<T> = {
   id: string;
   label?: string | null;
   isLoading?: boolean;
   footerEl?: ReactElement | null;
-  options: SelectOptionType[];
+  options: SelectOptionType<T>[];
   fullscreen?: boolean;
-  position?: UIPosition;
+  position?: Position;
   minWidth?: number;
   helpText?: string | null;
   searchTerm?: string;
-  optionRenderer: (option: SelectOptionType) => ReactNode;
+  optionRenderer: (option: SelectOptionType<T>) => ReactNode;
   onLoadMore?: () => void;
-  onReset?: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined,
-  ) => any;
+  onReset?: (field: string, value: number | string, shouldValidate?: boolean | undefined) => void;
   onSearch?: (term: string) => void;
   onClose: () => void;
 };
 
-const MultipleSelectOption: FC<SelectFieldOptionProps> = ({
-  label,
-  value,
-  classes,
-  helpText,
-  iconEl,
-  badgeIconEl,
-  rawData,
-  disabled = false,
-  selected = false,
-  onSelect,
-}) => {
-  const [hovered, setHovered] = useState(false);
-  function handleClick(e: MouseEvent) {
-    e.stopPropagation();
-    onSelect({
-      label,
-      value,
-      classes,
-      helpText,
-      iconEl,
-      badgeIconEl,
-      rawData,
-      selected: !selected,
-    });
-  }
-
-  return (
-    <div
-      className={classNames(
-        "flex justify-between border-b border-gray-100 px-4 py-4 text-sm text-gray-900",
-        "cursor-pointer last:border-none hover:bg-gray-100",
-        {
-          "opacity-50": disabled && !selected,
-          [classes || ""]: !!classes,
-        },
-      )}
-      onClick={handleClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div className="flex flex-1 items-center">
-        {iconEl && <span className="mr-4 inline-block h-7 w-6">{iconEl}</span>}
-        {label}
-      </div>
-
-      {helpText && (
-        <span className="flex-shrink-0 text-gray-300">{helpText}</span>
-      )}
-
-      {selected ? (
-        <span
-          className={classNames(
-            "inline-flex h-6 w-6 justify-center rounded-full md:rounded-xs md:p-1",
-            "border-b border-gray-100 text-gray-900",
-            {
-              "bg-green-500": !hovered,
-              "bg-green-600": hovered,
-            },
-          )}
-        >
-          <CheckIcon className="h-[10px] w-[13px] self-center text-white" />
-        </span>
-      ) : (
-        <span
-          className={classNames(
-            "inline-block h-6 w-6 border",
-            "rounded-full md:rounded-xs",
-            {
-              "border-green-500 bg-green-500": selected,
-              "border-gray-200 bg-white": !selected,
-              "border-2 border-gray-200": disabled && !selected,
-            },
-          )}
-        />
-      )}
-    </div>
-  );
-};
-
-const MemoizedMultipleSelectOption = memo(MultipleSelectOption);
-
-const SingleSelectOption: FC<SelectFieldOptionProps> = ({
-  label,
-  value,
-  classes,
-  helpText,
-  iconEl,
-  badgeIconEl,
-  rawData,
-  selected = false,
-  onSelect,
-}) => {
-  function handleSelect(e: MouseEvent) {
-    e.stopPropagation();
-    onSelect({
-      label,
-      value,
-      classes,
-      helpText,
-      iconEl,
-      badgeIconEl,
-      rawData,
-      selected: !selected,
-    });
-  }
-
-  return (
-    <div
-      className={classNames(
-        "flex cursor-pointer justify-between border-b border-gray-100 px-4 py-4 text-sm text-gray-900 last:border-none hover:bg-gray-100",
-        {
-          "bg-gray-100 text-green-500": selected,
-          [classes || ""]: !!classes,
-        },
-      )}
-      onClick={handleSelect}
-    >
-      <div className="flex flex-1 items-center">
-        {iconEl && <span className="mr-4 flex">{iconEl}</span>}
-        {label}
-      </div>
-      {helpText && (
-        <span className="flex-shrink-0 text-gray-300">{helpText}</span>
-      )}
-    </div>
-  );
-};
-
-const MemoizedSingleSelectOption = memo(SingleSelectOption);
-
-const SelectOptionsDropdown: FC<SelectFieldDropdownProps> = ({
+const SelectOptionsDropdown = <T,>({
   id,
   label = "Select option",
   position = "left",
@@ -259,15 +84,13 @@ const SelectOptionsDropdown: FC<SelectFieldDropdownProps> = ({
   onSearch,
   onReset,
   onClose,
-}) => {
-  const { t } = useTranslation("common");
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { lastModal } = useModal();
-  const { gteSm } = useResponsiveBreakpoints();
+}: SelectFieldDropdownProps<T>) => {
+  const containerRef = useRef<HTMLDivElement>(null!);
+  //const { lastModal } = useModal();
+  const gteSm = useGteSm();
 
-  const handleSearch = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => onSearch && onSearch(e.target.value);
+  const handleSearch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    onSearch && onSearch(e.target.value);
 
   // Wrap dropdown content in Modal on mobile devices,
   // and show as dropdown on desktop below the input
@@ -277,7 +100,7 @@ const SelectOptionsDropdown: FC<SelectFieldDropdownProps> = ({
       if (gteSm) {
         return (
           <div
-            className={classNames(
+            className={clsx(
               "flex w-full flex-col bg-white",
               "absolute -top-2 z-20 mt-1.5 pb-2 shadow-popup",
               "max-h-[280px] w-[104%] rounded-2xl",
@@ -307,15 +130,8 @@ const SelectOptionsDropdown: FC<SelectFieldDropdownProps> = ({
           onCloseModal={onClose}
           headerEl={
             fullscreen ? (
-              <UIHeader
-                fixed
-                parentIsModal
-                classes="safe-top"
-                title={label}
-                onGoBack={onClose}
-              />
+              <Header fixed parentIsModal classes="safe-top" title={label} onGoBack={onClose} />
             ) : (
-              // Show default header otherwise
               true
             )
           }
@@ -332,7 +148,7 @@ const SelectOptionsDropdown: FC<SelectFieldDropdownProps> = ({
     if (isLoading) {
       return (
         <div className="my-8 flex w-full items-center justify-center">
-          <UILoader size="sm" />
+          <Loader size="sm" />
         </div>
       );
     }
@@ -350,66 +166,61 @@ const SelectOptionsDropdown: FC<SelectFieldDropdownProps> = ({
           {children}
         </SimpleBar>
       ) : (
-        <div
-          ref={containerRef}
-          className="mt-4 pb-1 sm:max-h-[240px] sm:overflow-hidden"
-        >
+        <div ref={containerRef} className="mt-4 pb-1 sm:max-h-[240px] sm:overflow-hidden">
           {children}
         </div>
       ),
     [gteSm],
   );
 
-  return wrapperRenderer(
+  return (
     <>
-      {onSearch && (
-        <div className="mx-4 mt-4">
-          <UITextField
-            fullWidth
-            id={`${id}-search`}
-            placeholder={t("ui.select.search_placeholder")}
-            value={searchTerm}
-            onChange={handleSearch}
-            onReset={onReset}
-          />
-        </div>
-      )}
+      {wrapperRenderer(
+        <>
+          {onSearch && (
+            <div className="mx-4 mt-4">
+              <TextField
+                fullWidth
+                id={`${id}-search`}
+                placeholder="Search..."
+                value={searchTerm || ""}
+                onChange={handleSearch}
+                onReset={onReset}
+              />
+            </div>
+          )}
 
-      {!gteSm && helpText && (
-        <p className="mx-4 mt-2 text-xs text-gray-300">{helpText}</p>
-      )}
+          {!gteSm && helpText && <p className="mx-4 mt-2 text-xs text-gray-300">{helpText}</p>}
 
-      {options.length ? (
-        scrollableContentWrapper(
-          <>
-            <ViewportList
-              viewportRef={
-                gteSm ? containerRef : lastModal?.scrollableContentRef
-              }
-              items={options}
-            >
-              {(item) => optionRenderer(item)}
-            </ViewportList>
+          {options.length ? (
+            scrollableContentWrapper(
+              <>
+                <ViewportList
+                  //viewportRef={gteSm ? containerRef : lastModal?.scrollableContentRef}
+                  viewportRef={containerRef}
+                  items={options}
+                >
+                  {(item) => optionRenderer(item)}
+                </ViewportList>
 
-            {loadMoreContent}
-          </>,
-        )
-      ) : isLoading ? (
-        <div className="my-8 flex w-full items-center justify-center">
-          <UILoader size="sm" />
-        </div>
-      ) : (
-        <p className="p-6 text-center text-xs text-gray-400">
-          {t("ui.select.no_results")}
-        </p>
+                {loadMoreContent}
+              </>,
+            )
+          ) : isLoading ? (
+            <div className="my-8 flex w-full items-center justify-center">
+              <Loader size="sm" />
+            </div>
+          ) : (
+            <p className="p-6 text-center text-xs text-gray-400">No results</p>
+          )}
+        </>,
       )}
-    </>,
+    </>
   );
 };
 
-const UISelectField: FC<UISelectFieldProps> = ({
+function SelectField<T>({
   id,
-  name,
   label,
   popupLabel,
   dpWidth,
@@ -436,20 +247,17 @@ const UISelectField: FC<UISelectFieldProps> = ({
   onSearch,
   onChange,
   onReset,
-}) => {
-  const { t } = useTranslation("common");
-  const dpRef = useRef<HTMLDivElement>(null);
+}: SelectFieldProps<T>): JSX.Element {
+  const dpRef = useRef<HTMLDivElement>(null!);
   const selectedValues = useRef<Set<number | string>>(new Set());
 
   // Hide dropdown on outside click or ESC
-  const { gteSm } = useResponsiveBreakpoints();
-  const [collapsed, setCollapsed] = useOutsideClick(dpRef, false, true, !gteSm);
+  const gteSm = useGteSm();
+  const [collapsed, setCollapsed] = useClickOutside(dpRef, false, true, !gteSm);
 
   // Fill selected options once when options are loaded
   const selectedOptionsInitialized = useRef(false);
-  const [selectedOptions, setSelectedOptions] = useState<SelectOptionType[]>(
-    [],
-  );
+  const [selectedOptions, setSelectedOptions] = useState<SelectOptionType<T>[]>([]);
 
   useEffect(() => {
     if (typeof value === "number" && value <= 0) return;
@@ -463,11 +271,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
     // Handle multiple selection
     if (multiple && Array.isArray(value)) {
       value.forEach((val) => selectedValues.current.add(val));
-      setSelectedOptions(
-        options.filter((option) =>
-          selectedValues.current.has(getValue(option)),
-        ),
-      );
+      setSelectedOptions(options.filter((option) => selectedValues.current.has(getValue(option))));
     }
     // Handle single selection
     else if (!multiple) {
@@ -484,7 +288,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
    * @description It handles both single and multiple selection.
    */
   const handleSelect = useCallback(
-    (option: SelectOptionType) => {
+    (option: SelectOptionType<T>) => {
       const selected = selectedValues.current;
 
       // If option is already selected remove it
@@ -493,17 +297,15 @@ const UISelectField: FC<UISelectFieldProps> = ({
 
         // Handle removing as multiple selection
         if (multiple) {
-          let newSelectedOptions: SelectOptionType[] = [];
+          let newSelectedOptions: SelectOptionType<T>[] = [];
 
           // Update local state
-          flushSync(() => {
-            setSelectedOptions((prev) => {
-              newSelectedOptions = prev.filter(
-                (opt) => opt.value !== option.value,
-              );
-              return newSelectedOptions;
-            });
+          //flushSync(() => {
+          setSelectedOptions((prev) => {
+            newSelectedOptions = prev.filter((opt) => opt.value !== option.value);
+            return newSelectedOptions;
           });
+          //});
 
           // Emit values to parent
           emitTypedValue(newSelectedOptions);
@@ -524,14 +326,14 @@ const UISelectField: FC<UISelectFieldProps> = ({
 
       // Handle adding as multiple selection
       if (multiple) {
-        let newSelectedOptions: SelectOptionType[] = [];
+        let newSelectedOptions: SelectOptionType<T>[] = [];
         selected.add(option.value);
-        flushSync(() => {
-          setSelectedOptions((prev) => {
-            newSelectedOptions = [...prev, option];
-            return newSelectedOptions;
-          });
+        //flushSync(() => {
+        setSelectedOptions((prev) => {
+          newSelectedOptions = [...prev, option];
+          return newSelectedOptions;
         });
+        //});
 
         // Emit values to parent
         emitTypedValue(newSelectedOptions);
@@ -564,9 +366,10 @@ const UISelectField: FC<UISelectFieldProps> = ({
    * Otherwise use option value directly
    * @param option
    */
-  function getValue(option: SelectOptionType): string | number {
+  function getValue(option: SelectOptionType<T>): string | number {
     if (!option) return "";
-    if (valueGetter) return valueGetter(option);
+    if (valueGetter && option.rawData !== undefined && option.rawData !== null)
+      return valueGetter(option.rawData as T);
     return option.value;
   }
 
@@ -577,22 +380,14 @@ const UISelectField: FC<UISelectFieldProps> = ({
   function emitValue<T>(value: string | number | string[] | number[]) {
     // Check if handler is a formik handler
     if (formikHandler) {
-      // Emit value as array if multiple selection
-      if (multiple) {
-        (onChange as SelectFormikHandler)(id, value, true);
-        return;
-      }
-
-      // Emit value as string | number if single selection
       (onChange as SelectFormikHandler)(id, value, true);
-      return;
     } else {
       // Otherwise handle as normal onChange handler
-      (onChange as SelectSimpleHandler)(value);
+      (onChange as unknown as SelectSimpleHandler<T>)(value);
     }
   }
 
-  function emitTypedValue(options: SelectOptionType[] = []) {
+  function emitTypedValue(options: SelectOptionType<T>[] = []) {
     const values = options.map((opt) => opt.value);
     if (values.length) {
       if (typeof values[0] === "number") {
@@ -609,10 +404,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
    * Remove selected option by value
    */
   const removeOption = useCallback(
-    (e: MouseEvent, val: string) => {
-      // Prevent outside click handler
-      e.stopPropagation();
-
+    (val: string) => {
       const selected = selectedValues.current;
       if (!selected.has(val)) return;
       selected.delete(val);
@@ -628,13 +420,13 @@ const UISelectField: FC<UISelectFieldProps> = ({
 
       // Handle removing as multiple selection
       if (multiple) {
-        let newSelectedOptions: SelectOptionType[] = [];
-        flushSync(() => {
-          setSelectedOptions((prev) => {
-            newSelectedOptions = prev.filter((opt) => opt.value !== val);
-            return newSelectedOptions;
-          });
+        let newSelectedOptions: SelectOptionType<T>[] = [];
+        //flushSync(() => {
+        setSelectedOptions((prev) => {
+          newSelectedOptions = prev.filter((opt) => opt.value !== val);
+          return newSelectedOptions;
         });
+        //});
 
         // Emit values to parent
         emitTypedValue(newSelectedOptions);
@@ -668,7 +460,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
    */
   function chooseSelected() {
     setCollapsed(false);
-    onSearch && onSearch("");
+    onSearch?.("");
   }
 
   /**
@@ -676,7 +468,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
    */
   function close() {
     setCollapsed(false);
-    onSearch && onSearch("");
+    onSearch?.("");
   }
 
   const multipleMobileFooterEl = useMemo(() => {
@@ -689,8 +481,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
         disabled={selectedOptions.length < min}
         onClick={chooseSelected}
       >
-        {t("ui.select.choose")}{" "}
-        {selectedOptions.length > 0 && `(${selectedOptions.length})`}
+        Selected {selectedOptions.length > 0 && `(${selectedOptions.length})`}
       </UIButton>
     );
   }, [selectedOptions.length, min, multiple]);
@@ -707,7 +498,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
       const label = option ? option.label : placeholder;
       return (
         <span
-          className={classNames("flex-1 truncate text-sm", {
+          className={clsx("flex-1 truncate text-sm", {
             "text-gray-800": option,
             "text-gray-250": !option,
           })}
@@ -726,8 +517,8 @@ const UISelectField: FC<UISelectFieldProps> = ({
           valueRender(opt)
         ) : (
           <UIBadge
+            id={`${value}`}
             key={value}
-            id={value}
             icon={opt.badgeIconEl || opt.iconEl}
             onRemove={removeOption}
           >
@@ -740,7 +531,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
     // Or show multiple field placeholder
     return (
       <span
-        className={classNames("flex items-center gap-2 text-sm", {
+        className={clsx("flex items-center gap-2 text-sm", {
           "text-green-500": !disabled,
           "text-gray-250": disabled,
         })}
@@ -752,11 +543,11 @@ const UISelectField: FC<UISelectFieldProps> = ({
   }, [selectedOptions, disabled, placeholder, multiple]);
 
   // Based on multiple prop, return different renderers
-  function optionRenderer(option: SelectOptionType) {
+  function optionRenderer(option: SelectOptionType<T>) {
     const value = getValue(option);
     if (multiple) {
       return (
-        <MemoizedMultipleSelectOption
+        <MultipleSelectOption<T>
           key={option.value}
           value={value}
           label={option.label}
@@ -773,7 +564,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
     }
 
     return (
-      <MemoizedSingleSelectOption
+      <SingleSelectOption<T>
         key={option.value}
         value={value}
         label={option.label}
@@ -791,10 +582,7 @@ const UISelectField: FC<UISelectFieldProps> = ({
   return (
     <div className="relative">
       {label && (
-        <label
-          className="mb-1.5 block font-semibold text-gray-900"
-          onClick={focus}
-        >
+        <label className="mb-1.5 block font-semibold text-gray-900" onClick={focus}>
           {label}
           {required && <span className="ml-1 text-red-400">*</span>}
         </label>
@@ -802,14 +590,13 @@ const UISelectField: FC<UISelectFieldProps> = ({
       <div
         ref={dpRef}
         tabIndex={0}
-        className={classNames(
+        className={clsx(
           "relative appearance-none rounded-lg border bg-white",
           "flex cursor-pointer flex-wrap items-center",
           "focus:outline-none",
           {
             "w-full": fullWidth,
-            "border-gray-150 focus:ring-green-500 md:hover:border-gray-300":
-              !error && !disabled,
+            "border-gray-150 focus:ring-green-500 md:hover:border-gray-300": !error && !disabled,
             "border-red-500 focus:ring-red-500": error && !disabled,
             "cursor-not-allowed opacity-60": disabled,
             "focus:ring-1": !disabled,
@@ -824,18 +611,15 @@ const UISelectField: FC<UISelectFieldProps> = ({
       >
         {selectedValueEl}
         <ChevronDownIcon
-          className={classNames(
-            "absolute top-2 right-3 inline h-6 w-6 bg-white",
-            {
-              "text-gray-800": !disabled,
-              "text-gray-200": disabled,
-              "ml-1": !multiple,
-            },
-          )}
+          className={clsx("absolute top-2 right-3 inline h-6 w-6 bg-white", {
+            "text-gray-800": !disabled,
+            "text-gray-200": disabled,
+            "ml-1": !multiple,
+          })}
         />
 
         {collapsed && (
-          <SelectOptionsDropdown
+          <SelectOptionsDropdown<T>
             id={id}
             label={popupLabel}
             options={options}
@@ -855,14 +639,10 @@ const UISelectField: FC<UISelectFieldProps> = ({
         )}
       </div>
 
-      {error && (
-        <span className="block pt-1.5 text-xs text-red-400">{error}</span>
-      )}
-      {helpText && (
-        <span className="block pt-1.5 text-xs text-gray-300">{helpText}</span>
-      )}
+      {error && <span className="block pt-1.5 text-xs text-red-400">{error}</span>}
+      {helpText && <span className="block pt-1.5 text-xs text-gray-300">{helpText}</span>}
     </div>
   );
-};
+}
 
-export default UISelectField;
+export default memo(SelectField);
