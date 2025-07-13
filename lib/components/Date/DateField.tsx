@@ -2,7 +2,7 @@ import { memo, useState, useRef } from "react";
 import { useIMask } from "react-imask";
 import { clsx } from "clsx";
 import RemoveIcon from "@/assets/icons/remove.svg?react";
-import { dateMask } from "@/utils/masks";
+import { dateMask } from "@/utils/dateMask.ts";
 import type { MouseEvent, RefObject, FocusEvent, JSX } from "react";
 import type { CommonFieldProps } from "@/types";
 

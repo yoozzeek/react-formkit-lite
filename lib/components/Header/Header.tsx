@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactElement, ReactNode } from "react";
 import { clsx } from "clsx";
-//import useModal from "../hooks/useModal";
 import type { Variant } from "@/types";
 import useGteSm from "@/hooks/useGteSm.ts";
 import ArrowIcon from "@/assets/icons/arrow.svg?react";
+import { useContextModal } from "react-context-modal";
 
 export type UIHeaderActionType = {
   label?: string | null;
@@ -54,7 +54,7 @@ function Header({
   classes,
   children,
 }: HeaderProps) {
-  //const modal = useModal();
+  const modal = useContextModal();
   const headerRef = useRef<HTMLDivElement>(null!);
   const [scrolledDown, setScrolledDown] = useState(scrollDelta === 0);
 

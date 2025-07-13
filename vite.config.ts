@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import svgr from "vite-plugin-svgr";
 import { libInjectCss } from "vite-plugin-lib-inject-css";
+import { globSync } from "glob";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -33,23 +34,21 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: [
-        "react",
-        "react-dom",
-        "react/jsx-runtime",
-        "react-imask",
-        "simplebar-react",
-        "react-viewport-list",
-      ],
+      external: ["react", "react-dom", "react/jsx-runtime", "simplebar-react"],
+      input: Object.fromEntries(
+        globSync(["lib/components/**/*.tsx", "lib/index.ts"]).map((file) => {
+          const entryName = path.relative(
+            "lib",
+            file.slice(0, file.length - path.extname(file).length),
+          );
+
+          const entryUrl = fileURLToPath(new URL(file, import.meta.url));
+          return [entryName, entryUrl];
+        }),
+      ),
       output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          "react/jsx-runtime": "react/jsx-runtime",
-          "react-imask": "IMaskReact",
-          "simplebar-react": "SimpleBarReact",
-          "react-viewport-list": "ViewportList",
-        },
+        entryFileNames: "[name].js",
+        assetFileNames: "assets/[name][extname]",
       },
     },
   },

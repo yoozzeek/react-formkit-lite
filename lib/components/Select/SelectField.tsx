@@ -2,16 +2,15 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { clsx } from "clsx";
 import type { JSX, ReactElement, ReactNode, ChangeEvent, FocusEvent } from "react";
 import type { SelectOptionType } from "./SelectOption.tsx";
-// import UIModal from "../modal/Modal";
+import { Modal, useModal } from "react-context-modal";
 import Header from "@/components/Header";
 import Loader from "@/components/Loader";
 import LoadMoreElement from "./LoadMoreElement";
 import TextField from "@/components/Text";
 import { ViewportList } from "react-viewport-list";
 import useClickOutside from "@/hooks/useClickOutside.ts";
-import UIButton from "@/components/Button";
-import UIBadge from "@/components/Badge";
-//import useModal from "@/hooks/useModal";
+import Button from "@/components/Button";
+import Badge from "@/components/Badge";
 import SimpleBar from "simplebar-react";
 import type { CommonFieldProps, Position } from "@/types";
 import useGteSm from "@/hooks/useGteSm.ts";
@@ -86,7 +85,7 @@ const SelectOptionsDropdown = <T,>({
   onClose,
 }: SelectFieldDropdownProps<T>) => {
   const containerRef = useRef<HTMLDivElement>(null!);
-  //const { lastModal } = useModal();
+  const { lastModal } = useModal();
   const gteSm = useGteSm();
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -123,7 +122,7 @@ const SelectOptionsDropdown = <T,>({
 
       // Otherwise wrap in modal
       return (
-        <UIModal
+        <Modal
           id="select-field-modal"
           title={label}
           type={fullscreen ? "fullscreen" : "overlay-90"}
@@ -138,7 +137,7 @@ const SelectOptionsDropdown = <T,>({
           footerEl={footerEl}
         >
           <div className="mt-16">{children}</div>
-        </UIModal>
+        </Modal>
       );
     },
     [gteSm, footerEl],
@@ -196,8 +195,7 @@ const SelectOptionsDropdown = <T,>({
             scrollableContentWrapper(
               <>
                 <ViewportList
-                  //viewportRef={gteSm ? containerRef : lastModal?.scrollableContentRef}
-                  viewportRef={containerRef}
+                  viewportRef={gteSm ? containerRef : lastModal?.scrollableContentRef}
                   items={options}
                 >
                   {(item) => optionRenderer(item)}
@@ -474,7 +472,7 @@ function SelectField<T>({
   const multipleMobileFooterEl = useMemo(() => {
     if (!multiple) return null;
     return (
-      <UIButton
+      <Button
         fullWidth
         type="button"
         variant="success"
@@ -482,7 +480,7 @@ function SelectField<T>({
         onClick={chooseSelected}
       >
         Selected {selectedOptions.length > 0 && `(${selectedOptions.length})`}
-      </UIButton>
+      </Button>
     );
   }, [selectedOptions.length, min, multiple]);
 
@@ -516,14 +514,14 @@ function SelectField<T>({
         return valueRender ? (
           valueRender(opt)
         ) : (
-          <UIBadge
+          <Badge
             id={`${value}`}
             key={value}
             icon={opt.badgeIconEl || opt.iconEl}
             onRemove={removeOption}
           >
             {opt.label}
-          </UIBadge>
+          </Badge>
         );
       });
     }

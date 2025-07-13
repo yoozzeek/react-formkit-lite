@@ -28,5 +28,5 @@
     "noUncheckedSideEffectImports": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["vite-env.d.ts", "lib"]
+  "include": ["lib"]
 }
