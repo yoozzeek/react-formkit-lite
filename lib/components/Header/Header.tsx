@@ -66,12 +66,12 @@ function Header({
     if (!fixed || gteSm) return;
 
     const headerEl = headerRef.current;
-    const modalEl = modal.lastModal?.scrollableContentRef.current;
+    const modalScrollContentEl = modal.lastModal?.scrollableContentRef.current;
     const delta = scrollDelta || headerEl?.offsetHeight || 0;
 
     const onScroll = () => {
       const scrollY =
-        parentIsModal && modalEl
+        parentIsModal && modalScrollContentEl
           ? modal.lastModal?.scrollableContentRef.current?.scrollTop || 0
           : window.scrollY;
 
@@ -84,10 +84,10 @@ function Header({
     };
 
     // If it's a modal then listen to scroll on the modal content
-    if (parentIsModal && modalEl) {
-      modalEl.addEventListener("scroll", onScroll);
+    if (parentIsModal && modalScrollContentEl) {
+      modalScrollContentEl.addEventListener("scroll", onScroll);
       return () => {
-        modalEl.removeEventListener("scroll", onScroll);
+        modalScrollContentEl.removeEventListener("scroll", onScroll);
       };
     }
 

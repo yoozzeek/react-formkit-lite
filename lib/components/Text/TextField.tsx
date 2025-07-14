@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import type { JSX, MouseEvent, FocusEvent, ChangeEvent, ReactElement, RefObject } from "react";
-import MaskedDynamic from "imask/masked/dynamic";
-import { useIMask } from "react-imask";
-import { clsx } from "clsx";
 import RemoveIcon from "@/assets/icons/remove.svg?react";
+import MaskedDynamic from "imask/masked/dynamic";
+import useIMask from "react-imask/hook";
+import { clsx } from "clsx";
 import type { CommonFieldProps } from "@/types";
 import textAreaAutoHeight from "@/utils/textAreaAutoHeight";
 

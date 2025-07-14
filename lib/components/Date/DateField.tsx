@@ -1,5 +1,5 @@
 import { memo, useState, useRef } from "react";
-import { useIMask } from "react-imask";
+import useIMask from "react-imask/hook";
 import { clsx } from "clsx";
 import RemoveIcon from "@/assets/icons/remove.svg?react";
 import { dateMask } from "@/utils/dateMask.ts";
