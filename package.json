@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "react-context-modal": "../react-context-modal",
+    "react-context-modal": "https://github.com/yoozzeek/react-context-modal.git",
     "react-imask": "^7.6.1",
     "react-viewport-list": "^7.1.2"
   },
