@@ -1,7 +1,7 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import dts from "vite-plugin-dts";
+import dts from "unplugin-dts/vite";
 import svgr from "vite-plugin-svgr";
 import { libInjectCss } from "vite-plugin-lib-inject-css";
 import { globSync } from "glob";
@@ -23,9 +23,17 @@ export default defineConfig({
     svgr(),
     libInjectCss(),
     dts({
-      tsconfigPath: "tsconfig.app.json",
       exclude: ["**/*.stories.tsx"],
-    }),
+      tsconfigPath: "./tsconfig.app.json",
+      rollupTypes: true,
+      beforeWriteFile: (filePath: string, content: string) => {
+        const filename = path.join("dist", path.basename(filePath));
+        return {
+          filePath: fileURLToPath(new URL(filename, import.meta.url)),
+          content,
+        };
+      },
+    } as any),
   ],
   build: {
     lib: {
@@ -34,21 +42,17 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime", "simplebar-react"],
+      external: ["react", "react/dom", "react/jsx-runtime", "react-responsive", "simplebar-react"],
       input: Object.fromEntries(
         globSync(["lib/components/**/*.tsx", "lib/index.ts"]).map((file) => {
-          const entryName = path.relative(
-            "lib",
-            file.slice(0, file.length - path.extname(file).length),
-          );
-
+          const entryName = path.basename(file, path.extname(file));
           const entryUrl = fileURLToPath(new URL(file, import.meta.url));
           return [entryName, entryUrl];
         }),
       ),
       output: {
         entryFileNames: "[name].js",
-        assetFileNames: "assets/[name][extname]",
+        chunkFileNames: "chunks/[name].[hash].js",
       },
     },
   },
