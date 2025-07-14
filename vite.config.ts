@@ -25,12 +25,19 @@ export default defineConfig({
     dts({
       exclude: ["**/*.stories.tsx"],
       tsconfigPath: "./tsconfig.app.json",
-      rollupTypes: true,
       beforeWriteFile: (filePath: string, content: string) => {
-        const filename = path.join("dist", path.basename(filePath));
+        const basename = path.basename(filePath);
+        const filename = path.join("dist", basename);
+        const relativePath = path.relative(__dirname, filePath);
+
+        // skip index.tsx aliases for components
+        if (relativePath.startsWith("dist/components") && basename === "index.d.ts") {
+          return false;
+        }
+
         return {
           filePath: fileURLToPath(new URL(filename, import.meta.url)),
-          content,
+          content: content.replace("from '../../types'", "from './types'"),
         };
       },
     } as any),
