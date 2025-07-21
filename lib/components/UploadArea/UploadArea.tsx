@@ -1,3 +1,4 @@
+import styles from "./upload.module.css";
 import React, { useRef } from "react";
 import type { DragEvent, FC, ReactElement } from "react";
 import type { Variant } from "@/types";

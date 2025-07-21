@@ -1,3 +1,4 @@
+import styles from "./select.module.css";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { clsx } from "clsx";
 import type { JSX, ReactElement, ReactNode, ChangeEvent, FocusEvent } from "react";
@@ -85,7 +86,7 @@ const SelectOptionsDropdown = <T,>({
   onClose,
 }: SelectFieldDropdownProps<T>) => {
   const containerRef = useRef<HTMLDivElement>(null!);
-  const { lastModal } = useModal();
+  const modalCtx = useModal();
   const gteSm = useGteSm();
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -126,7 +127,7 @@ const SelectOptionsDropdown = <T,>({
           id="select-field-modal"
           title={label}
           type={fullscreen ? "fullscreen" : "overlay-90"}
-          onCloseModal={onClose}
+          onClose={onClose}
           headerEl={
             fullscreen ? (
               <Header fixed parentIsModal classes="safe-top" title={label} onGoBack={onClose} />
@@ -195,10 +196,10 @@ const SelectOptionsDropdown = <T,>({
             scrollableContentWrapper(
               <>
                 <ViewportList
-                  viewportRef={gteSm ? containerRef : lastModal?.scrollableContentRef}
+                  viewportRef={gteSm ? containerRef : modalCtx?.lastModal?.scrollableContentRef}
                   items={options}
                 >
-                  {(item) => optionRenderer(item)}
+                  {(item: SelectOptionType<T>) => optionRenderer(item)}
                 </ViewportList>
 
                 {loadMoreContent}

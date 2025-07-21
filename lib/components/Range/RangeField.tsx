@@ -1,3 +1,4 @@
+import styles from "./range.module.css";
 import { useEffect, useState } from "react";
 import type { ChangeEvent, ChangeEventHandler, FocusEventHandler } from "react";
 import classNames from "clsx";

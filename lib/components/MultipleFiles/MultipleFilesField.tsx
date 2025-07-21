@@ -1,3 +1,4 @@
+import styles from "./multiple_files.module.css";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
 import SimpleBar from "simplebar-react";

@@ -1,3 +1,4 @@
+import styles from "./checkbox.module.css";
 import type { ReactNode } from "react";
 
 export type CheckboxGroupProps = {
@@ -8,8 +9,12 @@ export type CheckboxGroupProps = {
 
 const CheckboxGroup = ({ label, children }: CheckboxGroupProps) => {
   return (
-    <div className="mb-8 last:mb-0" role="group" aria-labelledby="account-notifications-group">
-      <h3 className="mb-4 px-4 text-2xl text-gray-900 sm:px-6">{label}</h3>
+    <div
+      className={styles.checkbox_group}
+      role="group"
+      aria-labelledby="account-notifications-group"
+    >
+      <h3 className={styles.checkbox_group_label}>{label}</h3>
       {children}
     </div>
   );

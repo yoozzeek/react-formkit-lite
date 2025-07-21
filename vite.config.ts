@@ -7,9 +7,38 @@ import { libInjectCss } from "vite-plugin-lib-inject-css";
 import { globSync } from "glob";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import type { PluginOptions } from "unplugin-dts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const dtsOptions = {
+  exclude: ["**/*.stories.tsx"],
+  tsconfigPath: "./tsconfig.app.json",
+  beforeWriteFile: (
+    filePath: string,
+    content: string,
+  ):
+    | {
+        filePath: string;
+        content: string;
+      }
+    | boolean => {
+    const basename = path.basename(filePath);
+    const filename = path.join("dist", basename);
+    const relativePath = path.relative(__dirname, filePath);
+
+    // skip index.tsx aliases for components
+    if (relativePath.startsWith("dist/components") && basename === "index.d.ts") {
+      return false;
+    }
+
+    return {
+      filePath: fileURLToPath(new URL(filename, import.meta.url)),
+      content: content.replace("from '../../types'", "from './types'"),
+    };
+  },
+} as PluginOptions;
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,30 +47,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./lib"),
     },
   },
-  plugins: [
-    react(),
-    svgr(),
-    libInjectCss(),
-    dts({
-      exclude: ["**/*.stories.tsx"],
-      tsconfigPath: "./tsconfig.app.json",
-      beforeWriteFile: (filePath: string, content: string) => {
-        const basename = path.basename(filePath);
-        const filename = path.join("dist", basename);
-        const relativePath = path.relative(__dirname, filePath);
-
-        // skip index.tsx aliases for components
-        if (relativePath.startsWith("dist/components") && basename === "index.d.ts") {
-          return false;
-        }
-
-        return {
-          filePath: fileURLToPath(new URL(filename, import.meta.url)),
-          content: content.replace("from '../../types'", "from './types'"),
-        };
-      },
-    } as any),
-  ],
+  plugins: [react(), svgr(), libInjectCss(), dts(dtsOptions)],
   build: {
     lib: {
       entry: path.resolve(__dirname, "lib/index.ts"),

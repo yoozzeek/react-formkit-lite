@@ -1,3 +1,4 @@
+import styles from "./loader.module.css";
 import LoaderIcon from "@/assets/icons/loader.svg?react";
 import { clsx } from "clsx";
 

@@ -1,3 +1,4 @@
+import styles from "./switch.module.css";
 import type { FocusEventHandler } from "react";
 
 type SwitchFieldProps = {

@@ -1,3 +1,4 @@
+import styles from "./multiple_files.module.css";
 import { useState } from "react";
 import { clsx } from "clsx";
 import Loader from "../Loader";

@@ -1,10 +1,11 @@
+import "./header.module.css";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactElement, ReactNode } from "react";
 import { clsx } from "clsx";
 import type { Variant } from "@/types";
 import useGteSm from "@/hooks/useGteSm.ts";
 import ArrowIcon from "@/assets/icons/arrow.svg?react";
-import { useContextModal } from "react-context-modal";
+import { useModalStackCtx } from "react-context-modal";
 
 export type UIHeaderActionType = {
   label?: string | null;
@@ -54,10 +55,9 @@ function Header({
   classes,
   children,
 }: HeaderProps) {
-  const modal = useContextModal();
+  const stackCtx = useModalStackCtx();
   const headerRef = useRef<HTMLDivElement>(null!);
   const [scrolledDown, setScrolledDown] = useState(scrollDelta === 0);
-
   const gteSm = useGteSm();
 
   // After user scrolled down the header light should be turned off
@@ -66,13 +66,13 @@ function Header({
     if (!fixed || gteSm) return;
 
     const headerEl = headerRef.current;
-    const modalScrollContentEl = modal.lastModal?.scrollableContentRef.current;
+    const modalScrollContentEl = stackCtx.lastModal?.scrollableContentRef.current;
     const delta = scrollDelta || headerEl?.offsetHeight || 0;
 
     const onScroll = () => {
       const scrollY =
         parentIsModal && modalScrollContentEl
-          ? modal.lastModal?.scrollableContentRef.current?.scrollTop || 0
+          ? stackCtx.lastModal?.scrollableContentRef.current?.scrollTop || 0
           : window.scrollY;
 
       if (delta && scrollY > delta) {
@@ -94,7 +94,7 @@ function Header({
     // Otherwise listen to window scroll
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [gteSm, scrollDelta, fixed, modal.lastModal]);
+  }, [gteSm, scrollDelta, fixed, stackCtx.lastModal]);
 
   const handleGoBack = useCallback(() => onGoBack?.(), [onGoBack]);
 

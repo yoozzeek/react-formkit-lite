@@ -1,3 +1,4 @@
+import styles from "./radio.module.css";
 import type { ReactNode } from "react";
 
 type RadioGroupProps = {

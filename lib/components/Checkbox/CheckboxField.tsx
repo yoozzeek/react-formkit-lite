@@ -1,3 +1,4 @@
+import styles from "./checkbox.module.css";
 import { memo, useState } from "react";
 import { clsx } from "clsx";
 import CheckIcon from "@/assets/icons/check.svg?react";
@@ -19,10 +20,10 @@ const CheckboxField: (props: CheckboxFieldProps) => JSX.Element = (props: Checkb
 
   return (
     <div
-      className={clsx("relative flex items-center text-gray-900", "md:flex-row-reverse md:gap-3", {
-        "border-b border-gray-100 px-4 py-4 last:border-none sm:px-6 md:border-none": props.isGroup,
-        "flex-row-reverse": props.rightSideLabel,
-        "opacity-50": props.disabled,
+      className={clsx(styles.checkbox, {
+        [styles.checkbox__group]: props.isGroup,
+        [styles.checkbox__right_label]: props.rightSideLabel,
+        [styles.checkbox__disabled]: props.disabled,
       })}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -30,7 +31,7 @@ const CheckboxField: (props: CheckboxFieldProps) => JSX.Element = (props: Checkb
       <input
         id={props.id}
         name={props.name || ""}
-        className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+        className={styles.checkbox__input}
         type="checkbox"
         checked={props.value}
         disabled={props.disabled || false}
@@ -38,9 +39,7 @@ const CheckboxField: (props: CheckboxFieldProps) => JSX.Element = (props: Checkb
           setFocused(true);
           props.onFocus?.();
         }}
-        onBlur={() => {
-          setFocused(false);
-        }}
+        onBlur={() => setFocused(false)}
         onChange={() => {
           if (props.onClick) {
             props.onClick(!props.value);
@@ -51,9 +50,9 @@ const CheckboxField: (props: CheckboxFieldProps) => JSX.Element = (props: Checkb
       {props.label && (
         <label
           htmlFor={props.id}
-          className={clsx("ld-base flex-1 text-gray-800", {
-            "pr-3": !props.rightSideLabel,
-            "pl-3 md:pl-0": props.rightSideLabel,
+          className={clsx(styles.checkbox__label, {
+            [styles.checkbox__label_right]: props.rightSideLabel,
+            [styles.checkbox__label_left]: !props.rightSideLabel,
           })}
         >
           {props.label}
@@ -62,25 +61,20 @@ const CheckboxField: (props: CheckboxFieldProps) => JSX.Element = (props: Checkb
 
       {props.value ? (
         <span
-          className={clsx("flex h-6 w-6 justify-center rounded-full md:rounded-xs md:p-1.5", {
-            "bg-green-500": !hovered || props.disabled,
-            "bg-green-600": hovered && !props.disabled,
-            "opacity-50": props.disabled,
+          className={clsx(styles.checkbox__checked, {
+            [styles.checkbox__checked_hover]: hovered && !props.disabled,
+            [styles.checkbox__checked_disabled]: props.disabled,
           })}
         >
-          <CheckIcon className="h-[10px] w-[13px] self-center text-white" />
+          <CheckIcon className={styles.checkbox__checkicon} />
         </span>
       ) : (
         <span
-          className={clsx(
-            "inline-block h-6 w-6 appearance-none rounded-full border-2 bg-white",
-            "focus:border-black md:rounded-xs",
-            {
-              "border-gray-200": !hovered && !focused,
-              "border-gray-300": hovered && !focused,
-              "border-green-500": focused,
-            },
-          )}
+          className={clsx(styles.checkbox__box, {
+            [styles.checkbox__box_default]: !hovered && !focused,
+            [styles.checkbox__box_hover]: hovered && !focused,
+            [styles.checkbox__box_focus]: focused,
+          })}
         />
       )}
     </div>

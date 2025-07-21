@@ -1,3 +1,4 @@
+import styles from "./date.module.css";
 import { memo, useState, useRef } from "react";
 import useIMask from "react-imask/hook";
 import { clsx } from "clsx";

@@ -1,3 +1,4 @@
+import styles from "./select.module.css";
 import type { JSX, MouseEvent, ReactElement } from "react";
 import { memo } from "react";
 import { clsx } from "clsx";

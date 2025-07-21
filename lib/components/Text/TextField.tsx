@@ -1,7 +1,10 @@
+import styles from "./text.module.css";
 import { useState, useMemo, useEffect, useRef } from "react";
 import type { JSX, MouseEvent, FocusEvent, ChangeEvent, ReactElement, RefObject } from "react";
 import RemoveIcon from "@/assets/icons/remove.svg?react";
 import MaskedDynamic from "imask/masked/dynamic";
+import MaskedRegExp from "imask/masked/regexp";
+import type Masked from "imask/masked/base";
 import useIMask from "react-imask/hook";
 import { clsx } from "clsx";
 import type { CommonFieldProps } from "@/types";
@@ -13,17 +16,10 @@ interface TextFieldProps extends CommonFieldProps {
   textarea?: boolean;
   rows?: number;
   autoCorrect?: "off" | "on";
-  autoComplete?:
-    | "off"
-    | "on"
-    | "current-password"
-    | "new-password"
-    | "email"
-    | "username"
-    | "phone";
+  autoComplete?: string;
   spellCheck?: boolean;
   pattern?: string;
-  mask?: MaskedDynamic | MaskedDynamic[];
+  mask?: Masked | Masked[];
   isPrimary?: boolean;
   leftIcon?: ReactElement;
   iconCompact?: boolean;
@@ -34,16 +30,7 @@ interface TextFieldProps extends CommonFieldProps {
   type?: "text" | "email" | "number";
   value: string | number;
   initialValue?: string | number;
-  inputMode?:
-    | "none"
-    | "text"
-    | "tel"
-    | "url"
-    | "email"
-    | "numeric"
-    | "decimal"
-    | "search"
-    | undefined;
+  inputMode?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onComplete?: (value: string) => void;
   onFocus?: () => void;
@@ -90,104 +77,92 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
     () => Boolean(value) && focused && !resetDisabled,
     [value, focused, resetDisabled],
   );
-  const classes = clsx(
-    "block flex-1 text-sm px-3 rounded-lg py-2.5 placeholder-gray-250 text-gray-900",
-    "appearance-none focus:outline-none focus:ring-1",
-    {
-      "w-full": fullWidth,
-      "bg-gray-100": isPrimary,
-      "rounded-l-none": leftIcon && !iconCompact,
-      "border-red-400 focus:ring-red-500": error,
-      "border-gray-150 focus:ring-green-500": !error,
-      "pl-10": iconCompact && !!leftIcon,
-      "pr-12": iconCompact && !!rightIcon && !resetVisible,
-      "pr-10": resetVisible && !rightIcon,
-      "pr-20": resetVisible && rightIcon,
-      "disabled:bg-gray-50": disabled,
-    },
-  );
 
-  // Use IMask for input masking
+  function buildInputMask(mask?: Masked | Masked[]): MaskedDynamic {
+    return new MaskedDynamic({
+      mask: Array.isArray(mask)
+        ? mask
+        : mask
+          ? [mask]
+          : [
+              {
+                mask: new MaskedRegExp({
+                  mask: /.*/,
+                }),
+              },
+            ],
+    });
+  }
+
+  // Mask logic
   const [maskOpts, setMaskOpts] = useState({
-    mask: MaskedDynamic,
-    ...mask,
+    mask: buildInputMask(mask),
   });
-
-  // If mask changes, update the mask options
   useEffect(() => {
-    setMaskOpts({ mask: MaskedDynamic, ...mask });
+    setMaskOpts({
+      mask: buildInputMask(mask),
+    });
   }, [mask]);
-
   const inputRef = useRef<HTMLInputElement>(null!);
 
   const { setValue, setUnmaskedValue } = useIMask(maskOpts, {
     ref: inputRef,
-    // When the mask changes emulating input change event
     onAccept: (_, maskRef) => {
-      if (onChange) {
-        onChange({
-          target: {
-            value: maskRef.unmaskedValue,
-            name,
-          },
-        } as ChangeEvent<HTMLInputElement>);
-      }
+      onChange?.({
+        target: { value: maskRef.unmaskedValue, name },
+      } as ChangeEvent<HTMLInputElement>);
     },
-
-    // When the mask is complete, call onComplete
-    // and pass the unmasked value
     onComplete: (_, maskRef) => {
-      if (onComplete) {
-        onComplete(maskRef.unmaskedValue);
-      }
+      onComplete?.(maskRef.unmaskedValue);
     },
   });
 
-  // If initialValue changes, update the unmasked value
   useEffect(() => {
     setUnmaskedValue(`${initialValue}`);
   }, [initialValue]);
-
-  // If value changes, update the unmasked value
   useEffect(() => {
     setUnmaskedValue(`${value}`);
   }, [value]);
 
   function handleFocus(e: FocusEvent) {
     onFocused(true);
-
-    if (onFocus) onFocus();
-    if (textareaAutoHeight) {
-      // Expand textarea to fit the content
+    onFocus?.();
+    if (textareaAutoHeight && textarea) {
       const el = e.target as HTMLTextAreaElement;
       el.style.height = "auto";
       const height = el.scrollHeight > 135 ? el.scrollHeight : 135;
       el.style.height = `${height}px`;
     }
   }
-
   function handleBlur(e: FocusEvent<HTMLTextAreaElement>) {
     e.stopPropagation();
     onFocused(false);
-
-    if (onBlur) onBlur();
-    if (textareaAutoHeight) {
-      // Reset el height to parent height
+    onBlur?.();
+    if (textareaAutoHeight && textarea) {
       const ta = e.target as HTMLTextAreaElement;
       ta.style.height = "100%";
     }
   }
-
   function handleReset(e: MouseEvent) {
     e.stopPropagation();
     setValue("");
-    if (onReset) {
-      onReset(id, "", true);
-    }
+    onReset?.(id, "", true);
   }
 
+  const sharedInputStyles = {
+    [styles.input__full]: fullWidth,
+    [styles.input__primary]: isPrimary,
+    [styles.input__rounded_l_none]: leftIcon && !iconCompact,
+    [styles.input__border_error]: !!error,
+    [styles.input__border_default]: !error,
+    [styles.input__pl_icon]: iconCompact && !!leftIcon,
+    [styles.input__pr_icon_right]: iconCompact && !!rightIcon && !resetVisible,
+    [styles.input__pr_reset]: resetVisible && !rightIcon,
+    [styles.input__pr_double]: resetVisible && rightIcon,
+    [styles.input__disabled]: disabled,
+  };
+
   const inputEl = useMemo(() => {
-    // If textarea is true, render a textarea
     if (textarea) {
       const dynamicProps: {
         onInput?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
@@ -195,7 +170,6 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
       if (textareaAutoHeight) {
         dynamicProps.onInput = textAreaAutoHeight;
       }
-
       return (
         <textarea
           {...dynamicProps}
@@ -205,7 +179,7 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
           rows={rows}
           disabled={disabled}
           placeholder={placeholder || undefined}
-          className={clsx("resize-none", classes)}
+          className={clsx(styles.input, styles.textarea, sharedInputStyles)}
           style={{
             minHeight: textareaAutoHeight ? rows * 1.5 + "rem" : "auto",
             maxHeight: textareaAutoHeight ? "360px" : "auto",
@@ -216,8 +190,6 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
         />
       );
     }
-
-    // Render number input without mask
     if (type === "number") {
       return (
         <input
@@ -228,14 +200,13 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
           disabled={disabled}
           autoComplete={autoComplete}
           placeholder={placeholder || undefined}
-          className={classes}
+          className={clsx(styles.input, sharedInputStyles)}
           onChange={onChange}
           onFocus={handleFocus}
         />
       );
     }
-
-    // Render text input
+    // Normal input or masked
     return (
       <input
         ref={inputRef}
@@ -246,8 +217,8 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
         spellCheck={spellCheck}
         pattern={pattern}
         disabled={disabled}
-        className={classes}
-        inputMode={inputMode}
+        className={clsx(styles.input, sharedInputStyles)}
+        inputMode={inputMode as never}
         type={secure ? "password" : type}
         placeholder={placeholder || undefined}
         defaultValue={initialValue}
@@ -255,40 +226,48 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
       />
     );
   }, [
-    classes,
-    disabled,
-    handleFocus,
+    textarea,
+    textareaAutoHeight,
     id,
     name,
-    placeholder,
-    inputRef,
-    rows,
-    secure,
-    textarea,
-    type,
     value,
+    rows,
+    disabled,
+    placeholder,
+    fullWidth,
+    isPrimary,
+    leftIcon,
+    iconCompact,
+    rightIcon,
+    error,
+    resetVisible,
+    type,
+    inputRef,
+    autoComplete,
+    autoCorrect,
+    spellCheck,
+    pattern,
+    inputMode,
+    secure,
+    initialValue,
+    onChange,
   ]);
 
   return (
-    <div
-      className={clsx("", {
-        "flex-1": fullWidth,
-      })}
-    >
+    <div className={clsx({ [styles.field_container]: fullWidth })}>
       {label && (
-        <label htmlFor={id} className="block pb-1.5 font-semibold text-gray-900">
+        <label htmlFor={id} className={styles.label}>
           {label}
-          {required && <span className="ml-1 text-red-400">*</span>}
+          {required && <span className={styles.label__asterisk}>*</span>}
         </label>
       )}
       <div
-        className={clsx("relative flex items-center rounded-lg border", {
-          "w-full": fullWidth,
-          "border-red-400 focus:ring-red-500": error,
-          "border-gray-150 focus:ring-green-500 md:hover:border-green-500": !error,
-          "opacity-60": disabled,
-          "focus:ring-1": !disabled,
-          "bg-gray-100": isPrimary,
+        className={clsx(styles.control, {
+          [styles.control__full]: fullWidth,
+          [styles.control__error]: error,
+          [styles.control__default]: !error,
+          [styles.control__disabled]: disabled,
+          [styles.control__primary]: isPrimary,
         })}
       >
         {Boolean(leftIcon) &&
@@ -296,15 +275,12 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
             leftIcon
           ) : (
             <span
-              className={clsx(
-                "flex w-auto flex-shrink items-center justify-center self-stretch px-2",
-                {
-                  "border-r border-gray-200 text-gray-900": !iconCompact,
-                  "absolute h-full text-gray-250": iconCompact,
-                },
-              )}
+              className={clsx(styles.icon_left, {
+                [styles.icon_left__bordered]: !iconCompact,
+                [styles.icon_left__compact]: iconCompact,
+              })}
             >
-              {iconCompact ? <span className="h-5 w-5">{leftIcon}</span> : leftIcon}
+              {iconCompact ? <span className={styles.icon_left__icon}>{leftIcon}</span> : leftIcon}
             </span>
           ))}
         {inputEl}
@@ -313,34 +289,35 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
             rightIcon
           ) : (
             <span
-              className={clsx(
-                "absolute right-2 flex w-auto flex-shrink items-center justify-center self-stretch px-2",
-                {
-                  "border-l border-gray-200 text-gray-900": !iconCompact,
-                  "h-full text-gray-250": iconCompact,
-                },
-              )}
+              className={clsx(styles.icon_right, {
+                [styles.icon_right__bordered]: !iconCompact,
+                [styles.icon_right__compact]: iconCompact,
+              })}
             >
-              {iconCompact ? <span className="h-5 w-5">{rightIcon}</span> : rightIcon}
+              {iconCompact ? (
+                <span className={styles.icon_right__icon}>{rightIcon}</span>
+              ) : (
+                rightIcon
+              )}
             </span>
           ))}
         {resetVisible && (
           <button
             tabIndex={-1}
-            className={clsx("absolute top-2.5 z-10 h-6 w-6 cursor-pointer", {
-              "right-2.5": !rightIcon,
-              "right-10": rightIcon && !customIconContainer,
-              "right-12": rightIcon && !!customIconContainer,
+            className={clsx(styles.reset, {
+              [styles.reset__right]: !rightIcon,
+              [styles.reset__right_double]: rightIcon && !customIconContainer,
+              [styles.reset__right_triple]: rightIcon && !!customIconContainer,
             })}
             type="button"
             onClick={handleReset}
           >
-            <RemoveIcon className="h-5 w-5 text-gray-200" />
+            <RemoveIcon className={styles.reset__icon} />
           </button>
         )}
       </div>
-      {error && <span className="block pt-1.5 text-xs text-red-400">{error}</span>}
-      {helpText && <span className="block pt-1.5 text-xs text-gray-300">{helpText}</span>}
+      {error && <span className={styles.error}>{error}</span>}
+      {helpText && <span className={styles.help}>{helpText}</span>}
     </div>
   );
 };
