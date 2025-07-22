@@ -1,145 +1,117 @@
-.checkbox {
+.checkbox-field {
     position: relative;
     display: flex;
     align-items: center;
-    color: #111827;
+    color: var(--rfkl-text-light);
 }
 
-.checkbox__group {
-    border-bottom: 1px solid #f3f4f6;
-    padding: 1rem 1rem;
+.checkbox-field--group {
+    border-bottom: 1px solid var(--rfkl-color-light);
+    padding: var(--rfkl-space-lg) var(--rfkl-space-xl);
 }
-.checkbox__group:last-child {
-    border-bottom: none;
-}
-@media (min-width: 640px) {
-    .checkbox__group {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
-}
+
 @media (min-width: 768px) {
-    .checkbox__group {
+    .checkbox-field--group {
         border-bottom: none;
     }
 }
 
-.checkbox__right_label {
+.checkbox-field--right-label {
     flex-direction: row-reverse;
 }
-@media (min-width: 768px) {
-    .checkbox__right_label {
-        gap: 0.75rem;
-    }
-}
 
-.checkbox__disabled {
+.checkbox-field--disabled {
     opacity: 0.5;
-    pointer-events: none;
 }
 
-.checkbox__input {
+.checkbox-field__input {
     position: absolute;
     inset: 0;
-    height: 100%;
     width: 100%;
+    height: 100%;
     cursor: pointer;
     opacity: 0;
 }
 
-.checkbox__label {
+.checkbox-field__label {
     flex: 1;
-    color: #374151; /* text-gray-800 */
-    font-family: inherit;
-    font-size: 1rem;
-    line-height: 1.5;
+    color: var(--rfkl-color-dark);
 }
 
-.checkbox__label_left {
-    padding-right: 0.75rem;
+.checkbox-field__label--left {
+    padding-right: var(--rfkl-space-md);
 }
-.checkbox__label_right {
-    padding-left: 0.75rem;
+
+.checkbox-field__label--right {
+    padding-left: var(--rfkl-space-md);
 }
+
 @media (min-width: 768px) {
-    .checkbox__label_right {
+    .checkbox-field__label--right {
         padding-left: 0;
     }
 }
 
-.checkbox__checked {
+/* Checked */
+.checkbox-field__checked {
     display: flex;
-    height: 1.5rem;
-    width: 1.5rem;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--rfkl-radius-xl);
     justify-content: center;
     align-items: center;
-    border-radius: 9999px;
-    background: #22c55e; /* bg-green-500 */
-    transition: background 0.2s;
+    background-color: var(--rfkl-color-success);
 }
-@media (min-width: 768px) {
-    .checkbox__checked {
-        border-radius: 0.25rem; /* md:rounded-xs */
-        padding: 0.375rem;
-    }
+
+.checkbox-field__checked--hovered {
+    background-color: #139a6b;
 }
-.checkbox__checked_hover {
-    background: #16a34a; /* bg-green-600 */
-}
-.checkbox__checked_disabled {
-    opacity: 0.5;
-}
-.checkbox__checkicon {
-    height: 10px;
+
+.checkbox-field__check-icon {
     width: 13px;
-    align-self: center;
-    color: #fff;
+    height: 10px;
+    color: white;
 }
 
-.checkbox__box {
+/* Unchecked */
+.checkbox-field__unchecked {
     display: inline-block;
-    height: 1.5rem;
-    width: 1.5rem;
-    appearance: none;
-    border-radius: 9999px;
-    border: 2px solid #e5e7eb; /* border-gray-200 */
-    background: #fff;
-    transition: border-color 0.2s;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--rfkl-radius-xl);
+    background-color: white;
+    border: 2px solid var(--rfkl-color-light2);
 }
+
+.checkbox-field__unchecked--hovered {
+    border-color: var(--rfkl-color-light3);
+}
+
+.checkbox-field__unchecked--focused {
+    border-color: var(--rfkl-color-success);
+}
+
 @media (min-width: 768px) {
-    .checkbox__box {
-        border-radius: 0.25rem; /* md:rounded-xs */
+    .checkbox-field__checked,
+    .checkbox-field__unchecked {
+        border-radius: var(--rfkl-radius-xs);
+        padding: var(--rfkl-space-md);
     }
 }
-.checkbox__box_default {
-    border-color: #e5e7eb; /* border-gray-200 */
-}
-.checkbox__box_hover {
-    border-color: #d1d5db; /* border-gray-300 */
-}
-.checkbox__box_focus {
-    border-color: #22c55e; /* border-green-500 */
+
+/* Group wrapper */
+.checkbox-group {
+    margin-bottom: 32px;
 }
 
-/* CheckboxGroup (external wrapper) */
-.checkbox_group {
-    margin-bottom: 2rem;
-}
-.checkbox_group:last-child {
+.checkbox-group:last-child {
     margin-bottom: 0;
 }
 
-.checkbox_group_label {
-    margin-bottom: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+.checkbox-group__label {
+    margin-bottom: 16px;
+    padding-left: var(--rfkl-space-xl);
+    padding-right: var(--rfkl-space-xl);
     font-size: 1.5rem;
-    color: #111827;
-}
-
-@media (min-width: 640px) {
-    .checkbox_group_label {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
+    color: var(--rfkl-text-light);
 }

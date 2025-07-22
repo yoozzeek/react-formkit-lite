@@ -1,5 +1,5 @@
-import styles from "./checkbox.module.css";
 import type { ReactNode } from "react";
+import styles from "./Checkbox.module.css";
 
 export type CheckboxGroupProps = {
   label: string;
@@ -10,11 +10,11 @@ export type CheckboxGroupProps = {
 const CheckboxGroup = ({ label, children }: CheckboxGroupProps) => {
   return (
     <div
-      className={styles.checkbox_group}
+      className={styles["checkbox-group"]}
       role="group"
       aria-labelledby="account-notifications-group"
     >
-      <h3 className={styles.checkbox_group_label}>{label}</h3>
+      <h3 className={styles["checkbox-group__label"]}>{label}</h3>
       {children}
     </div>
   );

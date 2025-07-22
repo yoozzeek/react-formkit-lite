@@ -29,23 +29,23 @@ function Badge({
     if (id) onRemove?.(id);
   }
 
-  const baseClass = clsx(styles["rfkl-badge"], styles[`rfkl-badge--${variant}`], {
-    [styles["rfkl-badge--selected"]]: selected && variant === "light",
-    [styles["rfkl-badge--clickable"]]: !!onClick,
+  const baseClass = clsx(styles["badge"], styles[`badge--${variant}`], {
+    [styles["badge--selected"]]: selected && variant === "light",
+    [styles["badge--clickable"]]: !!onClick,
   });
 
-  const removeClass = clsx(styles["rfkl-badge__remove"], {
-    [styles["rfkl-badge__remove--light"]]: !selected,
-    [styles["rfkl-badge__remove--dark"]]: selected,
+  const removeClass = clsx(styles["badge__remove"], {
+    [styles["badge__remove--light"]]: !selected,
+    [styles["badge__remove--dark"]]: selected,
   });
 
   return (
     <span className={baseClass} onClick={handleClick}>
-      {icon && <span className={styles["rfkl-badge__icon"]}>{icon}</span>}
+      {icon && <span className={styles["badge__icon"]}>{icon}</span>}
       {children}
       {onRemove && (
         <button type="button" className={removeClass} onClick={handleRemove}>
-          <CloseIcon className={styles["rfkl-badge__remove-icon"]} />
+          <CloseIcon className={styles["badge__remove-icon"]} />
         </button>
       )}
     </span>

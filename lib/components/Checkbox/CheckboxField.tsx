@@ -1,9 +1,9 @@
-import styles from "./checkbox.module.css";
 import { memo, useState } from "react";
 import { clsx } from "clsx";
 import CheckIcon from "@/assets/icons/check.svg?react";
 import type { JSX } from "react";
 import type { CommonFieldProps } from "@/types";
+import styles from "./Checkbox.module.css";
 
 interface CheckboxFieldProps extends CommonFieldProps {
   value: boolean;
@@ -14,66 +14,74 @@ interface CheckboxFieldProps extends CommonFieldProps {
   onClick?: (checked: boolean) => void;
 }
 
-const CheckboxField: (props: CheckboxFieldProps) => JSX.Element = (props: CheckboxFieldProps) => {
-  const [hovered, setHovered] = useState<boolean>(false);
-  const [focused, setFocused] = useState<boolean>(false);
+const CheckboxField = ({
+  id,
+  name,
+  label,
+  value,
+  isGroup,
+  rightSideLabel,
+  disabled,
+  onClick,
+  onFocus,
+}: CheckboxFieldProps): JSX.Element => {
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   return (
     <div
-      className={clsx(styles.checkbox, {
-        [styles.checkbox__group]: props.isGroup,
-        [styles.checkbox__right_label]: props.rightSideLabel,
-        [styles.checkbox__disabled]: props.disabled,
+      className={clsx(styles["checkbox-field"], {
+        [styles["checkbox-field--group"]]: isGroup,
+        [styles["checkbox-field--right-label"]]: rightSideLabel,
+        [styles["checkbox-field--disabled"]]: disabled,
       })}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <input
-        id={props.id}
-        name={props.name || ""}
-        className={styles.checkbox__input}
+        id={id}
+        name={name}
+        className={styles["checkbox-field__input"]}
         type="checkbox"
-        checked={props.value}
-        disabled={props.disabled || false}
+        checked={value}
+        disabled={disabled}
         onFocus={() => {
           setFocused(true);
-          props.onFocus?.();
+          onFocus?.();
         }}
         onBlur={() => setFocused(false)}
         onChange={() => {
-          if (props.onClick) {
-            props.onClick(!props.value);
-          }
+          onClick?.(!value);
         }}
       />
 
-      {props.label && (
+      {label && (
         <label
-          htmlFor={props.id}
-          className={clsx(styles.checkbox__label, {
-            [styles.checkbox__label_right]: props.rightSideLabel,
-            [styles.checkbox__label_left]: !props.rightSideLabel,
-          })}
+          htmlFor={id}
+          className={clsx(
+            styles["checkbox-field__label"],
+            rightSideLabel
+              ? styles["checkbox-field__label--right"]
+              : styles["checkbox-field__label--left"],
+          )}
         >
-          {props.label}
+          {label}
         </label>
       )}
 
-      {props.value ? (
+      {value ? (
         <span
-          className={clsx(styles.checkbox__checked, {
-            [styles.checkbox__checked_hover]: hovered && !props.disabled,
-            [styles.checkbox__checked_disabled]: props.disabled,
+          className={clsx(styles["checkbox-field__checked"], {
+            [styles["checkbox-field__checked--hovered"]]: hovered && !disabled,
           })}
         >
-          <CheckIcon className={styles.checkbox__checkicon} />
+          <CheckIcon className={styles["checkbox-field__check-icon"]} />
         </span>
       ) : (
         <span
-          className={clsx(styles.checkbox__box, {
-            [styles.checkbox__box_default]: !hovered && !focused,
-            [styles.checkbox__box_hover]: hovered && !focused,
-            [styles.checkbox__box_focus]: focused,
+          className={clsx(styles["checkbox-field__unchecked"], {
+            [styles["checkbox-field__unchecked--hovered"]]: hovered && !focused,
+            [styles["checkbox-field__unchecked--focused"]]: focused,
           })}
         />
       )}

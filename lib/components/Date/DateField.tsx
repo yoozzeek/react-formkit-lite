@@ -1,4 +1,3 @@
-import styles from "./date.module.css";
 import { memo, useState, useRef } from "react";
 import useIMask from "react-imask/hook";
 import { clsx } from "clsx";
@@ -6,6 +5,7 @@ import RemoveIcon from "@/assets/icons/remove.svg?react";
 import { dateMask } from "@/utils/dateMask.ts";
 import type { MouseEvent, RefObject, FocusEvent, JSX } from "react";
 import type { CommonFieldProps } from "@/types";
+import styles from "./date.module.css";
 
 interface DateFieldProps extends CommonFieldProps {
   ref?: RefObject<HTMLInputElement>;
@@ -14,19 +14,10 @@ interface DateFieldProps extends CommonFieldProps {
   onChange?: (field: string, value: string, shouldValidate?: boolean | undefined) => void;
 }
 
-const UIDateField: (props: DateFieldProps) => JSX.Element = (props: DateFieldProps) => {
+const DateField = (props: DateFieldProps): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>(null!);
-  const [focused, onFocused] = useState<boolean>(false);
-  const classes = clsx(
-    "block rounded-lg border px-3 py-2.5 text-sm placeholder-gray-250 text-gray-900 appearance-none focus:outline-none focus:ring-1",
-    {
-      "w-full": props.fullWidth,
-      "border-red-400 focus:ring-red-500": props.error,
-      "border-gray-150 focus:ring-green-500": !props.error,
-    },
-  );
+  const [focused, onFocused] = useState(false);
 
-  // Use IMask for input masking
   const maskProps = useIMask(
     {
       mask: dateMask,
@@ -34,39 +25,41 @@ const UIDateField: (props: DateFieldProps) => JSX.Element = (props: DateFieldPro
     {
       ref: inputRef,
       onComplete: (value) => {
-        if (props.onChange) props.onChange(props.id, value, true);
+        props.onChange?.(props.id, value, true);
       },
     },
   );
 
   function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
-    if (props.onReset) props.onReset(props.id, "", true);
+    props.onReset?.(props.id, "", true);
   }
 
   function handleFocus(e: FocusEvent<HTMLInputElement>) {
     onFocused(true);
-    if (props.onFocus) {
-      props.onFocus(e);
-    }
+    props.onFocus?.(e);
   }
 
   return (
     <div
-      className={clsx("", {
-        "flex-1": props.fullWidth,
+      className={clsx(styles["date-field"], {
+        [styles["date-field--full"]]: props.fullWidth,
       })}
     >
       {props.label && (
-        <label htmlFor={props.id} className="block pb-1.5 font-semibold text-gray-900">
+        <label htmlFor={props.id} className={styles["date-field__label"]}>
           {props.label}
-          {props.required && <span className="ml-1 text-red-400">*</span>}
+          {props.required && <span className={styles["date-field__required"]}>*</span>}
         </label>
       )}
-      <div className="relative block">
+
+      <div className={styles["date-field__wrapper"]}>
         <input
           ref={maskProps.ref}
-          className={classes}
+          className={clsx(styles["date-field__input"], {
+            [styles["date-field__input--error"]]: props.error,
+            [styles["date-field__input--valid"]]: !props.error,
+          })}
           type="text"
           id={props.id}
           name={props.name as string}
@@ -74,22 +67,22 @@ const UIDateField: (props: DateFieldProps) => JSX.Element = (props: DateFieldPro
           defaultValue={props.value}
           onFocus={handleFocus}
         />
+
         {props.value && focused && (
           <button
-            className="absolute top-2.5 right-3 z-10 h-6 w-6 cursor-pointer"
+            className={styles["date-field__reset-button"]}
             role="button"
             onClick={handleReset}
           >
-            <RemoveIcon className="text-gray-200" />
+            <RemoveIcon className={styles["date-field__reset-icon"]} />
           </button>
         )}
       </div>
-      {props.error && <span className="block pt-1.5 text-xs text-red-400">{props.error}</span>}
-      {props.helpText && (
-        <span className="block pt-1.5 text-xs text-gray-300">{props.helpText}</span>
-      )}
+
+      {props.error && <span className={styles["date-field__error"]}>{props.error}</span>}
+      {props.helpText && <span className={styles["date-field__help"]}>{props.helpText}</span>}
     </div>
   );
 };
 
-export default memo(UIDateField);
+export default memo(DateField);

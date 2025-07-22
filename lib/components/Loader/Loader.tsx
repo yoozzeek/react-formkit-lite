@@ -1,6 +1,6 @@
-import styles from "./loader.module.css";
 import LoaderIcon from "@/assets/icons/loader.svg?react";
 import { clsx } from "clsx";
+import styles from "./loader.module.css";
 
 const Loader = ({
   className,
@@ -11,28 +11,22 @@ const Loader = ({
   size?: "sm" | "md" | "lg";
   text?: string;
 }) => {
+  const iconSizeClass = {
+    sm: styles["loader__icon--sm"],
+    md: styles["loader__icon--md"],
+    lg: styles["loader__icon--lg"],
+  }[size];
+
+  const textSizeClass = {
+    sm: styles["loader__text--sm"],
+    md: styles["loader__text--md"],
+  }[size];
+
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center">
-      <LoaderIcon
-        className={clsx("animate-spin", {
-          "h-5 w-5": size === "sm",
-          "h-8 w-8": size === "md",
-          "h-12 w-12": size === "lg",
-          "text-green-500": !className,
-          [className || ""]: className,
-        })}
-      />
-      {text && (
-        <span
-          className={clsx("text-gray-250", {
-            "py-4 text-sm": size === "sm",
-            "py-6": size === "md",
-          })}
-        >
-          {text}
-        </span>
-      )}
-      <span className="sr-only">Loading...</span>
+    <div className={styles.loader}>
+      <LoaderIcon className={clsx(styles["loader__icon"], iconSizeClass, className)} />
+      {text && <span className={clsx(styles["loader__text"], textSizeClass)}>{text}</span>}
+      <span className={styles["loader__sr-only"]}>Loading...</span>
     </div>
   );
 };
