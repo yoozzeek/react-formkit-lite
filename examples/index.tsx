@@ -2,6 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import BadgeExamplesPage from "./BadgeExamples";
 import ButtonExamplesPage from "./ButtonExamples";
+import TextFieldExamples from "./TextFieldExamples";
+import SelectFieldExamples from "./SelectFieldExample";
+
+import "simplebar-react/dist/simplebar.min.css";
+import "react-context-modal/dist/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -26,8 +31,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           gap: 21,
         }}
       >
-        <a href="#">Badge</a>
-        <a href="#">Button</a>
         <a href="#">Text</a>
         <a href="#">Select</a>
         <a href="#">Date</a>
@@ -37,6 +40,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <a href="#">Switch</a>
         <a href="#">MultipleFiles</a>
         <a href="#">UploadArea</a>
+        <a href="#">Header</a>
+        <a href="#">Loader</a>
+        <a href="#">Badge</a>
+        <a href="#">Button</a>
       </nav>
     </div>
 
@@ -45,9 +52,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         marginTop: "1em",
         display: "flex",
         flexDirection: "column",
-        gap: "1em",
+        gap: "2em",
       }}
     >
+      <TextFieldExamples />
+      <SelectFieldExamples />
       <BadgeExamplesPage />
       <ButtonExamplesPage />
     </div>

@@ -26,9 +26,9 @@
   "peerDependencies": {
     "date-fns": ">=3.6.0",
     "react": ">=16.8.0",
-    "react-context-modal": "../react-context-modal/dist",
     "react-imask": ">=7.6.1",
     "react-responsive": ">=10.0.1",
+    "react-context-modal": "../react-context-modal",
     "simplebar-react": ">=3.1.0"
   },
   "dependencies": {

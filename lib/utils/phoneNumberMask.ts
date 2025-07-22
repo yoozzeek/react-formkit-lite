@@ -1,4 +1,5 @@
 import MaskedDynamic from "imask/masked/dynamic";
+import "imask/masked/pattern";
 
 interface PhoneNumberMask {
   mask: string;

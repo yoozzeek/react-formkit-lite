@@ -1,5 +1,5 @@
 import styles from "./text.module.css";
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, memo } from "react";
 import type { JSX, MouseEvent, FocusEvent, ChangeEvent, ReactElement, RefObject } from "react";
 import RemoveIcon from "@/assets/icons/remove.svg?react";
 import MaskedDynamic from "imask/masked/dynamic";
@@ -124,6 +124,21 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
     setUnmaskedValue(`${value}`);
   }, [value]);
 
+  const wrapperClass = clsx(styles["text-field__wrapper"], {
+    [styles["text-field__wrapper--error"]]: !!error,
+    [styles["text-field__wrapper--primary"]]: isPrimary,
+    [styles["text-field__wrapper--disabled"]]: disabled,
+  });
+
+  const inputClass = clsx(textarea ? styles["text-field__textarea"] : styles["text-field__input"]);
+
+  const labelMarkup = label && (
+    <label htmlFor={id} className={styles["text-field__label"]}>
+      {label}
+      {required && <span className={styles["text-field__required"]}>*</span>}
+    </label>
+  );
+
   function handleFocus(e: FocusEvent) {
     onFocused(true);
     onFocus?.();
@@ -149,19 +164,6 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
     onReset?.(id, "", true);
   }
 
-  const sharedInputStyles = {
-    [styles.input__full]: fullWidth,
-    [styles.input__primary]: isPrimary,
-    [styles.input__rounded_l_none]: leftIcon && !iconCompact,
-    [styles.input__border_error]: !!error,
-    [styles.input__border_default]: !error,
-    [styles.input__pl_icon]: iconCompact && !!leftIcon,
-    [styles.input__pr_icon_right]: iconCompact && !!rightIcon && !resetVisible,
-    [styles.input__pr_reset]: resetVisible && !rightIcon,
-    [styles.input__pr_double]: resetVisible && rightIcon,
-    [styles.input__disabled]: disabled,
-  };
-
   const inputEl = useMemo(() => {
     if (textarea) {
       const dynamicProps: {
@@ -179,7 +181,7 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
           rows={rows}
           disabled={disabled}
           placeholder={placeholder || undefined}
-          className={clsx(styles.input, styles.textarea, sharedInputStyles)}
+          className={inputClass}
           style={{
             minHeight: textareaAutoHeight ? rows * 1.5 + "rem" : "auto",
             maxHeight: textareaAutoHeight ? "360px" : "auto",
@@ -200,7 +202,7 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
           disabled={disabled}
           autoComplete={autoComplete}
           placeholder={placeholder || undefined}
-          className={clsx(styles.input, sharedInputStyles)}
+          className={inputClass}
           onChange={onChange}
           onFocus={handleFocus}
         />
@@ -217,7 +219,7 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
         spellCheck={spellCheck}
         pattern={pattern}
         disabled={disabled}
-        className={clsx(styles.input, sharedInputStyles)}
+        className={inputClass}
         inputMode={inputMode as never}
         type={secure ? "password" : type}
         placeholder={placeholder || undefined}
@@ -254,72 +256,58 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
   ]);
 
   return (
-    <div className={clsx({ [styles.field_container]: fullWidth })}>
-      {label && (
-        <label htmlFor={id} className={styles.label}>
-          {label}
-          {required && <span className={styles.label__asterisk}>*</span>}
-        </label>
-      )}
-      <div
-        className={clsx(styles.control, {
-          [styles.control__full]: fullWidth,
-          [styles.control__error]: error,
-          [styles.control__default]: !error,
-          [styles.control__disabled]: disabled,
-          [styles.control__primary]: isPrimary,
-        })}
-      >
-        {Boolean(leftIcon) &&
-          (customIconContainer ? (
-            leftIcon
-          ) : (
-            <span
-              className={clsx(styles.icon_left, {
-                [styles.icon_left__bordered]: !iconCompact,
-                [styles.icon_left__compact]: iconCompact,
-              })}
-            >
-              {iconCompact ? <span className={styles.icon_left__icon}>{leftIcon}</span> : leftIcon}
-            </span>
-          ))}
+    <div className={clsx(styles["text-field"], { [styles["text-field--full"]]: fullWidth })}>
+      {labelMarkup}
+      <div className={wrapperClass}>
+        {leftIcon && !customIconContainer && (
+          <span
+            className={clsx(styles["text-field__icon-left"], {
+              [styles["text-field__icon--compact"]]: iconCompact,
+            })}
+          >
+            {iconCompact ? (
+              <span className={styles["text-field__icon-inner"]}>{leftIcon}</span>
+            ) : (
+              leftIcon
+            )}
+          </span>
+        )}
+        {leftIcon && customIconContainer && leftIcon}
         {inputEl}
-        {Boolean(rightIcon) &&
-          (customIconContainer ? (
-            rightIcon
-          ) : (
-            <span
-              className={clsx(styles.icon_right, {
-                [styles.icon_right__bordered]: !iconCompact,
-                [styles.icon_right__compact]: iconCompact,
-              })}
-            >
-              {iconCompact ? (
-                <span className={styles.icon_right__icon}>{rightIcon}</span>
-              ) : (
-                rightIcon
-              )}
-            </span>
-          ))}
+        {rightIcon && !customIconContainer && (
+          <span
+            className={clsx(styles["text-field__icon-right"], {
+              [styles["text-field__icon--compact"]]: iconCompact,
+            })}
+          >
+            {iconCompact ? (
+              <span className={styles["text-field__icon-inner"]}>{rightIcon}</span>
+            ) : (
+              rightIcon
+            )}
+          </span>
+        )}
+        {rightIcon && customIconContainer && rightIcon}
         {resetVisible && (
           <button
-            tabIndex={-1}
-            className={clsx(styles.reset, {
-              [styles.reset__right]: !rightIcon,
-              [styles.reset__right_double]: rightIcon && !customIconContainer,
-              [styles.reset__right_triple]: rightIcon && !!customIconContainer,
-            })}
             type="button"
+            tabIndex={-1}
             onClick={handleReset}
+            className={clsx(styles["text-field__reset-button"], {
+              [styles["text-field__reset-button--right"]]: !rightIcon,
+              [styles["text-field__reset-button--right-icon"]]: rightIcon && !customIconContainer,
+              [styles["text-field__reset-button--right-icon-custom"]]:
+                rightIcon && customIconContainer,
+            })}
           >
-            <RemoveIcon className={styles.reset__icon} />
+            <RemoveIcon className={styles["text-field__reset-icon"]} />
           </button>
         )}
       </div>
-      {error && <span className={styles.error}>{error}</span>}
-      {helpText && <span className={styles.help}>{helpText}</span>}
+      {error && <span className={styles["text-field__error"]}>{error}</span>}
+      {helpText && <span className={styles["text-field__help"]}>{helpText}</span>}
     </div>
   );
 };
 
-export default TextField;
+export default memo(TextField);
