@@ -41,6 +41,10 @@
       "types": "./lib/MultipleFilesField.d.ts",
       "import": "./lib/MultipleFilesField.js"
     },
+    "./range": {
+      "types": "./lib/RangeField.d.ts",
+      "import": "./lib/RangeField.js"
+    },
     "./switch": {
       "types": "./lib/SwitchField.d.ts",
       "import": "./lib/SwitchField.js"
