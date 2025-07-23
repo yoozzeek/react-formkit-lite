@@ -80,7 +80,13 @@ export default defineConfig(({ mode }) => {
                 "simplebar-react",
               ],
               input: Object.fromEntries(
-                globSync(["src/components/**/*.tsx", "src/index.ts"]).map((file) => {
+                globSync([
+                  "src/components/**/*.tsx",
+                  "src/utils/phoneNumberMask.ts",
+                  "src/utils/dateMask.ts",
+                  "src/utils/otherMasks.ts",
+                  "src/index.ts",
+                ]).map((file) => {
                   const entryName = path.basename(file, path.extname(file));
                   const entryUrl = fileURLToPath(new URL(file, import.meta.url));
                   return [entryName, entryUrl];

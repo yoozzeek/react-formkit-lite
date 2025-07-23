@@ -12,8 +12,87 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./select": {
+      "types": "./lib/SelectField.d.ts",
+      "import": "./lib/SelectField.js"
+    },
+    "./text": {
+      "types": "./lib/TextField.d.ts",
+      "import": "./lib/TextField.js"
+    },
+    "./date": {
+      "types": "./lib/DateField.d.ts",
+      "import": "./lib/DateField.js"
+    },
+    "./upload": {
+      "types": "./lib/UploadArea.d.ts",
+      "import": "./lib/SwitchField.js"
+    },
+    "./multipleUpload": {
+      "types": "./lib/MultipleFilesField.d.ts",
+      "import": "./lib/MultipleFilesField.js"
+    },
+    "./switch": {
+      "types": "./lib/SwitchField.d.ts",
+      "import": "./lib/SwitchField.js"
+    },
+    "./checkbox": {
+      "types": "./lib/CheckboxField.d.ts",
+      "import": "./lib/CheckboxField.js"
+    },
+    "./checkboxGroup": {
+      "types": "./lib/CheckboxGroup.d.ts",
+      "import": "./lib/CheckboxGroup.js"
+    },
+    "./radio": {
+      "types": "./lib/RadioField.d.ts",
+      "import": "./lib/RadioField.js"
+    },
+    "./radioGroup": {
+      "types": "./lib/RadioGroup.d.ts",
+      "import": "./lib/RadioGroup.js"
+    },
+    "./button": {
+      "types": "./lib/Button.d.ts",
+      "import": "./lib/Button.js"
+    },
+    "./badge": {
+      "types": "./lib/Badge.d.ts",
+      "import": "./lib/Badge.js"
+    },
+    "./header": {
+      "types": "./lib/Header.d.ts",
+      "import": "./lib/Header.js"
+    },
+    "./loader": {
+      "types": "./lib/Loader.d.ts",
+      "import": "./lib/Loader.js"
+    },
+    "./phoneNumberMask": {
+      "types": "./lib/phoneNumberMask.d.ts",
+      "import": "./lib/phoneNumberMask.js"
+    },
+    "./dateMask": {
+      "types": "./lib/dateMask.d.ts",
+      "import": "./lib/dateMask.js"
+    },
+    "./otherMasks": {
+      "types": "./lib/otherMasks.d.ts",
+      "import": "./lib/otherMasks.js"
+    },
+    "./index.css": {
+      "import": "./lib/index.css"
+    }
+  },
   "files": [
-    "lib"
+    "LICENSE",
+    "README.md",
+    "lib/"
   ],
   "scripts": {
     "dev": "vite",
