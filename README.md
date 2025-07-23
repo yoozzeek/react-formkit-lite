@@ -1,13 +1,11 @@
 # react-formkit-lite
 
-[View Demo](https://yoozzeek.github.io/react-formkit-lite/)
-
 Lightweight form components for modern React apps.
 
 Build beautiful, responsive forms with just the parts you need. From smart selects to masked inputs, everything is 
 mobile-first and framework-agnostic whether you're using raw React, Formik, or anything else.
 
-Brought to you by the non-profit [Bitkind.org](https://bitkind.org/about).
+[View Demo](https://yoozzeek.github.io/react-formkit-lite/)
 
 ### Features
 * Single & multi-selects with async search 
@@ -16,6 +14,8 @@ Brought to you by the non-profit [Bitkind.org](https://bitkind.org/about).
 * File uploads, switches, sliders, checkboxes, and more 
 * Easy theming via CSS variables 
 * Tree-shakeable: only import what you need
+
+Brought to you by the non-profit [Bitkind.org](https://bitkind.org/about).
 
 ## Installation
 Install required peer dependencies first:
