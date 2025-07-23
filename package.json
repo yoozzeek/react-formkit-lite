@@ -3,6 +3,10 @@
   "homepage": "https://yoozzeek.github.io/react-formkit-lite/",
   "version": "0.0.3",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoozzeek/react-formkit-lite.git"
+  },
   "author": {
     "name": "Andrew",
     "email": "zeek@tuta.com",
@@ -152,5 +156,19 @@
     "vite": "^7.0.4",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.2.4"
-  }
+  },
+  "keywords": [
+    "react",
+    "components",
+    "forms",
+    "uikit",
+    "input-mask",
+    "mobile-first",
+    "responsive",
+    "range-slider",
+    "select-multiple",
+    "date-mask",
+    "library",
+    "web"
+  ]
 }
