@@ -9,62 +9,62 @@
     cursor: pointer;
     padding-top: 40px;
     padding-bottom: 40px;
-    border: 1px dashed var(--rfkl-color-success);
-    border-radius: var(--rfkl-radius-xl);
+    border: 1px dashed var(--formkit-lite-color-success);
+    border-radius: var(--formkit-lite-radius-xl);
     transition: background-color 0.2s ease;
 }
 
 /* Background variants */
 .upload--light {
-    background-color: var(--rfkl-color-light);
+    background-color: var(--formkit-lite-color-light);
 }
 
 .upload--dark {
-    background-color: var(--rfkl-color-dark);
+    background-color: var(--formkit-lite-color-dark);
 }
 
 .upload--drag-light {
-    background-color: var(--rfkl-color-light2);
+    background-color: var(--formkit-lite-color-light2);
 }
 
 .upload--drag-dark {
-    background-color: var(--rfkl-color-light3);
+    background-color: var(--formkit-lite-color-light3);
 }
 
 .upload__icon {
-    margin-bottom: var(--rfkl-space-lg);
+    margin-bottom: var(--formkit-lite-space-lg);
 }
 
 /* Title */
 .upload__title {
-    margin-left: var(--rfkl-space-xl);
-    margin-right: var(--rfkl-space-xl);
-    margin-bottom: var(--rfkl-space-md);
-    font-size: var(--rfkl-font-size);
+    margin-left: var(--formkit-lite-space-xl);
+    margin-right: var(--formkit-lite-space-xl);
+    margin-bottom: var(--formkit-lite-space-md);
+    font-size: var(--formkit-lite-font-size);
     font-weight: 600;
 }
 
 .upload__title--light {
-    color: var(--rfkl-color-dark);
+    color: var(--formkit-lite-color-dark);
 }
 
 .upload__title--dark {
-    color: var(--rfkl-text-dark);
+    color: var(--formkit-lite-text-dark);
 }
 
 /* Description */
 .upload__description {
-    margin-left: var(--rfkl-space-lg);
-    margin-right: var(--rfkl-space-lg);
+    margin-left: var(--formkit-lite-space-lg);
+    margin-right: var(--formkit-lite-space-lg);
     font-size: 12px;
 }
 
 .upload__description--light {
-    color: var(--rfkl-color-light3);
+    color: var(--formkit-lite-color-light3);
 }
 
 .upload__description--dark {
-    color: var(--rfkl-color-light2);
+    color: var(--formkit-lite-color-light2);
 }
 
 .upload__input {

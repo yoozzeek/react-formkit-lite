@@ -8,20 +8,20 @@
 
 /* Info column (label + help text) */
 .switch__info {
-    margin-top: var(--rfkl-space-xs);
-    margin-right: var(--rfkl-space-md);
+    margin-top: var(--formkit-lite-space-xs);
+    margin-right: var(--formkit-lite-space-md);
 }
 
 .switch__label {
-    margin-right: var(--rfkl-space-xl);
-    font-size: var(--rfkl-font-size);
-    color: var(--rfkl-color-dark);
+    margin-right: var(--formkit-lite-space-xl);
+    font-size: var(--formkit-lite-font-size);
+    color: var(--formkit-lite-color-dark);
 }
 
 .switch__help {
-    margin-top: var(--rfkl-space-md);
+    margin-top: var(--formkit-lite-space-md);
     font-size: 13px;
-    color: var(--rfkl-color-light3);
+    color: var(--formkit-lite-color-light3);
 }
 
 /* Wrapper for checkbox + slider */
@@ -46,8 +46,8 @@
     display: inline-block;
     width: 56px;
     height: 32px;
-    border-radius: var(--rfkl-radius-xl);
-    background-color: var(--rfkl-color-light2);
+    border-radius: var(--formkit-lite-radius-xl);
+    background-color: var(--formkit-lite-color-light2);
     position: relative;
     transition: background-color 0.2s ease;
 }
@@ -67,7 +67,7 @@
 
 /* Checked styles */
 .switch__input:checked + .switch__slider {
-    background-color: var(--rfkl-color-success);
+    background-color: var(--formkit-lite-color-success);
 }
 
 .switch__input:checked + .switch__slider::after {

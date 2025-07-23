@@ -11,20 +11,20 @@
     display: flex;
     align-items: center;
     font-weight: 600;
-    color: var(--rfkl-color-success);
-    font-size: var(--rfkl-font-size);
+    color: var(--formkit-lite-color-success);
+    font-size: var(--formkit-lite-font-size);
 }
 
 .multiple-upload__icon {
-    margin-right: var(--rfkl-space-md);
+    margin-right: var(--formkit-lite-space-md);
     width: 24px;
     height: auto;
 }
 
 .multiple-upload__help {
-    padding-top: var(--rfkl-space-lg);
+    padding-top: var(--formkit-lite-space-lg);
     font-size: 13px;
-    color: var(--rfkl-color-light3);
+    color: var(--formkit-lite-color-light3);
 }
 
 .multiple-upload__input {
@@ -45,13 +45,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--rfkl-space-md);
+    margin-bottom: var(--formkit-lite-space-md);
 }
 
 .multiple-upload-files__title {
     font-size: 17px;
     font-weight: 600;
-    color: var(--rfkl-color-dark);
+    color: var(--formkit-lite-color-dark);
 }
 
 .multiple-upload-files__delete {
@@ -66,9 +66,9 @@
 
 .multiple-upload-files__list {
     display: flex;
-    gap: var(--rfkl-space-xl);
-    padding-top: var(--rfkl-space-xl);
-    padding-bottom: var(--rfkl-space-xl);
+    gap: var(--formkit-lite-space-xl);
+    padding-top: var(--formkit-lite-space-xl);
+    padding-bottom: var(--formkit-lite-space-xl);
     list-style: none;
     margin: 0;
     padding-left: 0;
@@ -76,7 +76,7 @@
 
 /* ADD FILES */
 .multiple-upload__addBox {
-    margin-top: var(--rfkl-space-xl);
+    margin-top: var(--formkit-lite-space-xl);
     position: relative;
     cursor: pointer;
 }
@@ -85,8 +85,8 @@
     display: flex;
     align-items: center;
     font-weight: 600;
-    color: var(--rfkl-color-success);
-    font-size: var(--rfkl-font-size);
+    color: var(--formkit-lite-color-success);
+    font-size: var(--formkit-lite-font-size);
 }
 
 .multiple-upload__add--disabled {
@@ -97,7 +97,7 @@
 .multiple-upload__addIcon {
     width: 28px;
     height: 28px;
-    margin-right: var(--rfkl-space-md);
+    margin-right: var(--formkit-lite-space-md);
 }
 
 /* Single file item (used in list) */
@@ -109,7 +109,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--rfkl-color-light);
+    background-color: var(--formkit-lite-color-light);
     border-radius: 2px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;

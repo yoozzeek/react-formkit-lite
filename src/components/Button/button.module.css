@@ -5,10 +5,10 @@
     outline: 0;
     white-space: nowrap;
     transition: all 200ms ease-in-out;
-    border-radius: var(--rfkl-radius-sm);
+    border-radius: var(--formkit-lite-radius-sm);
     border-width: 1px;
     border-style: solid;
-    font-size: var(--rfkl-font-size);
+    font-size: var(--formkit-lite-font-size);
 }
 
 .button--full-width {
@@ -32,21 +32,21 @@
 
 /* Sizes */
 .button--xxs {
-    padding: var(--rfkl-space-xs) var(--rfkl-space-md);
+    padding: var(--formkit-lite-space-xs) var(--formkit-lite-space-md);
 }
 
 .button--xs {
-    padding-top: var(--rfkl-space-sm);
-    padding-bottom: var(--rfkl-space-sm);
+    padding-top: var(--formkit-lite-space-sm);
+    padding-bottom: var(--formkit-lite-space-sm);
 }
 
 .button--sm {
-    padding: var(--rfkl-space-sm) var(--rfkl-space-xl);
+    padding: var(--formkit-lite-space-sm) var(--formkit-lite-space-xl);
     height: 32px;
 }
 
 .button--md {
-    padding: var(--rfkl-space-sm) var(--rfkl-space-xl);
+    padding: var(--formkit-lite-space-sm) var(--formkit-lite-space-xl);
     height: 44px;
 }
 
@@ -57,28 +57,28 @@
 }
 
 .button--lg {
-    padding: var(--rfkl-space-lg) var(--rfkl-space-xl);
+    padding: var(--formkit-lite-space-lg) var(--formkit-lite-space-xl);
 }
 
 .button--xl {
-    padding: var(--rfkl-space-xl) 32px;
+    padding: var(--formkit-lite-space-xl) 32px;
     font-size: 1.125rem; /* text-lg */
-    border-radius: var(--rfkl-radius-xl);
+    border-radius: var(--formkit-lite-radius-xl);
 }
 
 .button--icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--rfkl-space-sm);
+    padding: var(--formkit-lite-space-sm);
     height: 100%;
 }
 
 /* Variants */
 .button--success {
-    background-color: var(--rfkl-color-success);
-    color: var(--rfkl-text-dark);
-    border-color: var(--rfkl-color-success);
+    background-color: var(--formkit-lite-color-success);
+    color: var(--formkit-lite-text-dark);
+    border-color: var(--formkit-lite-color-success);
 }
 
 .button--success:hover {
@@ -88,7 +88,7 @@
 
 .button--light {
     background-color: #fff;
-    color: var(--rfkl-text-light);
+    color: var(--formkit-lite-text-light);
     border-color: #e2e8ee;
 }
 
@@ -98,14 +98,14 @@
 
 .button--outline-light {
     background: transparent;
-    color: var(--rfkl-text-dark);
+    color: var(--formkit-lite-text-dark);
     border-color: rgba(243, 246, 249, 0.25);
 }
 
 .button--outline-green {
     background: transparent;
-    color: var(--rfkl-color-success);
-    border-color: var(--rfkl-color-success);
+    color: var(--formkit-lite-color-success);
+    border-color: var(--formkit-lite-color-success);
 }
 
 .button--outline-green:hover {
@@ -114,8 +114,8 @@
 
 .button--outline-warning {
     background: transparent;
-    color: var(--rfkl-color-warning);
-    border-color: var(--rfkl-color-warning);
+    color: var(--formkit-lite-color-warning);
+    border-color: var(--formkit-lite-color-warning);
 }
 
 .button--outline-warning:hover {
@@ -123,9 +123,9 @@
 }
 
 .button--danger {
-    background-color: var(--rfkl-color-danger);
-    color: var(--rfkl-text-dark);
-    border-color: var(--rfkl-color-danger);
+    background-color: var(--formkit-lite-color-danger);
+    color: var(--formkit-lite-text-dark);
+    border-color: var(--formkit-lite-color-danger);
 }
 
 .button--danger:hover {
@@ -133,9 +133,9 @@
 }
 
 .button--warning {
-    background-color: var(--rfkl-color-warning);
-    color: var(--rfkl-text-dark);
-    border-color: var(--rfkl-color-warning);
+    background-color: var(--formkit-lite-color-warning);
+    color: var(--formkit-lite-text-dark);
+    border-color: var(--formkit-lite-color-warning);
 }
 
 .button--warning:hover {
@@ -143,25 +143,25 @@
 }
 
 .button--dark {
-    background-color: var(--rfkl-color-light3);
-    color: var(--rfkl-text-light);
-    border-color: var(--rfkl-color-light3);
+    background-color: var(--formkit-lite-color-light3);
+    color: var(--formkit-lite-text-light);
+    border-color: var(--formkit-lite-color-light3);
 }
 
 .button--dark:hover {
-    background-color: var(--rfkl-color-light2);
+    background-color: var(--formkit-lite-color-light2);
 }
 
 .button--gray {
-    background-color: var(--rfkl-color-light2);
-    color: var(--rfkl-text-light);
-    border-color: var(--rfkl-color-light2);
+    background-color: var(--formkit-lite-color-light2);
+    color: var(--formkit-lite-text-light);
+    border-color: var(--formkit-lite-color-light2);
 }
 
 .button--none {
     background: transparent;
     border: none;
-    color: var(--rfkl-color-success);
+    color: var(--formkit-lite-color-success);
 }
 
 .button--none:hover {
@@ -175,7 +175,7 @@
 }
 
 .button__loading-text {
-    margin-left: var(--rfkl-space-lg);
+    margin-left: var(--formkit-lite-space-lg);
 }
 
 /* Variant-specific icon colors */
@@ -184,15 +184,15 @@
 }
 
 .button__loading-icon--dark {
-    color: var(--rfkl-text-light);
+    color: var(--formkit-lite-text-light);
 }
 
 .button__loading-icon--green {
-    color: var(--rfkl-color-success);
+    color: var(--formkit-lite-color-success);
 }
 
 .button__loading-icon--warning {
-    color: var(--rfkl-color-warning);
+    color: var(--formkit-lite-color-warning);
 }
 
 @keyframes spin {

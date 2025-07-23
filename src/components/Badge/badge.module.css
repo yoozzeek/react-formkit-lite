@@ -3,9 +3,9 @@
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: var(--rfkl-space-sm) var(--rfkl-space-md);
-    border-radius: var(--rfkl-radius-lg);
-    font-size: var(--rfkl-font-size);
+    padding: var(--formkit-lite-space-sm) var(--formkit-lite-space-md);
+    border-radius: var(--formkit-lite-radius-lg);
+    font-size: var(--formkit-lite-font-size);
 }
 
 .badge--clickable {
@@ -15,11 +15,11 @@
 .badge__icon {
     width: 20px;
     height: 20px;
-    margin: 0 var(--rfkl-space-xs);
+    margin: 0 var(--formkit-lite-space-xs);
 }
 
 .badge__remove {
-    margin-left: var(--rfkl-space-md);
+    margin-left: var(--formkit-lite-space-md);
     background: none;
     border: none;
     cursor: pointer;
@@ -32,8 +32,8 @@
 
 /* Variants */
 .badge--light {
-    background-color: var(--rfkl-color-light);
-    color: var(--rfkl-text-light);
+    background-color: var(--formkit-lite-color-light);
+    color: var(--formkit-lite-text-light);
 }
 
 .badge--light:hover {
@@ -42,8 +42,8 @@
 
 .badge--dark,
 .badge--light.badge--selected {
-    background-color: var(--rfkl-color-dark);
-    color: var(--rfkl-text-dark);
+    background-color: var(--formkit-lite-color-dark);
+    color: var(--formkit-lite-text-dark);
 }
 
 .badge--dark:hover {
@@ -51,8 +51,8 @@
 }
 
 .badge--success {
-    background-color: var(--rfkl-color-success);
-    color: var(--rfkl-text-dark);
+    background-color: var(--formkit-lite-color-success);
+    color: var(--formkit-lite-text-dark);
 }
 
 .badge--success:hover {
@@ -60,8 +60,8 @@
 }
 
 .badge--danger {
-    background-color: var(--rfkl-color-danger);
-    color: var(--rfkl-text-dark);
+    background-color: var(--formkit-lite-color-danger);
+    color: var(--formkit-lite-text-dark);
 }
 
 .badge--danger:hover {
@@ -69,8 +69,8 @@
 }
 
 .badge--warning {
-    background-color: var(--rfkl-color-warning);
-    color: var(--rfkl-text-dark);
+    background-color: var(--formkit-lite-color-warning);
+    color: var(--formkit-lite-text-dark);
 }
 
 .badge--warning:hover {
@@ -78,8 +78,8 @@
 }
 
 .badge--info {
-    background-color: var(--rfkl-color-info);
-    color: var(--rfkl-text-dark);
+    background-color: var(--formkit-lite-color-info);
+    color: var(--formkit-lite-text-dark);
 }
 
 .badge--info:hover {
@@ -87,8 +87,8 @@
 }
 
 .badge--primary {
-    background-color: var(--rfkl-color-primary);
-    color: var(--rfkl-text-dark);
+    background-color: var(--formkit-lite-color-primary);
+    color: var(--formkit-lite-text-dark);
 }
 
 .badge--primary:hover {
@@ -96,8 +96,8 @@
 }
 
 .badge--black {
-    background-color: var(--rfkl-color-black);
-    color: var(--rfkl-text-dark);
+    background-color: var(--formkit-lite-color-black);
+    color: var(--formkit-lite-text-dark);
 }
 
 .badge--black:hover {
@@ -106,17 +106,17 @@
 
 /* Remove button states */
 .badge__remove--light {
-    color: var(--rfkl-color-light3);
+    color: var(--formkit-lite-color-light3);
 }
 
 .badge__remove--light:hover {
-    color: var(--rfkl-color-light2);
+    color: var(--formkit-lite-color-light2);
 }
 
 .badge__remove--dark {
-    color: var(--rfkl-text-dark);
+    color: var(--formkit-lite-text-dark);
 }
 
 .badge__remove--dark:hover {
-    color: var(--rfkl-color-light3);
+    color: var(--formkit-lite-color-light3);
 }
