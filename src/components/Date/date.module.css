@@ -10,14 +10,14 @@
 
 .date-field__label {
     display: block;
-    padding-bottom: var(--rfkl-space-sm);
+    padding-bottom: var(--formkit-lite-space-sm);
     font-weight: 600;
-    color: var(--rfkl-color-dark);
+    color: var(--formkit-lite-color-dark);
 }
 
 .date-field__required {
-    margin-left: var(--rfkl-space-sm);
-    color: var(--rfkl-color-danger);
+    margin-left: var(--formkit-lite-space-sm);
+    color: var(--formkit-lite-color-danger);
 }
 
 .date-field__wrapper {
@@ -28,11 +28,11 @@
 .date-field__input {
     display: block;
     width: 100%;
-    padding: var(--rfkl-space-md) var(--rfkl-space-lg);
-    font-size: var(--rfkl-font-size);
-    border-radius: var(--rfkl-radius-lg);
-    border: 1px solid var(--rfkl-color-light2);
-    color: var(--rfkl-text-light);
+    padding: var(--formkit-lite-space-md) var(--formkit-lite-space-lg);
+    font-size: var(--formkit-lite-font-size);
+    border-radius: var(--formkit-lite-radius-lg);
+    border: 1px solid var(--formkit-lite-color-light2);
+    color: var(--formkit-lite-text-light);
     background-color: white;
     appearance: none;
     outline: none;
@@ -40,29 +40,29 @@
 }
 
 .date-field__input::placeholder {
-    color: var(--rfkl-color-light3);
+    color: var(--formkit-lite-color-light3);
 }
 
 .date-field__input--error {
-    border-color: var(--rfkl-color-danger);
+    border-color: var(--formkit-lite-color-danger);
 }
 
 .date-field__input--error:focus {
-    box-shadow: 0 0 0 1px var(--rfkl-color-danger);
+    box-shadow: 0 0 0 1px var(--formkit-lite-color-danger);
 }
 
 .date-field__input--valid {
-    border-color: var(--rfkl-color-light2);
+    border-color: var(--formkit-lite-color-light2);
 }
 
 .date-field__input--valid:focus {
-    box-shadow: 0 0 0 1px var(--rfkl-color-success);
+    box-shadow: 0 0 0 1px var(--formkit-lite-color-success);
 }
 
 .date-field__reset-button {
     position: absolute;
-    top: var(--rfkl-space-md);
-    right: var(--rfkl-space-xl);
+    top: var(--formkit-lite-space-md);
+    right: var(--formkit-lite-space-xl);
     width: 24px;
     height: 24px;
     cursor: pointer;
@@ -73,19 +73,19 @@
 }
 
 .date-field__reset-icon {
-    color: var(--rfkl-color-light3);
+    color: var(--formkit-lite-color-light3);
 }
 
 .date-field__error {
     display: block;
-    padding-top: var(--rfkl-space-md);
+    padding-top: var(--formkit-lite-space-md);
     font-size: 12px;
-    color: var(--rfkl-color-danger);
+    color: var(--formkit-lite-color-danger);
 }
 
 .date-field__help {
     display: block;
-    padding-top: var(--rfkl-space-md);
+    padding-top: var(--formkit-lite-space-md);
     font-size: 12px;
-    color: var(--rfkl-color-light3);
+    color: var(--formkit-lite-color-light3);
 }

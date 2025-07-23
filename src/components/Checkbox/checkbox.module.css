@@ -2,12 +2,12 @@
     position: relative;
     display: flex;
     align-items: center;
-    color: var(--rfkl-text-light);
+    color: var(--formkit-lite-text-light);
 }
 
 .checkbox-field--group {
-    border-bottom: 1px solid var(--rfkl-color-light);
-    padding: var(--rfkl-space-lg) var(--rfkl-space-xl);
+    border-bottom: 1px solid var(--formkit-lite-color-light);
+    padding: var(--formkit-lite-space-lg) var(--formkit-lite-space-xl);
 }
 
 @media (min-width: 768px) {
@@ -35,15 +35,15 @@
 
 .checkbox-field__label {
     flex: 1;
-    color: var(--rfkl-color-dark);
+    color: var(--formkit-lite-color-dark);
 }
 
 .checkbox-field__label--left {
-    padding-right: var(--rfkl-space-md);
+    padding-right: var(--formkit-lite-space-md);
 }
 
 .checkbox-field__label--right {
-    padding-left: var(--rfkl-space-md);
+    padding-left: var(--formkit-lite-space-md);
 }
 
 /* Checked */
@@ -51,10 +51,10 @@
     display: flex;
     width: 24px;
     height: 24px;
-    border-radius: var(--rfkl-radius-xl);
+    border-radius: var(--formkit-lite-radius-xl);
     justify-content: center;
     align-items: center;
-    background-color: var(--rfkl-color-success);
+    background-color: var(--formkit-lite-color-success);
 }
 
 .checkbox-field__checked--hovered {
@@ -73,23 +73,23 @@
     box-sizing: border-box;
     width: 24px;
     height: 24px;
-    border-radius: var(--rfkl-radius-xl);
+    border-radius: var(--formkit-lite-radius-xl);
     background-color: white;
-    border: 2px solid var(--rfkl-color-light2);
+    border: 2px solid var(--formkit-lite-color-light2);
 }
 
 .checkbox-field__unchecked--hovered {
-    border-color: var(--rfkl-color-light3);
+    border-color: var(--formkit-lite-color-light3);
 }
 
 .checkbox-field__unchecked--focused {
-    border-color: var(--rfkl-color-success);
+    border-color: var(--formkit-lite-color-success);
 }
 
 @media (min-width: 768px) {
     .checkbox-field__checked,
     .checkbox-field__unchecked {
-        border-radius: var(--rfkl-radius-xs);
+        border-radius: var(--formkit-lite-radius-xs);
     }
 }
 
@@ -104,8 +104,8 @@
 
 .checkbox-group__label {
     margin-bottom: 16px;
-    padding-left: var(--rfkl-space-xl);
-    padding-right: var(--rfkl-space-xl);
+    padding-left: var(--formkit-lite-space-xl);
+    padding-right: var(--formkit-lite-space-xl);
     font-size: 1.5rem;
-    color: var(--rfkl-text-light);
+    color: var(--formkit-lite-text-light);
 }

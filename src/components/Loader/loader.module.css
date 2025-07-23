@@ -10,7 +10,7 @@
 /* Spinner sizes */
 .loader__icon {
     animation: spin 1s linear infinite;
-    color: var(--rfkl-color-success);
+    color: var(--formkit-lite-color-success);
 }
 
 .loader__icon--sm {
@@ -30,18 +30,18 @@
 
 /* Optional loading text */
 .loader__text {
-    color: var(--rfkl-color-light3);
+    color: var(--formkit-lite-color-light3);
     text-align: center;
 }
 
 .loader__text--sm {
-    padding: var(--rfkl-space-xl) 0;
+    padding: var(--formkit-lite-space-xl) 0;
     font-size: 14px;
 }
 
 .loader__text--md {
     padding: 24px 0;
-    font-size: var(--rfkl-font-size);
+    font-size: var(--formkit-lite-font-size);
 }
 
 /* Accessibility */
