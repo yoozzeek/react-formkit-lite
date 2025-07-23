@@ -3,7 +3,7 @@
 Lightweight form components for modern React apps.
 
 Build beautiful, responsive forms with just the parts you need. From smart selects to masked inputs, everything is 
-mobile-first and framework-agnostic whether you're using raw React, Formik, or anything else.
+mobile-first and approach-agnostic whether you're using raw React state, Formik, or anything else.
 
 [View Demo](https://yoozzeek.github.io/react-formkit-lite/)
 
