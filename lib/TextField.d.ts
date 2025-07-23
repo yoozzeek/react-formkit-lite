@@ -1,0 +1,31 @@
+import { JSX, ChangeEvent, ReactElement, RefObject } from 'react';
+import { default as Masked } from 'imask/masked/base';
+import { CommonFieldProps } from './types';
+interface TextFieldProps extends CommonFieldProps {
+    ref?: RefObject<HTMLInputElement>;
+    secure?: boolean;
+    textarea?: boolean;
+    rows?: number;
+    autoCorrect?: "off" | "on";
+    autoComplete?: string;
+    spellCheck?: boolean;
+    pattern?: string;
+    mask?: Masked | Masked[];
+    isPrimary?: boolean;
+    leftIcon?: ReactElement;
+    iconCompact?: boolean;
+    rightIcon?: ReactElement;
+    customIconContainer?: boolean;
+    resetDisabled?: boolean;
+    textareaAutoHeight?: boolean;
+    type?: "text" | "email" | "number";
+    value: string | number;
+    initialValue?: string | number;
+    inputMode?: string;
+    onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    onComplete?: (value: string) => void;
+    onFocus?: () => void;
+    onBlur?: () => void;
+}
+declare const _default: import('react').MemoExoticComponent<(props: TextFieldProps) => JSX.Element>;
+export default _default;
