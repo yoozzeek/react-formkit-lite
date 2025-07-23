@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import Button from "../lib/components/Button";
+import Button from "../src/components/Button";
 
 const baseBlockStyle: CSSProperties = {
   display: "flex",
@@ -7,7 +7,7 @@ const baseBlockStyle: CSSProperties = {
   gap: 4,
 };
 
-export default function ButtonExamplesPage() {
+export default function ButtonExamples() {
   return (
     <section>
       <h2>Button examples</h2>

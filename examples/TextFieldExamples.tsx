@@ -1,9 +1,9 @@
-import TextField from "../lib/components/Text";
+import TextField from "../src/components/Text";
 import type { CSSProperties } from "react";
 import { useState } from "react";
-import { phoneNumberWithCodeMask } from "../lib/utils/phoneNumberMask";
-import { dateMask } from "../lib/utils/dateMask";
-import { moneyAmountMask } from "../lib/utils/otherMasks";
+import { phoneNumberWithCodeMask } from "../src/utils/phoneNumberMask";
+import { dateMask } from "../src/utils/dateMask";
+import { moneyAmountMask } from "../src/utils/otherMasks";
 
 const baseBlockStyle: CSSProperties = {
   display: "flex",
@@ -16,10 +16,7 @@ export default function TextFieldExamples() {
   const [textareaFieldValue, setTextareaFieldValue] = useState("");
   const [secureFieldValue, setSecureFieldValue] = useState("secret");
   const [numberFieldValue, setNumberFieldValue] = useState(0);
-
   const [requiredFieldValue, setRequiredFieldValue] = useState("");
-  const [requiredFieldTouched, setRequiredFieldTouched] = useState(false);
-
   const [phoneNumberWithMaskValue, setPhoneNumberWithMaskValue] = useState("");
   const [dateWithMaskValue, setDateWithMaskValue] = useState("");
   const [moneyWithMaskValue, setMoneyWithMaskValue] = useState("");
@@ -68,11 +65,8 @@ export default function TextFieldExamples() {
             name="required_field"
             label="Required field"
             placeholder="Enter text..."
-            value={requiredFieldValue}
-            error={requiredFieldTouched && !requiredFieldValue && "Required field"}
-            onFocus={() => setRequiredFieldTouched(true)}
-            onBlur={() => setRequiredFieldTouched(false)}
-            onChange={(e) => setRequiredFieldValue(e.target.value)}
+            value=""
+            onChange={() => {}}
           />
           <TextField
             secure
@@ -81,6 +75,14 @@ export default function TextFieldExamples() {
             label="Secure field"
             value={secureFieldValue}
             onChange={(e) => setSecureFieldValue(e.target.value)}
+          />
+          <TextField
+            disabled
+            id="disabled_field"
+            name="disabled_field"
+            label="Disabled field"
+            placeholder="Enter text..."
+            value=""
           />
         </div>
       </div>
@@ -113,7 +115,7 @@ export default function TextFieldExamples() {
             name="masked_money_amount_field"
             label="Money amount field"
             type="text"
-            placeholder="100.00"
+            placeholder="$10 000"
             autoCorrect="off"
             spellCheck={false}
             pattern="[^0-9]*"
@@ -122,6 +124,19 @@ export default function TextFieldExamples() {
             onChange={(e) => setMoneyWithMaskValue(e.target.value)}
           />
         </div>
+      </div>
+      <div>
+        <h3>Error</h3>
+        <TextField
+          required
+          id="error_field"
+          name="error_field"
+          label="Required field"
+          placeholder="Enter text..."
+          value={requiredFieldValue}
+          error={!requiredFieldValue && "Required field"}
+          onChange={(e) => setRequiredFieldValue(e.target.value)}
+        />
       </div>
     </section>
   );

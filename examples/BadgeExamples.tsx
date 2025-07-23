@@ -1,4 +1,4 @@
-import Badge from "../lib/components/Badge";
+import Badge from "../src/components/Badge";
 import React, { useRef, useState } from "react";
 
 type DynamicBadgeType = { label: string; value: string; variant: string };
@@ -8,7 +8,7 @@ const baseBlockStyle = {
   gap: 4,
 };
 
-export default function BadgeExamplesPage() {
+export default function BadgeExamples() {
   const selectedBadgesSetRef = useRef(new Set<string>());
   const [selectedBadges, setSelectedBadges] = useState<Array<string>>([]);
 

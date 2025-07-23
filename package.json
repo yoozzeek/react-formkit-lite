@@ -9,11 +9,11 @@
     "url": "https://github.com/yoozzeek"
   },
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "dist"
+    "lib"
   ],
   "scripts": {
     "dev": "vite",
@@ -28,8 +28,8 @@
     "react": ">=16.8.0",
     "react-imask": ">=7.6.1",
     "react-responsive": ">=10.0.1",
-    "react-context-modal": "../react-context-modal",
-    "simplebar-react": ">=3.1.0"
+    "simplebar-react": ">=3.1.0",
+    "react-context-modal": "https://github.com/yoozzeek/react-context-modal.git"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -60,7 +60,7 @@
     "prettier": "^3.6.2",
     "prettier-eslint": "^16.4.2",
     "react": "^19.1.0",
-    "react-context-modal": "../react-context-modal",
+    "react-context-modal": "https://github.com/yoozzeek/react-context-modal.git",
     "react-dom": "^19.1.0",
     "react-imask": "^7.6.1",
     "react-responsive": "^10.0.1",
@@ -71,7 +71,6 @@
     "typescript-eslint": "^8.35.1",
     "unplugin-dts": "^1.0.0-beta.4",
     "vite": "^7.0.4",
-    "vite-plugin-lib-inject-css": "^2.2.2",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.2.4"
   }

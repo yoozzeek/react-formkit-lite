@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import BadgeExamplesPage from "./BadgeExamples";
-import ButtonExamplesPage from "./ButtonExamples";
+import BadgeExamples from "./BadgeExamples";
+import ButtonExamples from "./ButtonExamples";
 import TextFieldExamples from "./TextFieldExamples";
 import SelectFieldExamples from "./SelectFieldExample";
 
 import "simplebar-react/dist/simplebar.min.css";
-import "react-context-modal/dist/index.css";
+import "react-context-modal/lib/index.css";
+import DemoFormExample from "./DemoFormExample";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -16,16 +17,17 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         Open on Github
       </a>
       <p>
-        A lightweight collection of React components for building forms. Works with your own form
-        state or integrates smoothly with Formik.
+        A lightweight collection of React components for building mobile-friendly forms. Works with
+        your own form state or integrates smoothly with Formik.
       </p>
     </header>
 
-    <div>
+    <DemoFormExample />
+
+    <div style={{ marginTop: "3em" }}>
       <h2>Components</h2>
       <nav
         style={{
-          marginTop: "1em",
           display: "flex",
           flexWrap: "wrap",
           gap: 21,
@@ -49,7 +51,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
     <div
       style={{
-        marginTop: "1em",
+        marginTop: "2em",
         display: "flex",
         flexDirection: "column",
         gap: "2em",
@@ -57,8 +59,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     >
       <TextFieldExamples />
       <SelectFieldExamples />
-      <BadgeExamplesPage />
-      <ButtonExamplesPage />
+      <BadgeExamples />
+      <ButtonExamples />
     </div>
 
     <footer>

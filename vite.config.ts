@@ -3,20 +3,20 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "unplugin-dts/vite";
 import svgr from "vite-plugin-svgr";
-import { libInjectCss } from "vite-plugin-lib-inject-css";
 import { globSync } from "glob";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import type { PluginOptions } from "unplugin-dts";
-import type { BuildEnvironmentOptions } from "vite";
+import type { UserConfig, BuildEnvironmentOptions } from "vite";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const dtsOptions = {
-  exclude: ["**/*.stories.tsx"],
+  exclude: [],
   tsconfigPath: "./tsconfig.app.json",
+  outDirs: "lib",
   beforeWriteFile: (
     filePath: string,
     content: string,
@@ -27,11 +27,11 @@ const dtsOptions = {
       }
     | boolean => {
     const basename = path.basename(filePath);
-    const filename = path.join("dist", basename);
+    const filename = path.join("lib", basename);
     const relativePath = path.relative(__dirname, filePath);
 
     // skip index.tsx aliases for components
-    if (relativePath.startsWith("dist/components") && basename === "index.d.ts") {
+    if (relativePath.startsWith("lib/components") && basename === "index.d.ts") {
       return false;
     }
 
@@ -47,13 +47,13 @@ export default defineConfig(({ mode }) => {
   const isDemo = mode === "demo";
   const isDev = process.env.NODE_ENV === "development";
   const buildExamples = isDemo || isDev;
-  return {
+  const config: UserConfig = {
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./lib"),
+        "@": path.resolve(__dirname, "./src"),
       },
     },
-    plugins: [react(), svgr(), ...(isDemo ? [] : [libInjectCss(), dts(dtsOptions)])],
+    plugins: [react(), svgr(), ...(isDemo ? [] : [dts(dtsOptions)])],
     root: buildExamples ? "examples" : ".",
     base: isDemo ? "/react-formkit-lite/" : undefined,
     build: isDemo
@@ -65,10 +65,12 @@ export default defineConfig(({ mode }) => {
         ? undefined // no need to build with vite dev server
         : {
             lib: {
-              entry: path.resolve(__dirname, "lib/index.ts"),
+              entry: path.resolve(__dirname, "src/index.ts"),
               name: "react-formkit-lite",
               formats: ["es"],
+              cssFileName: "index",
             },
+            outDir: path.resolve(__dirname, "./lib"),
             rollupOptions: {
               external: [
                 "react",
@@ -78,7 +80,7 @@ export default defineConfig(({ mode }) => {
                 "simplebar-react",
               ],
               input: Object.fromEntries(
-                globSync(["lib/components/**/*.tsx", "lib/index.ts"]).map((file) => {
+                globSync(["src/components/**/*.tsx", "src/index.ts"]).map((file) => {
                   const entryName = path.basename(file, path.extname(file));
                   const entryUrl = fileURLToPath(new URL(file, import.meta.url));
                   return [entryName, entryUrl];
@@ -90,5 +92,14 @@ export default defineConfig(({ mode }) => {
               },
             },
           },
+    css: {
+      modules: {
+        generateScopedName: (name) => {
+          return `formkit-lite-${name}`;
+        },
+      },
+    },
   };
+
+  return config;
 });
