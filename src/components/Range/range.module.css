@@ -1,0 +1,82 @@
+.range {
+    display: flex;
+    align-items: center;
+}
+
+.range--disabled {
+    opacity: 0.5;
+}
+
+.range__label {
+    display: block;
+    margin-bottom: var(--rfkl-space-sm);
+    font-weight: 600;
+    font-size: var(--rfkl-font-size);
+    color: var(--rfkl-color-dark);
+}
+
+.range__placeholder {
+    font-weight: 300;
+    font-size: var(--rfkl-font-size);
+    color: var(--rfkl-color-light3);
+}
+
+.range__placeholder--left {
+    margin-right: var(--rfkl-space-md);
+}
+
+.range__placeholder--right {
+    margin-left: var(--rfkl-space-md);
+}
+
+.range__input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background-color: var(--rfkl-color-light2);
+    border-radius: var(--rfkl-radius-sm);
+}
+
+/* WebKit browsers (Chrome, Safari, etc.) */
+.range__input::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--rfkl-color-success);
+    cursor: pointer;
+}
+
+.range__input::-webkit-slider-thumb:hover {
+    background-color: var(--rfkl-color-success);
+}
+
+/* Firefox */
+.range__input::-moz-range-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--rfkl-color-success);
+    cursor: pointer;
+}
+
+.range__input::-moz-range-thumb:hover {
+    background-color: var(--rfkl-color-success);
+}
+
+/* Internet Explorer / Edge (legacy) */
+.range__input::-ms-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--rfkl-color-success);
+    cursor: pointer;
+}
+
+.range__input::-ms-thumb:hover {
+    background-color: var(--rfkl-color-success);
+}

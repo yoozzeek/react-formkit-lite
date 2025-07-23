@@ -1,0 +1,64 @@
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Spinner sizes */
+.loader__icon {
+    animation: spin 1s linear infinite;
+    color: var(--rfkl-color-success);
+}
+
+.loader__icon--sm {
+    width: 20px;
+    height: 20px;
+}
+
+.loader__icon--md {
+    width: 32px;
+    height: 32px;
+}
+
+.loader__icon--lg {
+    width: 48px;
+    height: 48px;
+}
+
+/* Optional loading text */
+.loader__text {
+    color: var(--rfkl-color-light3);
+    text-align: center;
+}
+
+.loader__text--sm {
+    padding: var(--rfkl-space-xl) 0;
+    font-size: 14px;
+}
+
+.loader__text--md {
+    padding: 24px 0;
+    font-size: var(--rfkl-font-size);
+}
+
+/* Accessibility */
+.loader__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

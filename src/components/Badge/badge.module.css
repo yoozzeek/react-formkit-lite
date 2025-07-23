@@ -1,0 +1,122 @@
+@import "../../assets/variables.css";
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--rfkl-space-sm) var(--rfkl-space-md);
+    border-radius: var(--rfkl-radius-lg);
+    font-size: var(--rfkl-font-size);
+}
+
+.badge--clickable {
+    cursor: pointer;
+}
+
+.badge__icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 var(--rfkl-space-xs);
+}
+
+.badge__remove {
+    margin-left: var(--rfkl-space-md);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.badge__remove-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Variants */
+.badge--light {
+    background-color: var(--rfkl-color-light);
+    color: var(--rfkl-text-light);
+}
+
+.badge--light:hover {
+    background-color: #e6eaef;
+}
+
+.badge--dark,
+.badge--light.badge--selected {
+    background-color: var(--rfkl-color-dark);
+    color: var(--rfkl-text-dark);
+}
+
+.badge--dark:hover {
+    background-color: #1f2538;
+}
+
+.badge--success {
+    background-color: var(--rfkl-color-success);
+    color: var(--rfkl-text-dark);
+}
+
+.badge--success:hover {
+    background-color: #11b377;
+}
+
+.badge--danger {
+    background-color: var(--rfkl-color-danger);
+    color: var(--rfkl-text-dark);
+}
+
+.badge--danger:hover {
+    background-color: #ce3b2f;
+}
+
+.badge--warning {
+    background-color: var(--rfkl-color-warning);
+    color: var(--rfkl-text-dark);
+}
+
+.badge--warning:hover {
+    background-color: #e69534;
+}
+
+.badge--info {
+    background-color: var(--rfkl-color-info);
+    color: var(--rfkl-text-dark);
+}
+
+.badge--info:hover {
+    background-color: #2874f0;
+}
+
+.badge--primary {
+    background-color: var(--rfkl-color-primary);
+    color: var(--rfkl-text-dark);
+}
+
+.badge--primary:hover {
+    background-color: #833ac1;
+}
+
+.badge--black {
+    background-color: var(--rfkl-color-black);
+    color: var(--rfkl-text-dark);
+}
+
+.badge--black:hover {
+    background-color: #111;
+}
+
+/* Remove button states */
+.badge__remove--light {
+    color: var(--rfkl-color-light3);
+}
+
+.badge__remove--light:hover {
+    color: var(--rfkl-color-light2);
+}
+
+.badge__remove--dark {
+    color: var(--rfkl-text-dark);
+}
+
+.badge__remove--dark:hover {
+    color: var(--rfkl-color-light3);
+}

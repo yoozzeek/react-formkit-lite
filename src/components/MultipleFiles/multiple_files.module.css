@@ -1,0 +1,152 @@
+/* EMPTY STATE BLOCK */
+.multiple-upload {
+    position: relative;
+}
+
+.multiple-upload--disabled {
+    opacity: 0.6;
+}
+
+.multiple-upload__label {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: var(--rfkl-color-success);
+    font-size: var(--rfkl-font-size);
+}
+
+.multiple-upload__icon {
+    margin-right: var(--rfkl-space-md);
+    width: 24px;
+    height: auto;
+}
+
+.multiple-upload__help {
+    padding-top: var(--rfkl-space-lg);
+    font-size: 13px;
+    color: var(--rfkl-color-light3);
+}
+
+.multiple-upload__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* LIST STATE BLOCK */
+.multiple-upload-files {
+    position: relative;
+}
+
+.multiple-upload-files__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--rfkl-space-md);
+}
+
+.multiple-upload-files__title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--rfkl-color-dark);
+}
+
+.multiple-upload-files__delete {
+    appearance: none;
+    transition: opacity 150ms ease-in-out;
+}
+
+.multiple-upload-files__delete:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.multiple-upload-files__list {
+    display: flex;
+    gap: var(--rfkl-space-xl);
+    padding-top: var(--rfkl-space-xl);
+    padding-bottom: var(--rfkl-space-xl);
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+/* ADD FILES */
+.multiple-upload__addBox {
+    margin-top: var(--rfkl-space-xl);
+    position: relative;
+    cursor: pointer;
+}
+
+.multiple-upload__add {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: var(--rfkl-color-success);
+    font-size: var(--rfkl-font-size);
+}
+
+.multiple-upload__add--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.multiple-upload__addIcon {
+    width: 28px;
+    height: 28px;
+    margin-right: var(--rfkl-space-md);
+}
+
+/* Single file item (used in list) */
+.multiple-upload-file {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--rfkl-color-light);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.multiple-upload-file:hover {
+    transform: scale(1.05);
+}
+
+/* If selected */
+.multiple-upload-file--selected .multiple-upload-file__overlay {
+    display: flex;
+}
+
+/* Selection overlay */
+.multiple-upload-file__overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(43, 52, 80, 0.5); /* gray-800 with 50% opacity */
+    align-items: center;
+    justify-content: center;
+}
+
+/* White checkmark icon */
+.multiple-upload-file__check {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+/* Icon for non-image file */
+.multiple-upload-file__icon {
+    width: 24px;
+    height: 24px;
+    margin-right: -2px;
+}

@@ -8,7 +8,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["./lib/*"]
+      "@/*": ["./src/*"]
     },
 
     /* Bundler mode */
@@ -28,5 +28,5 @@
     "noUncheckedSideEffectImports": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["lib"]
+  "include": ["src"]
 }

@@ -1,0 +1,81 @@
+@import "../../assets/variables.css";
+
+.switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Info column (label + help text) */
+.switch__info {
+    margin-top: var(--rfkl-space-xs);
+    margin-right: var(--rfkl-space-md);
+}
+
+.switch__label {
+    margin-right: var(--rfkl-space-xl);
+    font-size: var(--rfkl-font-size);
+    color: var(--rfkl-color-dark);
+}
+
+.switch__help {
+    margin-top: var(--rfkl-space-md);
+    font-size: 13px;
+    color: var(--rfkl-color-light3);
+}
+
+/* Wrapper for checkbox + slider */
+.switch__control {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Native checkbox */
+.switch__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Slider background + thumb */
+.switch__slider {
+    display: inline-block;
+    width: 56px;
+    height: 32px;
+    border-radius: var(--rfkl-radius-xl);
+    background-color: var(--rfkl-color-light2);
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+/* Thumb */
+.switch__slider::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: white;
+    transition: transform 0.2s ease;
+}
+
+/* Checked styles */
+.switch__input:checked + .switch__slider {
+    background-color: var(--rfkl-color-success);
+}
+
+.switch__input:checked + .switch__slider::after {
+    transform: translateX(24px);
+}
+
+/* Focus ring if needed */
+.switch__input:focus + .switch__slider {
+    outline: none;
+    box-shadow: none;
+}
