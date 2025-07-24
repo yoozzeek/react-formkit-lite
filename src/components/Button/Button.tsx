@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import LoadingIcon from "@/components/Loader";
 import type { MouseEvent, ReactNode, JSX } from "react";
 import type { Size } from "@/types";
-import styles from "./Button.module.css";
+import styles from "./button.module.css";
 
 type ButtonTypes = "button" | "submit" | "reset";
 
