@@ -17,8 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         Open on Github
       </a>
       <p>
-        A lightweight collection of React components for building mobile-friendly forms. Works with
-        your own form state or integrates smoothly with Formik.
+        Lightweight form components for modern React apps. Build beautiful, mobile-first forms with
+        just the parts you need. From smart selects to masked inputs, everything is
+        approach-agnostic whether you're using raw React state, Formik, or anything else.
       </p>
     </header>
 
