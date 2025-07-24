@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import CheckIcon from "@/assets/icons/check.svg?react";
 import type { JSX } from "react";
 import type { CommonFieldProps } from "@/types";
-import styles from "./Checkbox.module.css";
+import styles from "./checkbox.module.css";
 
 interface CheckboxFieldProps extends CommonFieldProps {
   value: boolean;

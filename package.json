@@ -113,17 +113,16 @@
   "peerDependencies": {
     "date-fns": ">=3.6.0",
     "react": ">=16.8.0",
+    "react-context-modal": "https://github.com/yoozzeek/react-context-modal.git",
     "react-imask": ">=7.6.1",
     "react-responsive": ">=10.0.1",
-    "simplebar-react": ">=3.1.0",
-    "react-context-modal": "https://github.com/yoozzeek/react-context-modal.git"
+    "simplebar-react": ">=3.1.0"
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "react-viewport-list": "^7.1.2"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^4.0.1",
     "@eslint/js": "^9.30.1",
     "@microsoft/api-extractor": "^7.52.8",
     "@types/node": "^24.0.13",

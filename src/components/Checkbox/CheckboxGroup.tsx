@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import styles from "./Checkbox.module.css";
+import styles from "./checkbox.module.css";
 
 export type CheckboxGroupProps = {
   label: string;
