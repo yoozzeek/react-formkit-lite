@@ -18,88 +18,86 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
     "./select": {
-      "types": "./lib/SelectField.d.ts",
-      "import": "./lib/SelectField.js"
+      "types": "./dist/SelectField.d.ts",
+      "import": "./dist/SelectField.js"
     },
     "./text": {
-      "types": "./lib/TextField.d.ts",
-      "import": "./lib/TextField.js"
+      "types": "./dist/TextField.d.ts",
+      "import": "./dist/TextField.js"
     },
     "./date": {
-      "types": "./lib/DateField.d.ts",
-      "import": "./lib/DateField.js"
+      "types": "./dist/DateField.d.ts",
+      "import": "./dist/DateField.js"
     },
     "./upload": {
-      "types": "./lib/UploadArea.d.ts",
-      "import": "./lib/SwitchField.js"
+      "types": "./dist/UploadArea.d.ts",
+      "import": "./dist/SwitchField.js"
     },
     "./multipleUpload": {
-      "types": "./lib/MultipleFilesField.d.ts",
-      "import": "./lib/MultipleFilesField.js"
+      "types": "./dist/MultipleFilesField.d.ts",
+      "import": "./dist/MultipleFilesField.js"
     },
     "./range": {
-      "types": "./lib/RangeField.d.ts",
-      "import": "./lib/RangeField.js"
+      "types": "./dist/RangeField.d.ts",
+      "import": "./dist/RangeField.js"
     },
     "./switch": {
-      "types": "./lib/SwitchField.d.ts",
-      "import": "./lib/SwitchField.js"
+      "types": "./dist/SwitchField.d.ts",
+      "import": "./dist/SwitchField.js"
     },
     "./checkbox": {
-      "types": "./lib/CheckboxField.d.ts",
-      "import": "./lib/CheckboxField.js"
+      "types": "./dist/CheckboxField.d.ts",
+      "import": "./dist/CheckboxField.js"
     },
     "./checkboxGroup": {
-      "types": "./lib/CheckboxGroup.d.ts",
-      "import": "./lib/CheckboxGroup.js"
+      "types": "./dist/CheckboxGroup.d.ts",
+      "import": "./dist/CheckboxGroup.js"
     },
     "./radio": {
-      "types": "./lib/RadioField.d.ts",
-      "import": "./lib/RadioField.js"
+      "types": "./dist/RadioField.d.ts",
+      "import": "./dist/RadioField.js"
     },
     "./radioGroup": {
-      "types": "./lib/RadioGroup.d.ts",
-      "import": "./lib/RadioGroup.js"
+      "types": "./dist/RadioGroup.d.ts",
+      "import": "./dist/RadioGroup.js"
     },
     "./button": {
-      "types": "./lib/Button.d.ts",
-      "import": "./lib/Button.js"
+      "types": "./dist/Button.d.ts",
+      "import": "./dist/Button.js"
     },
     "./badge": {
-      "types": "./lib/Badge.d.ts",
-      "import": "./lib/Badge.js"
+      "types": "./dist/Badge.d.ts",
+      "import": "./dist/Badge.js"
     },
     "./header": {
-      "types": "./lib/Header.d.ts",
-      "import": "./lib/Header.js"
+      "types": "./dist/Header.d.ts",
+      "import": "./dist/Header.js"
     },
     "./loader": {
-      "types": "./lib/Loader.d.ts",
-      "import": "./lib/Loader.js"
+      "types": "./dist/Loader.d.ts",
+      "import": "./dist/Loader.js"
     },
     "./phoneNumberMask": {
-      "types": "./lib/phoneNumberMask.d.ts",
-      "import": "./lib/phoneNumberMask.js"
+      "types": "./dist/phoneNumberMask.d.ts",
+      "import": "./dist/phoneNumberMask.js"
     },
     "./dateMask": {
-      "types": "./lib/dateMask.d.ts",
-      "import": "./lib/dateMask.js"
+      "types": "./dist/dateMask.d.ts",
+      "import": "./dist/dateMask.js"
     },
     "./otherMasks": {
-      "types": "./lib/otherMasks.d.ts",
-      "import": "./lib/otherMasks.js"
+      "types": "./dist/otherMasks.d.ts",
+      "import": "./dist/otherMasks.js"
     },
     "./index.css": {
-      "import": "./lib/index.css"
+      "import": "./dist/index.css"
     }
   },
   "files": [
-    "LICENSE",
-    "README.md",
     "lib/"
   ],
   "scripts": {
@@ -113,10 +111,9 @@
   "peerDependencies": {
     "date-fns": ">=3.6.0",
     "react": ">=16.8.0",
-    "react-context-modal": "https://github.com/yoozzeek/react-context-modal.git",
     "react-imask": ">=7.6.1",
-    "react-responsive": ">=10.0.1",
-    "simplebar-react": ">=3.1.0"
+    "simplebar-react": ">=3.1.0",
+    "@yoozzeek/react-context-modal": ">=0.1.0-beta.2"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -131,6 +128,7 @@
     "@vitejs/plugin-react": "^4.6.0",
     "@vitest/browser": "^3.2.4",
     "@vitest/coverage-v8": "^3.2.4",
+    "@yoozzeek/react-context-modal": "^0.1.0-beta.2",
     "autoprefixer": "^10.4.21",
     "date-fns": "^4.1.0",
     "eslint": "^9.30.1",
@@ -146,10 +144,8 @@
     "prettier": "^3.6.2",
     "prettier-eslint": "^16.4.2",
     "react": "^19.1.0",
-    "react-context-modal": "https://github.com/yoozzeek/react-context-modal.git",
     "react-dom": "^19.1.0",
     "react-imask": "^7.6.1",
-    "react-responsive": "^10.0.1",
     "simplebar-react": "^3.3.2",
     "stylelint": "^16.21.1",
     "stylelint-config-standard": "^38.0.0",
