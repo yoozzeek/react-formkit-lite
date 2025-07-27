@@ -9,7 +9,7 @@
 
 .range__label {
     display: block;
-    margin-bottom: var(--formkit-lite-space-sm);
+    margin-bottom: var(--formkit-lite-space-xl);
     font-weight: 600;
     font-size: var(--formkit-lite-font-size);
     color: var(--formkit-lite-color-dark);

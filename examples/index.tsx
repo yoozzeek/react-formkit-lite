@@ -4,10 +4,11 @@ import BadgeExamples from "./BadgeExamples";
 import ButtonExamples from "./ButtonExamples";
 import TextFieldExamples from "./TextFieldExamples";
 import SelectFieldExamples from "./SelectFieldExample";
+import DemoFormExample from "./DemoFormExample";
 
 import "simplebar-react/dist/simplebar.min.css";
-import "react-context-modal/lib/index.css";
-import DemoFormExample from "./DemoFormExample";
+import "@yoozzeek/react-context-modal/dist/index.css";
+import "./styles.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -23,9 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       </p>
     </header>
 
-    <DemoFormExample />
-
-    <div style={{ marginTop: "3em" }}>
+    <div style={{ marginTop: "2em" }}>
       <h2>Components</h2>
       <nav
         style={{
@@ -48,6 +47,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <a href="#">Badge</a>
         <a href="#">Button</a>
       </nav>
+    </div>
+
+    <div
+      style={{
+        marginTop: "3em",
+      }}
+    >
+      <DemoFormExample />
     </div>
 
     <div
