@@ -7,12 +7,12 @@ import useClickOutside from "@/hooks/useClickOutside";
 import Button from "@/components/Button";
 import Badge from "@/components/Badge";
 import type { CommonFieldProps, Position } from "@/types";
-import useGteSm from "@/hooks/useGteSm";
+import useIsTabletOrDesktop from "@/hooks/useIsTabletOrDesktop";
 import ChevronDownIcon from "@/assets/icons/chevron-down.svg?react";
 import PlusIcon from "@/assets/icons/plus.svg?react";
 import SingleSelectOption from "./SelectOption";
-import MultipleSelectOption from "@/components/Select/SelectMultipleOption";
-import SelectOptionsDropdown from "@/components/Select/SelectDropdown";
+import MultipleSelectOption from "./SelectMultipleOption";
+import SelectOptionsDropdown from "./SelectDropdown";
 
 export type SelectValueType = string[] | number[] | string | number;
 
@@ -77,8 +77,8 @@ function SelectField<T>({
   const selectedValues = useRef<Set<number | string>>(new Set());
 
   // Hide dropdown on outside click or ESC
-  const gteSm = useGteSm();
-  const [collapsed, setCollapsed] = useClickOutside(dpRef, false, true, !gteSm);
+  const isTabletOrDesktop = useIsTabletOrDesktop();
+  const [collapsed, setCollapsed] = useClickOutside(dpRef, false, true, !isTabletOrDesktop);
 
   // Fill selected options once when options are loaded
   const selectedOptionsInitialized = useRef(false);
@@ -296,20 +296,28 @@ function SelectField<T>({
     onSearch?.("");
   }
 
-  const multipleFooterRenderer = useCallback(() => {
-    if (!multiple) return <></>;
-    return (
-      <Button
-        fullWidth
-        type="button"
-        variant="success"
-        disabled={selectedOptions.length < min}
-        onClick={chooseSelected}
-      >
-        Selected {selectedOptions.length > 0 && `(${selectedOptions.length})`}
-      </Button>
-    );
-  }, [selectedOptions.length, min, multiple]);
+  const multipleFooterRenderer = useCallback(
+    (onCloseHandler: () => void) => {
+      function handleClick() {
+        chooseSelected();
+        onCloseHandler();
+      }
+
+      if (!multiple) <></>;
+      return (
+        <Button
+          fullWidth
+          type="button"
+          variant="success"
+          disabled={selectedOptions.length < min}
+          onClick={handleClick}
+        >
+          Selected {selectedOptions.length > 0 && `(${selectedOptions.length})`}
+        </Button>
+      );
+    },
+    [selectedOptions.length, min, multiple],
+  );
 
   const selectedValueEl = useMemo(() => {
     if (!multiple) {
@@ -367,7 +375,7 @@ function SelectField<T>({
   }, [selectedOptions, disabled, placeholder, multiple]);
 
   // Based on multiple prop, return different renderers
-  function optionRenderer(option: SelectOptionType<T>) {
+  function optionRenderer(option: SelectOptionType<T>, afterSelectHandler?: () => void) {
     const value = getValue(option);
     if (multiple) {
       return (
@@ -398,7 +406,10 @@ function SelectField<T>({
         iconEl={option.iconEl}
         badgeIconEl={option.badgeIconEl}
         selected={selectedValues.current.has(value)}
-        onSelect={handleSelect}
+        onSelect={(opt) => {
+          handleSelect(opt);
+          afterSelectHandler?.();
+        }}
       />
     );
   }

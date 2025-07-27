@@ -24,6 +24,7 @@ export type SelectFieldOptionProps<T> = {
   rawData?: T;
   selected?: boolean;
   disabled?: boolean;
+  // eslint-disable-next-line no-unused-vars
   onSelect: (option: SelectOptionType<T>) => void;
 };
 
