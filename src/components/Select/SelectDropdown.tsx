@@ -4,8 +4,8 @@ import type { JSX } from "react";
 import type { SelectOptionType } from "@/components/Select/SelectOption";
 import type { Position } from "@/types";
 import { useCallback, useMemo, useRef } from "react";
-import { Modal, useModalStackCtx } from "react-context-modal";
-import useGteSm from "@/hooks/useGteSm";
+import { Modal, useModalStackCtx } from "@yoozzeek/react-context-modal";
+import useIsTabletOrDesktop from "@/hooks/useIsTabletOrDesktop.ts";
 import { clsx } from "clsx";
 import Header from "@/components/Header";
 import Loader from "@/components/Loader";
@@ -55,7 +55,7 @@ function SelectOptionsDropdown<T>({
 }: SelectFieldDropdownProps<T>): JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null!);
   const modalCtx = useModalStackCtx();
-  const gteSm = useGteSm();
+  const isTabletOrDesktop = useIsTabletOrDesktop();
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     onSearch && onSearch(e.target.value);
@@ -66,7 +66,7 @@ function SelectOptionsDropdown<T>({
   const wrapperRenderer = useCallback<(children: ReactNode) => ReactElement>(
     (children) => {
       // Show as dropdown on desktop
-      if (gteSm) {
+      if (isTabletOrDesktop) {
         return (
           <div
             className={clsx(styles.select__dropdown, {
@@ -77,7 +77,7 @@ function SelectOptionsDropdown<T>({
             aria-controls="listbox"
             aria-expanded="true"
             style={{
-              ...(minWidth && gteSm ? { minWidth: minWidth } : {}),
+              ...(minWidth && isTabletOrDesktop ? { minWidth: minWidth } : {}),
             }}
           >
             {children}
@@ -112,7 +112,7 @@ function SelectOptionsDropdown<T>({
         </Modal>
       );
     },
-    [gteSm, footerRenderer],
+    [isTabletOrDesktop, footerRenderer],
   );
 
   const loadMoreContent = useMemo(() => {
@@ -129,7 +129,7 @@ function SelectOptionsDropdown<T>({
 
   const scrollableContentWrapper = useCallback(
     (children: ReactNode) =>
-      gteSm ? (
+      isTabletOrDesktop ? (
         <SimpleBar
           scrollableNodeProps={{ ref: containerRef }}
           className={styles["select__scrollable-simplebar"]}
@@ -141,7 +141,7 @@ function SelectOptionsDropdown<T>({
           {children}
         </div>
       ),
-    [gteSm],
+    [isTabletOrDesktop],
   );
 
   return (
@@ -161,13 +161,15 @@ function SelectOptionsDropdown<T>({
             </div>
           )}
 
-          {!gteSm && helpText && <p className={styles.select__help}>{helpText}</p>}
+          {!isTabletOrDesktop && helpText && <p className={styles.select__help}>{helpText}</p>}
 
           {options.length ? (
             scrollableContentWrapper(
               <>
                 <ViewportList
-                  viewportRef={gteSm ? containerRef : modalCtx?.lastModal?.scrollableContentRef}
+                  viewportRef={
+                    isTabletOrDesktop ? containerRef : modalCtx?.lastModal?.scrollableContentRef
+                  }
                   items={options}
                 >
                   {(item: SelectOptionType<T>) => optionRenderer(item)}
