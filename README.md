@@ -18,22 +18,17 @@ Brought to you by the non-profit [Bitkind.org](https://bitkind.org/about).
 ## Installation
 Install required peer dependencies first:
 ```bash
-yarn add react react-dom react-imask react-responsive simplebar-react
+yarn add @yoozzeek/react-context-modal react-imask simplebar-react
 ```
 
-Add the context modal dependency:
+Then install this library from npm:
 ```bash
-yarn add https://github.com/yoozzeek/react-context-modal.git
-```
-
-Then install this library directly from GitHub:
-```bash
-yarn add https://github.com/yoozzeek/react-formkit-lite.git
+yarn add @yoozzeek/react-formkit-lite
 ```
 
 And import the CSS:
 ```jsx
-import "react-formkit-lite/index.css"
+import "react-formkit-lite/dist/index.css"
 ```
 
 ## Components
@@ -45,8 +40,8 @@ Field for selecting a single or multiple values from a list of options. Highly r
 import SelectField from "react-formkit-lite/select";
 
 <SelectField
-  id="select_field"
-  name="select_field"
+  id="field_id"
+  name="field_name"
   label="Label"
   options={optionsList}
   value={value}
@@ -64,11 +59,11 @@ import TextField from "react-formkit-lite/text";
 import { phoneNumberWithCodeMask } from "react-formkit-lite/phoneNumberMask";
 
 <TextField
-  type="text"
-  id="text_field"
-  name="text_field"
+  id="field_id"
+  name="field_name"
   label="Text field"
   placeholder="Text field..."
+  type="text"
   mask={phoneNumberWithCodeMask}
   value={value}
   onChange={(e) => setValue(e.target.value)}
@@ -84,12 +79,12 @@ A preconfigured date input based on TextField, using a built-in date mask. Simpl
 A responsive, cross-browser checkbox field that returns a boolean value. Includes helpful extras for state handling. Can be grouped with `CheckboxGroup` for multiple checkbox scenarios.
 
 ```jsx
-import CheckboxField from "react-formkit-lite/checbox";
+import CheckboxField from "react-formkit-lite/checkbox";
 
 <CheckboxField
   rightSideLabel
-  id="checkbox_field"
-  name="checkbox_field"
+  id="field_id"
+  name="field_name"
   label="Text or label"
   value={value}
   onClick={(checked) => setValue(checked)}
@@ -101,7 +96,7 @@ Like `CheckboxField` but for single-choice inputs. Comes with a `RadioGroup` wra
 
 ```jsx
 <RadioField
-  name="radio_field"
+  name="field_name"
   label="Label"
   value="new_value"
   checkedValue={value}
@@ -116,8 +111,8 @@ A mobile-friendly slider for selecting numeric ranges. Includes an expanded clic
 import MultipleFilesField from "react-formkit-lite/range";
 
 <RangeField
-  id="range_field"
-  name="range_field"
+  id="field_id"
+  name="field_name"
   label="Label"
   min={0}
   max={100}
@@ -188,6 +183,13 @@ Each component provides a set of classes that you can overwrite. For more inform
 Based on two npm packages:
 - [react-viewport-list](https://github.com/oleggrishechkin/react-viewport-list)
 - [clsx](https://github.com/lukeed/clsx)
+
+### Peer dependencies
+- react
+- [date-fns](https://github.com/date-fns/date-fns)
+- [react-imask](https://github.com/uNmAnNeR/imaskjs/tree/master/packages/react-imask)
+- [simplebar-react](https://github.com/Grsmto/simplebar)
+- [@yoozzeek/react-context-modal](https://github.com/yoozzeek/react-context-modal)
 
 ## License
 

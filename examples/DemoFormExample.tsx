@@ -11,15 +11,46 @@ import UploadArea from "../src/components/UploadArea";
 
 const COUNTRIES_OPTIONS = [
   {
+    label: "United States",
+    value: "US",
+  },
+  {
+    label: "Germany",
+    value: "GE",
+  },
+  {
     label: "Russia",
     value: "RU",
+  },
+];
+
+const CATEGORIES_OPTIONS = [
+  {
+    label: "Food",
+    value: "food",
+  },
+  {
+    label: "Cats",
+    value: "cats",
+  },
+  {
+    label: "Cars",
+    value: "cars",
+  },
+  {
+    label: "Books",
+    value: "books",
+  },
+  {
+    label: "Travel",
+    value: "travel",
   },
 ];
 
 export default function DemoFormExample() {
   const [checkboxValue, setCheckboxValue] = useState(false);
   const [radioValue, setRadioValue] = useState<string | undefined>();
-  const [minRating, setMinRating] = useState(0);
+  const [minRating, setMinRating] = useState(8);
   return (
     <section>
       <h2>Example form</h2>
@@ -91,24 +122,15 @@ export default function DemoFormExample() {
               checkedValue={radioValue}
               onChange={() => setRadioValue("pro")}
             />
-            <RadioField
-              name="platinum"
-              label="Platinum"
-              value="platinum"
-              checkedValue={radioValue}
-              onChange={() => setRadioValue("platinum")}
-            />
-            <RadioField
-              name="enterprise"
-              label="Enterprise"
-              value="enterprise"
-              checkedValue={radioValue}
-              onChange={() => setRadioValue("enterprise")}
-            />
           </RadioGroup>
         </div>
         <div>
-          <UploadArea onSelectFile={() => {}} />
+          <h4>Upload banner</h4>
+          <UploadArea
+            onSelectFile={(files) => {
+              console.log(files);
+            }}
+          />
         </div>
         <div
           style={{
@@ -130,21 +152,28 @@ export default function DemoFormExample() {
             id="demo_min_rating_r"
             name="demo_min_rating_r"
             label="Min product rating"
-            min={0}
+            min={1}
             max={100}
             step={1}
-            value={70}
+            value={minRating}
+            onValueChange={setMinRating}
           />
           <br />
-          <TextField
-            id="demo_min_rating_t"
-            name="demo_min_rating_t"
-            type="number"
-            placeholder="80"
-            helpText="Min raring from 0 to 100"
-            value={minRating}
-            onChange={(e) => setMinRating(+e.target.value)}
-          />
+          <div
+            style={{
+              width: 160,
+            }}
+          >
+            <TextField
+              id="demo_min_radius_t"
+              name="demo_min_radius_t"
+              type="number"
+              placeholder="80"
+              helpText="Min radius from 1 to 100 miles"
+              value={minRating}
+              onChange={(e) => setMinRating(+e.target.value)}
+            />
+          </div>
         </div>
         <div>
           <SelectField
@@ -156,20 +185,28 @@ export default function DemoFormExample() {
             placeholder="Select categories"
             label="Categories"
             value={undefined}
-            options={COUNTRIES_OPTIONS}
+            options={CATEGORIES_OPTIONS}
             helpText="Select the product categories you want to subscribe to"
             onChange={() => {}}
           />
         </div>
         <div>
+          <h4>Upload media files</h4>
           <MultipleFilesField
-            label="Product photos"
+            label="Images, videos and PDFs"
             files={[]}
             onFilesAdded={() => {}}
             onFilesRemoved={() => {}}
           />
         </div>
-        <div>
+        <div
+          style={{
+            marginTop: "1em",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.4em",
+          }}
+        >
           <CheckboxField
             rightSideLabel
             id="demo_checkbox"
@@ -178,12 +215,13 @@ export default function DemoFormExample() {
             value={checkboxValue}
             onClick={(checked) => setCheckboxValue(checked)}
           />
+
+          <footer>
+            <Button fullWidth variant="success" type="submit">
+              Submit
+            </Button>
+          </footer>
         </div>
-        <footer>
-          <Button variant="success" type="submit">
-            Submit
-          </Button>
-        </footer>
       </form>
     </section>
   );
