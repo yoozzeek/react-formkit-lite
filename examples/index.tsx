@@ -6,7 +6,7 @@ import TextFieldExamples from "./TextFieldExamples";
 import SelectFieldExamples from "./SelectFieldExample";
 
 import "simplebar-react/dist/simplebar.min.css";
-import "react-context-modal/lib/index.css";
+import "@yoozzeek/react-context-modal/dist/index.css";
 import DemoFormExample from "./DemoFormExample";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
