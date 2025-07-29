@@ -1,9 +1,9 @@
 import TextField from "../src/components/Text";
 import type { CSSProperties } from "react";
 import { useState } from "react";
-import { phoneNumberWithCodeMask } from "../src/utils/phoneNumberMask";
-import { dateMask } from "../src/utils/dateMask";
-import { moneyAmountMask } from "../src/utils/otherMasks";
+import { phoneNumberWithCodeMask } from "@/utils/phoneNumberMask.ts";
+import { dateMask } from "@/utils/dateMask.ts";
+import { moneyAmountMask } from "@/utils/otherMasks.ts";
 
 const baseBlockStyle: CSSProperties = {
   display: "flex",
@@ -22,7 +22,7 @@ export default function TextFieldExamples() {
   const [moneyWithMaskValue, setMoneyWithMaskValue] = useState("");
 
   return (
-    <section>
+    <section id="text_field_examples">
       <h2>Text field examples</h2>
       <div>
         <h3>Types</h3>
@@ -30,18 +30,18 @@ export default function TextFieldExamples() {
           <TextField
             id="text_field"
             name="text_field"
-            label="Text field"
+            label="Text"
             type="text"
-            placeholder="Text field..."
+            placeholder="Enter text..."
             value={textFieldValue}
             onChange={(e) => setTextFieldValue(e.target.value)}
           />
           <TextField
             id="number_field"
             name="number_field"
-            label="Number field"
+            label="Number"
             type="number"
-            placeholder="Number field..."
+            placeholder="Enter number..."
             value={numberFieldValue}
             onChange={(e) => setNumberFieldValue(+e.target.value)}
           />
@@ -49,8 +49,8 @@ export default function TextFieldExamples() {
             textarea
             id="textarea_field"
             name="textarea_field"
-            label="Textare field"
-            placeholder="Textarea placeholder"
+            label="Textarea"
+            placeholder="Placeholder..."
             value={textareaFieldValue}
             onChange={(e) => setTextareaFieldValue(e.target.value)}
           />
@@ -63,7 +63,7 @@ export default function TextFieldExamples() {
             required
             id="required_field"
             name="required_field"
-            label="Required field"
+            label="Required"
             placeholder="Enter text..."
             value=""
             onChange={() => {}}
@@ -72,7 +72,7 @@ export default function TextFieldExamples() {
             secure
             id="secure_field"
             name="secure_field"
-            label="Secure field"
+            label="Secure"
             value={secureFieldValue}
             onChange={(e) => setSecureFieldValue(e.target.value)}
           />
@@ -80,7 +80,7 @@ export default function TextFieldExamples() {
             disabled
             id="disabled_field"
             name="disabled_field"
-            label="Disabled field"
+            label="Disabled"
             placeholder="Enter text..."
             value=""
           />
@@ -92,7 +92,7 @@ export default function TextFieldExamples() {
           <TextField
             id="masked_phone_field"
             name="masked_phone_field"
-            label="Phone field"
+            label="Phone"
             type="text"
             placeholder="Number with country code..."
             mask={phoneNumberWithCodeMask}
@@ -102,7 +102,7 @@ export default function TextFieldExamples() {
           <TextField
             id="masked_date_field"
             name="masked_date_field"
-            label="Date field"
+            label="Date"
             type="text"
             placeholder="Date..."
             mask={dateMask}
@@ -113,7 +113,7 @@ export default function TextFieldExamples() {
             resetDisabled
             id="masked_money_amount_field"
             name="masked_money_amount_field"
-            label="Money amount field"
+            label="Money amount"
             type="text"
             placeholder="$10 000"
             autoCorrect="off"
@@ -131,7 +131,7 @@ export default function TextFieldExamples() {
           required
           id="error_field"
           name="error_field"
-          label="Required field"
+          label="Required"
           placeholder="Enter text..."
           value={requiredFieldValue}
           error={!requiredFieldValue && "Required field"}
