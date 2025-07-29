@@ -66,7 +66,7 @@ export default function CheckboxFieldExamples() {
             required
             id="checkbox_field_5"
             name="checkbox_field_5"
-            label="Right label"
+            label="Required"
             value={false}
             onClick={() => {}}
           />

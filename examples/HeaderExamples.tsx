@@ -68,19 +68,13 @@ export default function HeaderExamples() {
             >
               {(onClose) => (
                 <>
-                  <div
-                    style={{
-                      position: "relative",
-                    }}
-                  >
-                    <Header
-                      fixed
-                      parentIsModal
-                      title="Title"
-                      transparent={transparentStickyColor}
-                      onGoBack={onClose}
-                    />
-                  </div>
+                  <Header
+                    fixed
+                    parentIsModal
+                    title="Title"
+                    transparent={transparentStickyColor}
+                    onGoBack={onClose}
+                  />
                   <div
                     style={{
                       marginTop: isTabletOrDesktop ? 0 : "4em",
