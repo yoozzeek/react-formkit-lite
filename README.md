@@ -21,7 +21,7 @@ Install required peer dependencies first:
 yarn add @yoozzeek/react-context-modal react-imask simplebar-react
 ```
 
-Then install this library from npm:
+Then install formkit lite package from npm:
 ```bash
 yarn add @yoozzeek/react-formkit-lite
 ```
@@ -182,11 +182,11 @@ Each component provides a set of classes that you can overwrite. For more inform
 
 Based on two npm packages:
 - [react-viewport-list](https://github.com/oleggrishechkin/react-viewport-list)
+- [date-fns](https://github.com/date-fns/date-fns)
 - [clsx](https://github.com/lukeed/clsx)
 
 ### Peer dependencies
 - react
-- [date-fns](https://github.com/date-fns/date-fns)
 - [react-imask](https://github.com/uNmAnNeR/imaskjs/tree/master/packages/react-imask)
 - [simplebar-react](https://github.com/Grsmto/simplebar)
 - [@yoozzeek/react-context-modal](https://github.com/yoozzeek/react-context-modal)
