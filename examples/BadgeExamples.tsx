@@ -1,7 +1,8 @@
 import Badge from "../src/components/Badge";
 import { type SetStateAction, useRef, useState } from "react";
+import type { Variant } from "@/types.ts";
 
-type DynamicBadgeType = { label: string; value: string; variant: string };
+type DynamicBadgeType = { label: string; value: string; variant: Variant };
 
 const baseBlockStyle = {
   display: "flex",
@@ -97,7 +98,7 @@ export default function BadgeExamples() {
             <Badge
               key={item.value}
               id={item.value}
-              variant={item.variant as any}
+              variant={item.variant as Variant}
               selected={selectedBadgesSetRef.current.has(item.value)}
               onClick={handleToggleSelectBadge}
             >
@@ -124,7 +125,7 @@ export default function BadgeExamples() {
             <Badge
               key={badge.value}
               id={badge.value}
-              variant={badge.variant as any}
+              variant={badge.variant as Variant}
               onRemove={() => handleToggleRemoveBadge(badge)}
             >
               {badge.label}
