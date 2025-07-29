@@ -6,7 +6,15 @@ export default function RangeFieldExamples() {
   const [value2, setValue2] = useState(500);
   return (
     <section id="range_field_examples">
-      <h2>Range field examples</h2>
+      <header>
+        <h2>Range field examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/RangeFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Default</h3>
         <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>

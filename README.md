@@ -40,15 +40,15 @@ Field for selecting a single or multiple values from a list of options. Highly r
 import SelectField from "react-formkit-lite/select";
 
 <SelectField
-  id="field_id"
-  name="field_name"
+  id="id"
+  name="name"
   label="Label"
   options={optionsList}
   value={value}
   onChange={(_field, value) => setValue(value)}
 />
 ```
-[View Code Example](/examples/SelectFieldExample.tsx)
+[View Code Example](/examples/SelectFieldExamples.tsx)
 
 
 ### TextField
@@ -59,8 +59,8 @@ import TextField from "react-formkit-lite/text";
 import { phoneNumberWithCodeMask } from "react-formkit-lite/phoneNumberMask";
 
 <TextField
-  id="field_id"
-  name="field_name"
+  id="id"
+  name="name"
   label="Text field"
   placeholder="Text field..."
   type="text"
@@ -83,8 +83,8 @@ import CheckboxField from "react-formkit-lite/checkbox";
 
 <CheckboxField
   rightSideLabel
-  id="field_id"
-  name="field_name"
+  id="id"
+  name="name"
   label="Text or label"
   value={value}
   onClick={(checked) => setValue(checked)}
@@ -96,7 +96,7 @@ Like `CheckboxField` but for single-choice inputs. Comes with a `RadioGroup` wra
 
 ```jsx
 <RadioField
-  name="field_name"
+  name="name"
   label="Label"
   value="new_value"
   checkedValue={value}
@@ -111,8 +111,8 @@ A mobile-friendly slider for selecting numeric ranges. Includes an expanded clic
 import MultipleFilesField from "react-formkit-lite/range";
 
 <RangeField
-  id="field_id"
-  name="field_name"
+  id="id"
+  name="name"
   label="Label"
   min={0}
   max={100}

@@ -12,7 +12,15 @@ export default function SwitchFieldExamples() {
   const [value2, setValue2] = useState(false);
   return (
     <section id="switch_field_examples">
-      <h2>Switch field examples</h2>
+      <header>
+        <h2>Switch field examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/SwitchFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Default</h3>
         <SwitchField

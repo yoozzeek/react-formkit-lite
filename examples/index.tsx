@@ -9,7 +9,7 @@ import GitHubButton from "react-github-btn";
 import BadgeExamples from "./BadgeExamples";
 import ButtonExamples from "./ButtonExamples";
 import TextFieldExamples from "./TextFieldExamples";
-import SelectFieldExamples from "./SelectFieldExample";
+import SelectFieldExamples from "./SelectFieldExamples.tsx";
 import DemoFormExample from "./DemoFormExample";
 import LoaderExamples from "./LoaderExamples";
 import HeaderExamples from "./HeaderExamples";
@@ -26,13 +26,13 @@ const ComponentsNavItemsList = () => {
     <>
       <a href="#text_field_examples">Text</a>
       <a href="#select_field_examples">Select</a>
-      <a href="#multiple_files_field_examples">MultipleFiles</a>
+      <a href="#upload_multiple_files_examples">MultipleFiles</a>
       <a href="#date_field_examples">Date</a>
       <a href="#range_field_examples">Range</a>
       <a href="#checkbox_field_examples">Checkbox</a>
       <a href="#radio_field_examples">Radio</a>
       <a href="#switch_field_examples">Switch</a>
-      <a href="#upload_area_field_examples">UploadArea</a>
+      <a href="#upload_area_examples">UploadArea</a>
       <a href="#header_examples">Header</a>
       <a href="#loader_examples">Loader</a>
       <a href="#badge_examples">Badge</a>

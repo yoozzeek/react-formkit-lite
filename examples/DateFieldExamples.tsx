@@ -10,7 +10,15 @@ const blockStyle: CSSProperties = {
 export default function DateFieldExamples() {
   return (
     <section id="date_field_examples">
-      <h2>Date field examples</h2>
+      <header>
+        <h2>Date field examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/DateFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Default</h3>
         <div>

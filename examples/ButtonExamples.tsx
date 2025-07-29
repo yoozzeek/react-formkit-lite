@@ -10,7 +10,15 @@ const baseBlockStyle: CSSProperties = {
 export default function ButtonExamples() {
   return (
     <section id="button_examples">
-      <h2>Button examples</h2>
+      <header>
+        <h2>Button examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/ButtonFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Variant</h3>
         <div style={baseBlockStyle}>

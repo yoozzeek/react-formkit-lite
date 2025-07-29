@@ -16,7 +16,15 @@ export default function CheckboxFieldExamples() {
   const [value5, setValue5] = useState(false);
   return (
     <section id="checkbox_field_examples">
-      <h2>Checkbox field examples</h2>
+      <header>
+        <h2>Checkbox field examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/CheckboxFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Default</h3>
         <CheckboxField

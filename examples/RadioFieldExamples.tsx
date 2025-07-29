@@ -15,7 +15,15 @@ export default function RadioFieldExamples() {
   const [groupValue, setGroupValue] = useState<string>();
   return (
     <section id="radio_field_examples">
-      <h2>Radio field examples</h2>
+      <header>
+        <h2>Radio field examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/RadioFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Default</h3>
         <RadioField

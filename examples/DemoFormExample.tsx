@@ -70,9 +70,18 @@ export default function DemoFormExample() {
 
   return (
     <section>
-      <h2>Example form</h2>
+      <header>
+        <h2>Example form</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/DemoFormExample.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <form
         style={{
+          marginTop: "2rem",
           display: "flex",
           flexDirection: "column",
           gap: 21,

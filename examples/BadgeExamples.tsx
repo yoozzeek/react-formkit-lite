@@ -63,7 +63,15 @@ export default function BadgeExamples() {
 
   return (
     <section id="badge_examples">
-      <h2>Badge examples</h2>
+      <header>
+        <h2>Badge examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/BadgeFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Variants</h3>
         <div style={baseBlockStyle}>
