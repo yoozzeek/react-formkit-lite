@@ -9,6 +9,30 @@ import DemoFormExample from "./DemoFormExample";
 import "simplebar-react/dist/simplebar.min.css";
 import "@yoozzeek/react-context-modal/dist/index.css";
 import "./styles.css";
+import LoaderExamples from "./LoaderExamples.tsx";
+import HeaderExamples from "./HeaderExamples.tsx";
+import UploadAreaExamples from "./UploadAreaExamples.tsx";
+import SimpleBar from "simplebar-react";
+
+const ComponentsNavItemsList = () => {
+  return (
+    <>
+      <a href="#text_field_examples">Text</a>
+      <a href="#select_field_examples">Select</a>
+      <a href="#date_field_examples">Date</a>
+      <a href="#range_field_examples">Range</a>
+      <a href="#checkbox_field_examples">Checkbox</a>
+      <a href="#radio_field_examples">Radio</a>
+      <a href="#switch_field_examples">Switch</a>
+      <a href="#multiple_files_field_examples">MultipleFiles</a>
+      <a href="#upload_area_field_examples">UploadArea</a>
+      <a href="#header_examples">Header</a>
+      <a href="#loader_examples">Loader</a>
+      <a href="#badge_examples">Badge</a>
+      <a href="#button_examples">Button</a>
+    </>
+  );
+};
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -33,19 +57,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           gap: 21,
         }}
       >
-        <a href="#">Text</a>
-        <a href="#">Select</a>
-        <a href="#">Date</a>
-        <a href="#">Range</a>
-        <a href="#">Checkbox</a>
-        <a href="#">Radio</a>
-        <a href="#">Switch</a>
-        <a href="#">MultipleFiles</a>
-        <a href="#">UploadArea</a>
-        <a href="#">Header</a>
-        <a href="#">Loader</a>
-        <a href="#">Badge</a>
-        <a href="#">Button</a>
+        <ComponentsNavItemsList />
       </nav>
     </div>
 
@@ -60,15 +72,56 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <div
       style={{
         marginTop: "2em",
-        display: "flex",
-        flexDirection: "column",
-        gap: "2em",
+        position: "relative",
       }}
     >
-      <TextFieldExamples />
-      <SelectFieldExamples />
-      <BadgeExamples />
-      <ButtonExamples />
+      <div
+        style={{
+          backgroundColor: "#ffffff",
+          paddingTop: "0.4em",
+          paddingBottom: "0.4em",
+          position: "sticky",
+          zIndex: 10,
+          top: 0,
+        }}
+      >
+        <SimpleBar autoHide={false}>
+          <nav
+            style={{
+              display: "flex",
+              flexWrap: "nowrap",
+              padding: "1em 0",
+              fontSize: "1.2rem",
+              fontWeight: 600,
+              whiteSpace: "nowrap",
+              gap: "1em",
+            }}
+          >
+            <span>Go to:</span>
+            <a href="https://github.com/yoozzeek/react-formkit-lite" target="_blank">
+              GitHub
+            </a>
+            <ComponentsNavItemsList />
+          </nav>
+        </SimpleBar>
+      </div>
+
+      <div
+        style={{
+          marginTop: "2em",
+          display: "flex",
+          flexDirection: "column",
+          gap: "3em",
+        }}
+      >
+        <TextFieldExamples />
+        <SelectFieldExamples />
+        <UploadAreaExamples />
+        <ButtonExamples />
+        <BadgeExamples />
+        <HeaderExamples />
+        <LoaderExamples />
+      </div>
     </div>
 
     <footer>
@@ -80,13 +133,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <a href="https://bitkind.org/about" target="_blank">
               Bitkind.org
             </a>{" "}
-            [inbox@bitkind.org]
+            {"<"}inbox@bitkind.org{">"}
           </li>
           <li>
             <a href="https://github.com/yoozzeek" target="_blank">
               Andrew
             </a>{" "}
-            [zeek@tuta.com]
+            {"<"}zeek@tuta.com{">"}
           </li>
         </ul>
       </div>

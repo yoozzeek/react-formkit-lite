@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .example_header {
     border: 2px dotted darkgray;
 }
