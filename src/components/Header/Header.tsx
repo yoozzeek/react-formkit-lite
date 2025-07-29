@@ -5,7 +5,7 @@ import { clsx } from "clsx";
 import type { Variant } from "@/types";
 import useIsTabletOrDesktop from "@/hooks/useIsTabletOrDesktop";
 import ArrowIcon from "@/assets/icons/arrow.svg?react";
-import { useModalStackCtx } from "@yoozzeek/react-context-modal";
+import { useModal } from "@yoozzeek/react-context-modal";
 
 export type HeaderActionType = {
   label?: string | null;
@@ -55,7 +55,7 @@ function Header({
   classes,
   children,
 }: HeaderProps) {
-  const stackCtx = useModalStackCtx();
+  const stackCtx = useModal();
   const headerRef = useRef<HTMLDivElement>(null!);
   const [scrolledDown, setScrolledDown] = useState(scrollDelta === 0);
   const isTabletOrDesktop = useIsTabletOrDesktop();
@@ -66,7 +66,7 @@ function Header({
     if (!fixed || isTabletOrDesktop) return;
 
     const headerEl = headerRef.current;
-    const modalScrollContentEl = stackCtx.lastModal?.scrollableContentRef.current;
+    const modalScrollContentEl = stackCtx?.lastModal?.scrollableContentRef.current;
     const delta = scrollDelta || headerEl?.offsetHeight || 0;
 
     const onScroll = () => {
@@ -94,7 +94,7 @@ function Header({
     // Otherwise listen to window scroll
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isTabletOrDesktop, scrollDelta, fixed, stackCtx.lastModal]);
+  }, [parentIsModal, isTabletOrDesktop, scrollDelta, fixed, stackCtx?.lastModal]);
 
   const handleGoBack = useCallback(() => onGoBack?.(), [onGoBack]);
 
