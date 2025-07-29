@@ -10,7 +10,15 @@ export default function HeaderExamples() {
   const isTabletOrDesktop = useIsTabletOrDesktop();
   return (
     <section id="header_examples">
-      <h2>Header examples</h2>
+      <header>
+        <h2>Header examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/HeaderFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Basic</h3>
         <Header title="Title" classes="example_header" />
@@ -68,19 +76,13 @@ export default function HeaderExamples() {
             >
               {(onClose) => (
                 <>
-                  <div
-                    style={{
-                      position: "relative",
-                    }}
-                  >
-                    <Header
-                      fixed
-                      parentIsModal
-                      title="Title"
-                      transparent={transparentStickyColor}
-                      onGoBack={onClose}
-                    />
-                  </div>
+                  <Header
+                    fixed
+                    parentIsModal
+                    title="Title"
+                    transparent={transparentStickyColor}
+                    onGoBack={onClose}
+                  />
                   <div
                     style={{
                       marginTop: isTabletOrDesktop ? 0 : "4em",

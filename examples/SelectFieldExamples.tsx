@@ -41,7 +41,15 @@ export default function SelectFieldExamples() {
 
   return (
     <section>
-      <h2>Select field examples</h2>
+      <header>
+        <h2>Select field examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/SelectFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Basic usage</h3>
         <div style={baseBlockStyle}>

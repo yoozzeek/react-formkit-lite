@@ -9,6 +9,7 @@ import RangeField from "../src/components/Range";
 import MultipleFilesField from "../src/components/MultipleFiles";
 import { phoneNumberWithCodeMask } from "@/utils/phoneNumberMask.ts";
 import DemoUploadArea from "./components/DemoUploadArea.tsx";
+import DateField from "@/components/Date";
 
 const COUNTRIES_OPTIONS = [
   {
@@ -52,6 +53,7 @@ export default function DemoFormExample() {
   const [values, setValues] = useState({
     email: "",
     phone: "",
+    birthday: "",
     type: "",
     rating: 8,
     countryCode: "",
@@ -68,9 +70,18 @@ export default function DemoFormExample() {
 
   return (
     <section>
-      <h2>Example form</h2>
+      <header>
+        <h2>Example form</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/DemoFormExample.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <form
         style={{
+          marginTop: "2rem",
           display: "flex",
           flexDirection: "column",
           gap: 21,
@@ -105,6 +116,19 @@ export default function DemoFormExample() {
             placeholder="+10000000000"
             mask={phoneNumberWithCodeMask}
             onChange={(e) => handleFieldChange(e.target.name as Field, e.target.value)}
+          />
+        </div>
+        <div
+          style={{
+            width: 240,
+          }}
+        >
+          <DateField
+            id="birthday"
+            name="birthday"
+            label="Birthday"
+            value={values.phone}
+            onChange={(field, value) => handleFieldChange(field as Field, value)}
           />
         </div>
         <div>
@@ -202,7 +226,6 @@ export default function DemoFormExample() {
           }}
         >
           <CheckboxField
-            rightSideLabel
             id="terms_consent"
             name="terms_consent"
             label="I read terms of service and privacy policy, confirm and agree with them"
@@ -218,11 +241,11 @@ export default function DemoFormExample() {
         </div>
       </form>
 
-      <div>
+      <div style={{ margin: "2em 0" }}>
         <h3>Form values</h3>
         <pre
           style={{
-            margin: "2em 0",
+            marginTop: "2em",
             whiteSpace: "pre-wrap",
           }}
         >
