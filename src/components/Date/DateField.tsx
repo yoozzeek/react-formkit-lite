@@ -64,7 +64,8 @@ const DateField = (props: DateFieldProps): JSX.Element => {
           type="text"
           id={props.id}
           name={props.name as string}
-          placeholder={props.placeholder || "MM-DD-YYYY"}
+          disabled={props.disabled}
+          placeholder={props.placeholder || "DD-MM-YYYY"}
           defaultValue={props.value}
           onFocus={handleFocus}
         />
