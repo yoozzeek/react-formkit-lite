@@ -1,61 +1,60 @@
-import MaskedDynamic from "imask/masked/dynamic";
+import MaskedDynamic, { type MaskedDynamicOptions } from "imask/masked/dynamic";
 import "imask/masked/pattern";
 
-interface PhoneNumberMask {
-  mask: string;
+interface PhoneNumberMask extends MaskedDynamicOptions {
   startsWith: string;
   lazy: boolean;
   country: string;
 }
 
-const phoneNumberMasks = [
+const phoneNumberMasks: Array<PhoneNumberMask> = [
   {
-    mask: "+0 000 000-0000",
+    mask: ["+0 000 000-0000"],
     startsWith: "1",
-    lazy: false,
+    lazy: true,
     country: "United States",
   },
   {
-    mask: "+00 {21} 0-000-0000",
+    mask: ["+00 {21} 0-000-0000"],
     startsWith: "30",
-    lazy: false,
+    lazy: true,
     country: "Greece",
   },
   {
-    mask: "+0 000 000-00-00",
+    mask: ["+0 000 000-00-00"],
     startsWith: "7",
-    lazy: false,
+    lazy: true,
     country: "Russia",
   },
   {
-    mask: "+00-0000-000000",
+    mask: ["+00-0000-000000"],
     startsWith: "91",
-    lazy: false,
+    lazy: true,
     country: "India",
   },
   {
-    mask: "+00 000 000-0000",
+    mask: ["+00 000 000-0000"],
     startsWith: "63",
-    lazy: false,
+    lazy: true,
     country: "Philippines",
   },
   {
-    mask: "+00 000-000000[0]",
+    mask: ["+00 000-000000[0]"],
     startsWith: "84",
-    lazy: false,
+    lazy: true,
     country: "Vietnam",
   },
   {
-    mask: "+00-000-0000-0000",
+    mask: ["+00-000-0000-0000"],
     startsWith: "62",
-    lazy: false,
+    lazy: true,
     country: "Indonesia",
   },
   {
-    mask: "00000000000",
+    mask: ["00000000000"],
     startsWith: "",
     country: "unknown",
-    lazy: false,
+    lazy: true,
   },
 ];
 

@@ -70,8 +70,8 @@
 
 .radio-group__label {
     display: block;
-    padding-bottom: var(--formkit-lite-space-xl);
     font-weight: 600;
+    padding-bottom: var(--formkit-lite-space-xl);
     color: var(--formkit-lite-color-dark);
 }
 

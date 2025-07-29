@@ -22,7 +22,7 @@
 
 .date-field__wrapper {
     position: relative;
-    display: block;
+    display: flex;
 }
 
 .date-field__input {

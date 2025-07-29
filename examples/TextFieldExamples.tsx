@@ -23,7 +23,15 @@ export default function TextFieldExamples() {
 
   return (
     <section id="text_field_examples">
-      <h2>Text field examples</h2>
+      <header>
+        <h2>Text field examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/TextFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Types</h3>
         <div style={baseBlockStyle}>

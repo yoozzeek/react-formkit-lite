@@ -3,7 +3,15 @@ import Loader from "@/components/Loader";
 export default function LoaderExamples() {
   return (
     <section id="loader_examples">
-      <h2>Loader examples</h2>
+      <header>
+        <h2>Loader examples</h2>
+        <a
+          href="https://github.com/yoozzeek/react-formkit-lite/blob/main/examples/SwitchFieldExamples.tsx"
+          target="_blank"
+        >
+          Code example
+        </a>
+      </header>
       <div>
         <h3>Size</h3>
         <div
