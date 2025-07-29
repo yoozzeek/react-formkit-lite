@@ -1,30 +1,37 @@
+import "simplebar-react/dist/simplebar.min.css";
+import "@yoozzeek/react-context-modal/dist/index.css";
+import "./styles.css";
+
 import React from "react";
 import ReactDOM from "react-dom/client";
+import SimpleBar from "simplebar-react";
+import GitHubButton from "react-github-btn";
 import BadgeExamples from "./BadgeExamples";
 import ButtonExamples from "./ButtonExamples";
 import TextFieldExamples from "./TextFieldExamples";
 import SelectFieldExamples from "./SelectFieldExample";
 import DemoFormExample from "./DemoFormExample";
-
-import "simplebar-react/dist/simplebar.min.css";
-import "@yoozzeek/react-context-modal/dist/index.css";
-import "./styles.css";
-import LoaderExamples from "./LoaderExamples.tsx";
-import HeaderExamples from "./HeaderExamples.tsx";
-import UploadAreaExamples from "./UploadAreaExamples.tsx";
-import SimpleBar from "simplebar-react";
+import LoaderExamples from "./LoaderExamples";
+import HeaderExamples from "./HeaderExamples";
+import UploadAreaExamples from "./UploadAreaExamples";
+import DateFieldExamples from "./DateFieldExamples";
+import RangeFieldExamples from "./RangeFieldExamples";
+import CheckboxFieldExamples from "./CheckboxFieldExamples";
+import SwitchFieldExamples from "./SwitchFieldExamples";
+import RadioFieldExamples from "./RadioFieldExamples";
+import UploadMultipleFilesExamples from "./UploadMultipleFilesExamples";
 
 const ComponentsNavItemsList = () => {
   return (
     <>
       <a href="#text_field_examples">Text</a>
       <a href="#select_field_examples">Select</a>
+      <a href="#multiple_files_field_examples">MultipleFiles</a>
       <a href="#date_field_examples">Date</a>
       <a href="#range_field_examples">Range</a>
       <a href="#checkbox_field_examples">Checkbox</a>
       <a href="#radio_field_examples">Radio</a>
       <a href="#switch_field_examples">Switch</a>
-      <a href="#multiple_files_field_examples">MultipleFiles</a>
       <a href="#upload_area_field_examples">UploadArea</a>
       <a href="#header_examples">Header</a>
       <a href="#loader_examples">Loader</a>
@@ -38,9 +45,32 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <header>
       <h1>react-formkit-lite demo</h1>
-      <a href="https://github.com/yoozzeek/react-formkit-lite" target="_blank">
-        Open on Github
-      </a>
+      {/*<a href="https://github.com/yoozzeek/react-formkit-lite" target="_blank">*/}
+      {/*  Open on Github*/}
+      {/*</a>*/}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.6em",
+        }}
+      >
+        <GitHubButton
+          href="https://github.com/yoozzeek/react-formkit-lite"
+          data-color-scheme="no-preference: light; light: light; dark: light;"
+          data-size="large"
+          data-show-count="true"
+          aria-label="Open yoozzeek/react-formkit-lite on GitHub"
+        >
+          Open
+        </GitHubButton>
+        <a href="https://www.npmjs.com/package/@yoozzeek/react-formkit-lite" target="_blank">
+          <img
+            alt="Open @yoozzeek/react-formkit-lite on npmjs"
+            src="https://img.shields.io/npm/v/@yoozzeek/react-formkit-lite.svg"
+          />
+        </a>
+      </div>
       <p>
         Lightweight form components for modern React apps. Build beautiful, mobile-first forms with
         just the parts you need. From smart selects to masked inputs, everything is
@@ -116,6 +146,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       >
         <TextFieldExamples />
         <SelectFieldExamples />
+        <UploadMultipleFilesExamples />
+        <DateFieldExamples />
+        <RangeFieldExamples />
+        <CheckboxFieldExamples />
+        <RadioFieldExamples />
+        <SwitchFieldExamples />
         <UploadAreaExamples />
         <ButtonExamples />
         <BadgeExamples />
