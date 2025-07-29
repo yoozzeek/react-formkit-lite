@@ -29,8 +29,13 @@ Then install formkit-lite package:
 yarn add @yoozzeek/react-formkit-lite
 ```
 
-And import the CSS:
+And import the CSS into your app or SSR/SSG page:
 ```jsx
+// Remember to import
+import "simplebar-react/dist/simplebar.min.css";
+import "@yoozzeek/react-context-modal/dist/index.css"
+
+// Formkit-lite default styles
 import "@yoozzeek/react-formkit-lite/dist/index.css"
 ```
 
