@@ -72,7 +72,7 @@ export default defineConfig(({ mode }) => {
             },
             outDir: path.resolve(__dirname, "./dist"),
             rollupOptions: {
-              external: ["react", "react/dom", "react/jsx-runtime", "simplebar-react"],
+              external: ["react", "react/jsx-runtime", "simplebar-react", "react-imask"],
               input: Object.fromEntries(
                 globSync([
                   "src/components/**/*.tsx",
