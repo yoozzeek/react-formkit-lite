@@ -37,7 +37,7 @@ export interface CommonFieldProps {
   onReset?: (field: string, value: string | number, shouldValidate?: boolean | undefined) => void;
 }
 
-export interface CustomSelectFieldProps<T> {
+export interface CustomSelectFieldProps<T, V> {
   id: string;
   name: string;
   label?: string | null;
@@ -50,20 +50,21 @@ export interface CustomSelectFieldProps<T> {
   dpPosition?: Position;
   dpFullscreen?: boolean;
   dpWidth?: number;
-  fixedOptions?: SelectOptionType<T>[];
+  fixedOptions?: SelectOptionType<T, V>[];
   // eslint-disable-next-line no-unused-vars
   onFocus?: (e?: MouseEvent | FocusEvent) => void;
-  onChange: SelectSimpleHandler<T> | SelectFormikHandler;
 }
 
-export interface CustomSingleSelectFieldProps<T> extends CustomSelectFieldProps<T> {
-  value: string | number;
+export interface CustomSingleSelectFieldProps<T, V> extends CustomSelectFieldProps<T, V> {
+  value: V;
+  onChange: SelectSimpleHandler<T, V> | SelectFormikHandler<V>;
 }
 
-export interface CustomMultipleSelectFieldProps<T> extends CustomSelectFieldProps<T> {
+export interface CustomMultipleSelectFieldProps<T, V> extends CustomSelectFieldProps<T, V> {
   min?: number;
   max?: number;
-  values: string[] | number[];
+  value: V[];
+  onChange: SelectSimpleHandler<T, V> | SelectFormikHandler<V>;
 }
 
 export type UploadedFileItem = {

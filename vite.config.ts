@@ -16,7 +16,7 @@ const __dirname = path.dirname(__filename);
 const dtsOptions = {
   exclude: [],
   tsconfigPath: "./tsconfig.app.json",
-  outDirs: "lib",
+  outDirs: "./dist",
   beforeWriteFile: (
     filePath: string,
     content: string,
@@ -27,11 +27,11 @@ const dtsOptions = {
       }
     | boolean => {
     const basename = path.basename(filePath);
-    const filename = path.join("lib", basename);
+    const filename = path.join("dist", basename);
     const relativePath = path.relative(__dirname, filePath);
 
     // skip index.tsx aliases for components
-    if (relativePath.startsWith("lib/components") && basename === "index.d.ts") {
+    if (relativePath.startsWith("dist/components") && basename === "index.d.ts") {
       return false;
     }
 
@@ -70,15 +70,9 @@ export default defineConfig(({ mode }) => {
               formats: ["es"],
               cssFileName: "index",
             },
-            outDir: path.resolve(__dirname, "./lib"),
+            outDir: path.resolve(__dirname, "./dist"),
             rollupOptions: {
-              external: [
-                "react",
-                "react/dom",
-                "react/jsx-runtime",
-                "react-responsive",
-                "simplebar-react",
-              ],
+              external: ["react", "react/dom", "react/jsx-runtime", "simplebar-react"],
               input: Object.fromEntries(
                 globSync([
                   "src/components/**/*.tsx",

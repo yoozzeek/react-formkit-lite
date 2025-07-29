@@ -3,9 +3,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactElement, ReactNode } from "react";
 import { clsx } from "clsx";
 import type { Variant } from "@/types";
-import useGteSm from "@/hooks/useGteSm.ts";
+import useIsTabletOrDesktop from "@/hooks/useIsTabletOrDesktop";
 import ArrowIcon from "@/assets/icons/arrow.svg?react";
-import { useModalStackCtx } from "react-context-modal";
+import { useModalStackCtx } from "@yoozzeek/react-context-modal";
 
 export type HeaderActionType = {
   label?: string | null;
@@ -58,12 +58,12 @@ function Header({
   const stackCtx = useModalStackCtx();
   const headerRef = useRef<HTMLDivElement>(null!);
   const [scrolledDown, setScrolledDown] = useState(scrollDelta === 0);
-  const gteSm = useGteSm();
+  const isTabletOrDesktop = useIsTabletOrDesktop();
 
   // After user scrolled down the header light should be turned off
   useEffect(() => {
     // If the header is not fixed, we don't need to do anything
-    if (!fixed || gteSm) return;
+    if (!fixed || isTabletOrDesktop) return;
 
     const headerEl = headerRef.current;
     const modalScrollContentEl = stackCtx.lastModal?.scrollableContentRef.current;
@@ -94,7 +94,7 @@ function Header({
     // Otherwise listen to window scroll
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [gteSm, scrollDelta, fixed, stackCtx.lastModal]);
+  }, [isTabletOrDesktop, scrollDelta, fixed, stackCtx.lastModal]);
 
   const handleGoBack = useCallback(() => onGoBack?.(), [onGoBack]);
 

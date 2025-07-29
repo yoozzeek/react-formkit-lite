@@ -1,11 +1,11 @@
 import styles from "./select.module.css";
-import { memo, useState } from "react";
+import { useState } from "react";
 import type { JSX, MouseEvent } from "react";
 import { clsx } from "clsx";
 import CheckIcon from "@/assets/icons/check.svg?react";
 import type { SelectFieldOptionProps } from "@/components/Select/SelectOption.tsx";
 
-function MultipleSelectOption<T>({
+function MultipleSelectOption<T, V>({
   label,
   value,
   classes,
@@ -16,7 +16,7 @@ function MultipleSelectOption<T>({
   disabled = false,
   selected = false,
   onSelect,
-}: SelectFieldOptionProps<T>): JSX.Element {
+}: SelectFieldOptionProps<T, V>): JSX.Element {
   const [hovered, setHovered] = useState(false);
   function handleClick(e: MouseEvent) {
     e.stopPropagation();
@@ -63,4 +63,4 @@ function MultipleSelectOption<T>({
   );
 }
 
-export default memo(MultipleSelectOption) as typeof MultipleSelectOption;
+export default MultipleSelectOption;

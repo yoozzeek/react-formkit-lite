@@ -9,10 +9,10 @@ const baseBlockStyle: CSSProperties = {
 
 export default function ButtonExamples() {
   return (
-    <section>
+    <section id="button_examples">
       <h2>Button examples</h2>
       <div>
-        <h3>Variants</h3>
+        <h3>Variant</h3>
         <div style={baseBlockStyle}>
           <Button>Default</Button>
           <Button variant="success">Success</Button>

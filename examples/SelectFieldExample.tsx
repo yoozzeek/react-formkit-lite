@@ -1,5 +1,5 @@
 import SelectField from "../src/components/Select";
-import { CSSProperties, useState } from "react";
+import { type CSSProperties, useState } from "react";
 
 const optionsList = [
   {
@@ -36,7 +36,7 @@ const baseBlockStyle: CSSProperties = {
 
 export default function SelectFieldExamples() {
   const [selectedValue, setSelectedValue] = useState("");
-  const [selectedMultipleValue, setSelectedMultipleValue] = useState([]);
+  const [selectedMultipleValues, setSelectedMultipleValues] = useState<Array<string>>([]);
   const [requiredValue, setRequiredValue] = useState("");
 
   return (
@@ -48,33 +48,31 @@ export default function SelectFieldExamples() {
           <SelectField
             id="select_field"
             name="select_field"
-            label="Single select"
+            label="Single"
             options={optionsList}
             value={selectedValue}
             onChange={(value) => {
-              setSelectedValue(value);
+              setSelectedValue(value as string);
             }}
           />
           <div>
-            <SelectField
+            <SelectField<never, string>
               multiple
               min={1}
               max={3}
               id="multiple_select_field"
               name="multiple_select_field"
-              label="Multiple select"
+              label="Multiple"
               options={optionsList}
-              value={selectedMultipleValue}
-              onChange={(_, value) => {
-                setSelectedMultipleValue(Array.isArray(value) ? value : [value]);
-              }}
+              value={selectedMultipleValues}
+              onChange={setSelectedMultipleValues}
             />
 
-            {selectedMultipleValue.length > 0 && (
+            {selectedMultipleValues.length > 0 && (
               <div style={{ marginTop: "1em" }}>
                 <strong>Selected</strong>
                 <ul>
-                  {selectedMultipleValue.map((value) => (
+                  {selectedMultipleValues.map((value) => (
                     <li key={value}>{value}</li>
                   ))}
                 </ul>
@@ -89,7 +87,7 @@ export default function SelectFieldExamples() {
           <SelectField
             id="dselect_field"
             name="select_field"
-            label="Select filed"
+            label="Select"
             options={optionsList}
             value="value3"
             onChange={() => {}}
@@ -100,7 +98,7 @@ export default function SelectFieldExamples() {
             max={3}
             id="multiple_select_field"
             name="multiple_select_field"
-            label="Select filed"
+            label="Multiple"
             options={optionsList}
             value={["value1", "value3"]}
             onChange={() => {}}
@@ -114,7 +112,7 @@ export default function SelectFieldExamples() {
             required
             id="required_dselect_field"
             name="required_select_field"
-            label="Required select"
+            label="Required"
             options={optionsList}
             value={selectedValue}
             onChange={() => {}}
@@ -123,7 +121,7 @@ export default function SelectFieldExamples() {
             disabled
             id="disabled_dselect_field"
             name="disabled_select_field"
-            label="Disabled single"
+            label="Disabled"
             options={optionsList}
             value={selectedValue}
             onChange={() => {}}
@@ -135,9 +133,9 @@ export default function SelectFieldExamples() {
             max={3}
             id="disabled_multiple_select_field"
             name="disabled_multiple_select_field"
-            label="Disabled multiple"
+            label="Disabled (multiple)"
             options={optionsList}
-            value={[]}
+            value={["value1", "value3"]}
             onChange={() => {}}
           />
         </div>
@@ -150,11 +148,11 @@ export default function SelectFieldExamples() {
               required
               id="required_dselect_field"
               name="required_select_field"
-              label="Required select"
+              label="Required"
               options={optionsList}
               value={requiredValue}
               error={!requiredValue && "Required field"}
-              onChange={(_, value) => setRequiredValue(value as string)}
+              onChange={(value) => setRequiredValue(value as string)}
             />
           </div>
         </div>

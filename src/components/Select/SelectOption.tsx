@@ -1,11 +1,10 @@
 import styles from "./select.module.css";
 import type { JSX, MouseEvent, ReactElement } from "react";
-import { memo } from "react";
 import { clsx } from "clsx";
 
-export type SelectOptionType<T> = {
+export type SelectOptionType<T, V> = {
   label: string;
-  value: string | number;
+  value: V;
   selected?: boolean;
   classes?: string;
   helpText?: string;
@@ -14,9 +13,9 @@ export type SelectOptionType<T> = {
   rawData?: T;
 };
 
-export type SelectFieldOptionProps<T> = {
+export type SelectFieldOptionProps<T, V> = {
   label: string;
-  value: string | number;
+  value: V;
   classes?: string;
   helpText?: string;
   iconEl?: ReactElement | null;
@@ -24,10 +23,10 @@ export type SelectFieldOptionProps<T> = {
   rawData?: T;
   selected?: boolean;
   disabled?: boolean;
-  onSelect: (option: SelectOptionType<T>) => void;
+  onSelect: (option: SelectOptionType<T, V>) => void;
 };
 
-function SingleSelectOption<T>({
+function SingleSelectOption<T, V = string>({
   label,
   value,
   classes,
@@ -37,7 +36,7 @@ function SingleSelectOption<T>({
   rawData,
   selected = false,
   onSelect,
-}: SelectFieldOptionProps<T>): JSX.Element {
+}: SelectFieldOptionProps<T, V>): JSX.Element {
   function handleSelect(e: MouseEvent) {
     e.stopPropagation();
     onSelect({
@@ -69,4 +68,4 @@ function SingleSelectOption<T>({
   );
 }
 
-export default memo(SingleSelectOption) as typeof SingleSelectOption;
+export default SingleSelectOption;
