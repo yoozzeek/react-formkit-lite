@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TextField from "../src/components/Text";
 import SelectField from "../src/components/Select";
 import Button from "../src/components/Button";
@@ -7,7 +7,8 @@ import RadioGroup from "../src/components/Radio/RadioGroup";
 import RadioField from "../src/components/Radio/RadioField";
 import RangeField from "../src/components/Range";
 import MultipleFilesField from "../src/components/MultipleFiles";
-import UploadArea from "../src/components/UploadArea";
+import { phoneNumberWithCodeMask } from "@/utils/phoneNumberMask.ts";
+import DemoUploadArea from "./components/DemoUploadArea.tsx";
 
 const COUNTRIES_OPTIONS = [
   {
@@ -27,30 +28,44 @@ const COUNTRIES_OPTIONS = [
 const CATEGORIES_OPTIONS = [
   {
     label: "Food",
-    value: "food",
+    value: 1,
   },
   {
     label: "Cats",
-    value: "cats",
+    value: 2,
   },
   {
     label: "Cars",
-    value: "cars",
+    value: 3,
   },
   {
     label: "Books",
-    value: "books",
+    value: 4,
   },
   {
     label: "Travel",
-    value: "travel",
+    value: 5,
   },
 ];
 
 export default function DemoFormExample() {
-  const [checkboxValue, setCheckboxValue] = useState(false);
-  const [radioValue, setRadioValue] = useState<string | undefined>();
-  const [minRating, setMinRating] = useState(8);
+  const [values, setValues] = useState({
+    email: "",
+    phone: "",
+    type: "",
+    rating: 8,
+    countryCode: "",
+    categoryIds: [] as number[],
+    termsConsent: false,
+  });
+
+  type Values = typeof values;
+  type Field = keyof Values;
+
+  function handleFieldChange<K extends Field>(field: K, value: Values[K]) {
+    setValues((prev) => ({ ...prev, [field]: value }));
+  }
+
   return (
     <section>
       <h2>Example form</h2>
@@ -68,95 +83,74 @@ export default function DemoFormExample() {
         >
           <TextField
             required
-            id="demo_email"
-            name="demo_email"
+            id="email"
+            name="email"
             label="Email"
-            value=""
+            value={values.email}
             placeholder="email@domain.zone"
+            onChange={(e) => handleFieldChange(e.target.name as Field, e.target.value)}
           />
         </div>
         <div
           style={{
-            width: 320,
+            width: 240,
           }}
         >
           <TextField
-            secure
             required
-            id="demo_password"
-            name="demo_password"
-            label="Password"
-            value=""
-            placeholder="Unique password"
-          />
-        </div>
-        <div
-          style={{
-            width: 320,
-          }}
-        >
-          <TextField
-            secure
-            required
-            id="confirm_demo_password"
-            name="confirm_demo_password"
-            label="Confirm password"
-            value=""
-            placeholder="Password"
-            helpText="Confirm your new password"
+            id="phone"
+            name="phone"
+            label="Phone number"
+            value={values.phone}
+            placeholder="+10000000000"
+            mask={phoneNumberWithCodeMask}
+            onChange={(e) => handleFieldChange(e.target.name as Field, e.target.value)}
           />
         </div>
         <div>
           <RadioGroup label="Account type">
             <RadioField
-              name="base"
+              name="type"
               label="Base"
               value="base"
-              checkedValue={radioValue}
-              onChange={() => setRadioValue("base")}
+              checkedValue={values.type}
+              onChange={() => handleFieldChange("type", "base")}
             />
             <RadioField
               name="pro"
               label="Pro"
               value="pro"
-              checkedValue={radioValue}
-              onChange={() => setRadioValue("pro")}
+              checkedValue={values.type}
+              onChange={() => handleFieldChange("type", "pro")}
             />
           </RadioGroup>
         </div>
-        <div>
-          <h4>Upload banner</h4>
-          <UploadArea
-            onSelectFile={(files) => {
-              console.log(files);
-            }}
-          />
-        </div>
+        <DemoUploadArea />
         <div
           style={{
             width: 200,
           }}
         >
           <SelectField
-            id="demo_country_code"
-            name="demo_country_code"
+            id="country_code"
+            name="country_code"
             placeholder="Select country"
             label="Country"
-            value={undefined}
+            value={values.countryCode}
             options={COUNTRIES_OPTIONS}
-            onChange={() => {}}
+            onChange={(value) => handleFieldChange("countryCode", value)}
           />
         </div>
         <div>
           <RangeField
-            id="demo_min_rating_r"
-            name="demo_min_rating_r"
-            label="Min product rating"
+            id="rating_r"
+            name="rating_r"
+            label="Product rating"
             min={1}
             max={100}
             step={1}
-            value={minRating}
-            onValueChange={setMinRating}
+            value={values.rating}
+            onValueChange={(value) => handleFieldChange("rating", value)}
           />
           <br />
           <div
@@ -165,29 +159,29 @@ export default function DemoFormExample() {
             }}
           >
             <TextField
-              id="demo_min_radius_t"
-              name="demo_min_radius_t"
+              id="rating_t"
+              name="rating_t"
               type="number"
               placeholder="80"
-              helpText="Min radius from 1 to 100 miles"
-              value={minRating}
-              onChange={(e) => setMinRating(+e.target.value)}
+              helpText="Rating from 1 to 100"
+              value={values.rating}
+              onChange={(e) => handleFieldChange("rating", +e.target.value)}
             />
           </div>
         </div>
         <div>
-          <SelectField
+          <SelectField<never, number>
             multiple
             min={1}
             max={3}
-            id="demo_categories"
-            name="demo_categories"
+            id="category_ids"
+            name="category_ids"
             placeholder="Select categories"
             label="Categories"
-            value={undefined}
+            value={values.categoryIds}
             options={CATEGORIES_OPTIONS}
             helpText="Select the product categories you want to subscribe to"
-            onChange={() => {}}
+            onChange={(value) => handleFieldChange("categoryIds", value)}
           />
         </div>
         <div>
@@ -209,11 +203,11 @@ export default function DemoFormExample() {
         >
           <CheckboxField
             rightSideLabel
-            id="demo_checkbox"
-            name="demo_checkbox"
-            label="I agree to receive news and updates that I can unsubscribe any time after"
-            value={checkboxValue}
-            onClick={(checked) => setCheckboxValue(checked)}
+            id="terms_consent"
+            name="terms_consent"
+            label="I read terms of service and privacy policy, confirm and agree with them"
+            value={values.termsConsent}
+            onClick={(checked) => handleFieldChange("termsConsent", checked)}
           />
 
           <footer>
@@ -223,6 +217,18 @@ export default function DemoFormExample() {
           </footer>
         </div>
       </form>
+
+      <div>
+        <h3>Form values</h3>
+        <pre
+          style={{
+            margin: "2em 0",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {JSON.stringify(values, null, 2)}
+        </pre>
+      </div>
     </section>
   );
 }
