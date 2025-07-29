@@ -8,10 +8,7 @@ export default function useIsTabletOrDesktop(minWidth = "576px"): boolean {
 
     const media = getMedia();
 
-    console.log(media);
-
     const handlerFn = () => {
-      console.log(getMedia());
       setMatches(getMatches);
     };
 

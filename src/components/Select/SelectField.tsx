@@ -1,5 +1,5 @@
 import styles from "./select.module.css";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { clsx } from "clsx";
 import type { JSX, ReactElement, FocusEvent } from "react";
 import type { SelectOptionType } from "./SelectOption";
@@ -10,23 +10,17 @@ import type { CommonFieldProps, Position } from "@/types";
 import useIsTabletOrDesktop from "@/hooks/useIsTabletOrDesktop";
 import ChevronDownIcon from "@/assets/icons/chevron-down.svg?react";
 import PlusIcon from "@/assets/icons/plus.svg?react";
-import SingleSelectOption from "./SelectOption";
-import MultipleSelectOption from "./SelectMultipleOption";
 import SelectOptionsDropdown from "./SelectDropdown";
 
-export type SelectValueType = string[] | number[] | string | number;
-
-export type SelectFormikHandler = (
+export type SelectFormikHandler<V> = (
   field: string,
-  value: SelectValueType,
+  value: V,
   shouldValidate?: boolean | undefined,
 ) => void;
 
-export type SelectSimpleHandler<T> = (value: SelectValueType, opt?: SelectOptionType<T>) => void;
+export type SelectSimpleHandler<T, V> = (value: V, opt?: SelectOptionType<T, V>) => void;
 
-export interface SelectFieldProps<T> extends CommonFieldProps {
-  multiple?: boolean;
-  value: SelectValueType;
+export interface SelectFieldCommonProps<T, V> extends CommonFieldProps {
   max?: number;
   min?: number;
   searchTerm?: string;
@@ -36,15 +30,48 @@ export interface SelectFieldProps<T> extends CommonFieldProps {
   dpPosition?: Position;
   dpFullscreen?: boolean;
   formikHandler?: boolean;
-  options: SelectOptionType<T>[];
-  valueGetter?: (rawData: T) => string | number;
-  valueRender?: (opt: SelectOptionType<T>) => ReactElement;
+  options: SelectOptionType<T, V>[];
+  valueGetter?: (rawData: T) => V;
+  valueRender?: (opt: SelectOptionType<T, V>) => ReactElement;
   onLoadMore?: () => void;
   onSearch?: (term: string) => void;
-  onChange: SelectSimpleHandler<T> | SelectFormikHandler;
 }
 
-function SelectField<T>({
+interface SelectFieldSimpleHandlerProps<T, V> extends SelectFieldCommonProps<T, V> {
+  value: V;
+  multiple?: false | undefined;
+  formikHandler?: false | undefined;
+  onChange: SelectSimpleHandler<T, V>;
+}
+
+interface MultipleSelectFieldSimpleHandlerProps<T, V> extends SelectFieldCommonProps<T, V> {
+  value: V[];
+  multiple: true;
+  formikHandler?: false | undefined;
+  onChange: SelectSimpleHandler<T, V[]>;
+}
+
+interface SelectFieldWithFormikHandlerProps<T, V> extends SelectFieldCommonProps<T, V> {
+  value: V;
+  multiple?: false | undefined;
+  formikHandler: true;
+  onChange: SelectFormikHandler<V>;
+}
+
+interface MultipleSelectFieldWithFormikHandlerProps<T, V> extends SelectFieldCommonProps<T, V> {
+  value: V[];
+  multiple: true;
+  formikHandler: true;
+  onChange: SelectFormikHandler<V[]>;
+}
+
+export type SelectFieldProps<T, V> =
+  | SelectFieldWithFormikHandlerProps<T, V>
+  | MultipleSelectFieldWithFormikHandlerProps<T, V>
+  | SelectFieldSimpleHandlerProps<T, V>
+  | MultipleSelectFieldSimpleHandlerProps<T, V>;
+
+function SelectField<T = any, V = string>({
   id,
   label,
   popupLabel,
@@ -64,7 +91,7 @@ function SelectField<T>({
   dpFullscreen = true,
   dpPosition = "left",
   isLoading = false,
-  formikHandler = true,
+  formikHandler = false,
   fullWidth = false,
   disabled = false,
   onLoadMore,
@@ -72,9 +99,9 @@ function SelectField<T>({
   onSearch,
   onChange,
   onReset,
-}: SelectFieldProps<T>): JSX.Element {
+}: SelectFieldProps<T, V>): JSX.Element {
   const dpRef = useRef<HTMLDivElement>(null!);
-  const selectedValues = useRef<Set<number | string>>(new Set());
+  const selectedValues = useRef<Set<V>>(new Set());
 
   // Hide dropdown on outside click or ESC
   const isTabletOrDesktop = useIsTabletOrDesktop();
@@ -82,7 +109,7 @@ function SelectField<T>({
 
   // Fill selected options once when options are loaded
   const selectedOptionsInitialized = useRef(false);
-  const [selectedOptions, setSelectedOptions] = useState<SelectOptionType<T>[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<SelectOptionType<T, V>[]>([]);
 
   useEffect(() => {
     if (typeof value === "number" && value <= 0) return;
@@ -113,7 +140,7 @@ function SelectField<T>({
    * @description It handles both single and multiple selection.
    */
   const handleSelect = useCallback(
-    (option: SelectOptionType<T>) => {
+    (option: SelectOptionType<T, V>) => {
       const selected = selectedValues.current;
 
       // If option is already selected remove it
@@ -122,7 +149,7 @@ function SelectField<T>({
 
         // Handle removing as multiple selection
         if (multiple) {
-          let newSelectedOptions: SelectOptionType<T>[] = [];
+          let newSelectedOptions: SelectOptionType<T, V>[] = [];
 
           // Update local state
           //flushSync(() => {
@@ -133,7 +160,7 @@ function SelectField<T>({
           //});
 
           // Emit values to parent
-          emitTypedValue(newSelectedOptions);
+          emitMultipleValue(newSelectedOptions);
           return;
         }
 
@@ -151,7 +178,7 @@ function SelectField<T>({
 
       // Handle adding as multiple selection
       if (multiple) {
-        let newSelectedOptions: SelectOptionType<T>[] = [];
+        let newSelectedOptions: SelectOptionType<T, V>[] = [];
         selected.add(option.value);
         //flushSync(() => {
         setSelectedOptions((prev) => {
@@ -161,7 +188,7 @@ function SelectField<T>({
         //});
 
         // Emit values to parent
-        emitTypedValue(newSelectedOptions);
+        emitMultipleValue(newSelectedOptions);
         return;
       }
 
@@ -172,7 +199,7 @@ function SelectField<T>({
       emitValue(option.value);
       close();
     },
-    [multiple, setSelectedOptions],
+    [multiple],
   );
 
   function resetAll() {
@@ -191,8 +218,7 @@ function SelectField<T>({
    * Otherwise use option value directly
    * @param option
    */
-  function getValue(option: SelectOptionType<T>): string | number {
-    if (!option) return "";
+  function getValue(option: SelectOptionType<T, V>): V {
     if (valueGetter && option.rawData !== undefined && option.rawData !== null)
       return valueGetter(option.rawData as T);
     return option.value;
@@ -202,17 +228,17 @@ function SelectField<T>({
    * Emit value to parent based on multiple or single selection
    * and pass necessary arguments that depends on the handler type
    */
-  function emitValue<T>(value: string | number | string[] | number[]) {
+  function emitValue<T, V>(value: V) {
     // Check if handler is a formik handler
     if (formikHandler) {
-      (onChange as SelectFormikHandler)(id, value, true);
+      (onChange as SelectFormikHandler<V>)(id, value, true);
     } else {
       // Otherwise handle as normal onChange handler
-      (onChange as unknown as SelectSimpleHandler<T>)(value);
+      (onChange as unknown as SelectSimpleHandler<T, V>)(value);
     }
   }
 
-  function emitTypedValue(options: SelectOptionType<T>[] = []) {
+  function emitMultipleValue(options: SelectOptionType<T, V>[] = []) {
     const values = options.map((opt) => opt.value);
     if (values.length) {
       if (typeof values[0] === "number") {
@@ -229,7 +255,7 @@ function SelectField<T>({
    * Remove selected option by value
    */
   const removeOption = useCallback(
-    (val: string) => {
+    (val: V) => {
       const selected = selectedValues.current;
       if (!selected.has(val)) return;
       selected.delete(val);
@@ -245,7 +271,7 @@ function SelectField<T>({
 
       // Handle removing as multiple selection
       if (multiple) {
-        let newSelectedOptions: SelectOptionType<T>[] = [];
+        let newSelectedOptions: SelectOptionType<T, V>[] = [];
         //flushSync(() => {
         setSelectedOptions((prev) => {
           newSelectedOptions = prev.filter((opt) => opt.value !== val);
@@ -254,7 +280,7 @@ function SelectField<T>({
         //});
 
         // Emit values to parent
-        emitTypedValue(newSelectedOptions);
+        emitMultipleValue(newSelectedOptions);
         return;
       }
 
@@ -292,8 +318,8 @@ function SelectField<T>({
    * Handle close dropdown and reset search term
    */
   function close() {
-    setCollapsed(false);
     onSearch?.("");
+    setCollapsed(false);
   }
 
   const multipleFooterRenderer = useCallback(
@@ -303,7 +329,7 @@ function SelectField<T>({
         onCloseHandler();
       }
 
-      if (!multiple) <></>;
+      if (!multiple) return <></>;
       return (
         <Button
           fullWidth
@@ -345,13 +371,14 @@ function SelectField<T>({
     if (selectedOptions.length) {
       return selectedOptions.map((opt) => {
         const value = getValue(opt);
+        const strValue = `${value}`;
         // Render default badge if valueRender is not provided
         return valueRender ? (
           valueRender(opt)
         ) : (
-          <Badge
-            id={`${value}`}
-            key={value}
+          <Badge<V>
+            id={value}
+            key={strValue}
             icon={opt.badgeIconEl || opt.iconEl}
             onRemove={removeOption}
           >
@@ -373,46 +400,6 @@ function SelectField<T>({
       </span>
     );
   }, [selectedOptions, disabled, placeholder, multiple]);
-
-  // Based on multiple prop, return different renderers
-  function optionRenderer(option: SelectOptionType<T>, afterSelectHandler?: () => void) {
-    const value = getValue(option);
-    if (multiple) {
-      return (
-        <MultipleSelectOption<T>
-          key={option.value}
-          value={value}
-          label={option.label}
-          classes={option.classes}
-          helpText={option.helpText}
-          rawData={option.rawData}
-          iconEl={option.iconEl}
-          badgeIconEl={option.badgeIconEl}
-          disabled={selectedValues.current.size >= max}
-          selected={selectedValues.current.has(value)}
-          onSelect={handleSelect}
-        />
-      );
-    }
-
-    return (
-      <SingleSelectOption<T>
-        key={option.value}
-        value={value}
-        label={option.label}
-        classes={option.classes}
-        helpText={option.helpText}
-        rawData={option.rawData}
-        iconEl={option.iconEl}
-        badgeIconEl={option.badgeIconEl}
-        selected={selectedValues.current.has(value)}
-        onSelect={(opt) => {
-          handleSelect(opt);
-          afterSelectHandler?.();
-        }}
-      />
-    );
-  }
 
   return (
     <div className="relative">
@@ -440,22 +427,26 @@ function SelectField<T>({
         />
 
         {collapsed && (
-          <SelectOptionsDropdown<T>
+          <SelectOptionsDropdown<T, V>
             id={id}
+            max={max}
+            multiple={multiple}
             label={popupLabel}
             options={options}
             helpText={helpText}
             isLoading={isLoading}
             searchTerm={searchTerm}
             fullscreen={dpFullscreen}
+            selectedValues={selectedValues}
             position={dpPosition}
             minWidth={dpWidth}
             onLoadMore={onLoadMore}
-            optionRenderer={optionRenderer}
             footerRenderer={multipleFooterRenderer}
+            getValue={getValue}
             onClose={close}
             onReset={onReset}
             onSearch={onSearch}
+            handleSelect={handleSelect}
           />
         )}
       </div>
@@ -466,4 +457,4 @@ function SelectField<T>({
   );
 }
 
-export default memo(SelectField);
+export default SelectField;
