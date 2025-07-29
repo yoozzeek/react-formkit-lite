@@ -8,7 +8,7 @@ import styles from "./checkbox.module.css";
 interface CheckboxFieldProps extends CommonFieldProps {
   value: boolean;
   isGroup?: boolean;
-  rightSideLabel?: boolean;
+  leftLabel?: boolean;
   disabled?: boolean;
   onFocus?: () => void;
   onClick?: (checked: boolean) => void;
@@ -20,7 +20,7 @@ const CheckboxField = ({
   label,
   value,
   isGroup,
-  rightSideLabel,
+  leftLabel = true,
   disabled,
   onClick,
   onFocus,
@@ -32,7 +32,7 @@ const CheckboxField = ({
     <div
       className={clsx(styles["checkbox-field"], {
         [styles["checkbox-field--group"]]: isGroup,
-        [styles["checkbox-field--right-label"]]: rightSideLabel,
+        [styles["checkbox-field--right-label"]]: leftLabel,
         [styles["checkbox-field--disabled"]]: disabled,
       })}
       onMouseEnter={() => setHovered(true)}
@@ -60,7 +60,7 @@ const CheckboxField = ({
           htmlFor={id}
           className={clsx(
             styles["checkbox-field__label"],
-            rightSideLabel
+            leftLabel
               ? styles["checkbox-field__label--right"]
               : styles["checkbox-field__label--left"],
           )}
