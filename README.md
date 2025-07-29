@@ -6,10 +6,13 @@ From smart selects to masked inputs, everything is approach-agnostic whether you
 [View Demo](https://yoozzeek.github.io/react-formkit-lite/)
 
 ### Features
-* Single & multi-selects with async search 
-* Mobile-first modal UI with smooth animations 
-* Masked text inputs (date, phone, currency, tokens)
-* File uploads, switches, sliders, checkboxes, and more 
+* Single & multiple selects with async search and options viewport
+* Mobile-first select UI with smooth animations:
+  * Based on [@yoozzeek/react-context-modal](https://github.com/yoozzeek/react-context-modal) npm package
+* Masked text inputs (date, phone, currency, tokens, custom)
+* Single & multiple file uploads
+* Switch, range slider and checkbox field
+* Building atoms: button, badge, loaders and header
 * Easy theming via CSS variables 
 * Tree-shakeable: only import what you need
 
