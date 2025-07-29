@@ -1,10 +1,10 @@
-import type { ReactElement, ReactNode, JSX } from "react";
+import type { ReactElement, ReactNode, JSX, MouseEvent } from "react";
 import CloseIcon from "@/assets/icons/close.svg?react";
 import { clsx } from "clsx";
 import type { Variant } from "@/types";
 import styles from "./badge.module.css";
 
-function Badge({
+function Badge<T = string>({
   id,
   icon,
   variant = "light",
@@ -13,15 +13,18 @@ function Badge({
   selected = false,
   children,
 }: {
-  id?: string;
+  id?: T;
   children: ReactNode;
   icon?: ReactElement | null;
   variant?: Variant;
   selected?: boolean;
-  onClick?: (id: string) => void;
-  onRemove?: (id: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  onClick?: (id: T) => void;
+  // eslint-disable-next-line no-unused-vars
+  onRemove?: (id: T) => void;
 }): JSX.Element {
-  function handleClick() {
+  function handleClick(e: MouseEvent<HTMLSpanElement>) {
+    e.stopPropagation();
     if (id) onClick?.(id);
   }
 

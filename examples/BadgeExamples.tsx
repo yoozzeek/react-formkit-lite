@@ -1,5 +1,5 @@
 import Badge from "../src/components/Badge";
-import React, { useRef, useState } from "react";
+import { type SetStateAction, useRef, useState } from "react";
 
 type DynamicBadgeType = { label: string; value: string; variant: string };
 
@@ -46,7 +46,8 @@ export default function BadgeExamples() {
     const idx = dynamicBadges.findIndex((b) => b.value === badge.value);
     const shouldRemove = idx > -1;
 
-    let nextDynamicFn, nextRemovedFn;
+    let nextDynamicFn: SetStateAction<Array<DynamicBadgeType>>,
+      nextRemovedFn: SetStateAction<Array<DynamicBadgeType>>;
     if (shouldRemove) {
       nextDynamicFn = (prev) => [...prev.filter((b) => b.value !== badge.value)];
       nextRemovedFn = (prev) => [...prev, badge];
@@ -60,7 +61,7 @@ export default function BadgeExamples() {
   }
 
   return (
-    <section>
+    <section id="badge_examples">
       <h2>Badge examples</h2>
       <div>
         <h3>Variants</h3>
