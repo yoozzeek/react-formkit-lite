@@ -40,7 +40,7 @@ export default function SelectFieldExamples() {
   const [requiredValue, setRequiredValue] = useState("");
 
   return (
-    <section>
+    <section id="select_field_examples">
       <header>
         <h2>Select field examples</h2>
         <a
