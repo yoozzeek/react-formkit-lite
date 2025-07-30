@@ -7,9 +7,9 @@ import type { UploadedFileItem } from "@/types";
 import { clsx } from "clsx";
 import PlusIcon from "@/assets/icons/plus.svg?react";
 import AttachmentIcon from "@/assets/icons/attachment.svg?react";
-import UploadedFilesItem from "@/components/MultipleFiles/UploadedFilesItem.tsx";
+import UploadMultipleFilesItem from "@/components/UploadMultipleFiles/MultipleFilesItem";
 
-type MultipleFilesFieldProps = {
+type UploadMultipleFilesProps = {
   max?: number;
   label?: string | null;
   name?: string;
@@ -40,7 +40,7 @@ function mediaFileFactory(file: UploadedFileItem): UploadedFileItem {
   };
 }
 
-const MultipleFilesField = ({
+const UploadMultipleFiles = ({
   max = 10,
   label,
   helpText,
@@ -51,7 +51,7 @@ const MultipleFilesField = ({
   loading = false,
   onFilesAdded,
   onFilesRemoved,
-}: MultipleFilesFieldProps) => {
+}: UploadMultipleFilesProps) => {
   const [filesCopy, setFilesCopy] = useState<UploadedFileItem[]>(files);
   const [selectedMap, setSelectedMap] = useState<Record<string, boolean>>({});
   const selectedLength = useMemo<number>(() => Object.values(selectedMap).length, [selectedMap]);
@@ -209,7 +209,7 @@ const MultipleFilesField = ({
       <SimpleBar autoHide>
         <ul className={styles["multiple-upload-files__list"]}>
           {filesCopy.map((file) => (
-            <UploadedFilesItem
+            <UploadMultipleFilesItem
               key={file.name}
               mediaItem={file}
               selected={selectedMap[file.name]}
@@ -247,4 +247,4 @@ const MultipleFilesField = ({
   );
 };
 
-export default MultipleFilesField;
+export default UploadMultipleFiles;

@@ -6,7 +6,7 @@ import type { UploadedFileItem } from "@/types";
 import CheckedIcon from "@/assets/icons/checked.svg?react";
 import FileIcon from "@/assets/icons/file.svg?react";
 
-const MediaFilesItem = (props: {
+const UploadMultipleFilesItem = (props: {
   mediaItem: UploadedFileItem;
   selected?: boolean;
   // eslint-disable-next-line no-unused-vars
@@ -59,4 +59,4 @@ const MediaFilesItem = (props: {
   );
 };
 
-export default MediaFilesItem;
+export default UploadMultipleFilesItem;

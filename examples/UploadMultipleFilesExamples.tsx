@@ -1,4 +1,4 @@
-import MultipleFilesField from "@/components/MultipleFiles";
+import UploadMultipleFiles from "@/components/UploadMultipleFiles";
 
 export default function UploadMultipleFilesExamples() {
   return (
@@ -14,7 +14,7 @@ export default function UploadMultipleFilesExamples() {
       </header>
       <div>
         <h3>Default</h3>
-        <MultipleFilesField
+        <UploadMultipleFiles
           label="Images, videos and PDFs"
           files={[]}
           onFilesAdded={() => {}}

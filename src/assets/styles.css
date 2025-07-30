@@ -4,10 +4,10 @@
 @import "../components/Date/date.module.css";
 @import "../components/Header/header.module.css";
 @import "../components/Loader/loader.module.css";
-@import "../components/MultipleFiles/multiple_files.module.css";
 @import "../components/Radio/radio.module.css";
 @import "../components/Range/range.module.css";
 @import "../components/Select/select.module.css";
 @import "../components/Switch/switch.module.css";
 @import "../components/Text/text.module.css";
 @import "../components/UploadArea/upload.module.css";
+@import "../components/UploadMultipleFiles/multiple_files.module.css";
