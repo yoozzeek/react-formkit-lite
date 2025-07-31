@@ -35,63 +35,63 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./select": {
-      "types": "./dist/SelectField.d.ts",
-      "import": "./dist/SelectField.js"
+    "./Select": {
+      "types": "./dist/Select.d.ts",
+      "import": "./dist/Select.js"
     },
-    "./text": {
-      "types": "./dist/TextField.d.ts",
-      "import": "./dist/TextField.js"
+    "./Text": {
+      "types": "./dist/Text.d.ts",
+      "import": "./dist/Text.js"
     },
-    "./date": {
-      "types": "./dist/DateField.d.ts",
-      "import": "./dist/DateField.js"
+    "./Date": {
+      "types": "./dist/Date.d.ts",
+      "import": "./dist/Date.js"
     },
-    "./upload": {
+    "./UploadArea": {
       "types": "./dist/UploadArea.d.ts",
-      "import": "./dist/SwitchField.js"
+      "import": "./dist/UploadArea.js"
     },
-    "./multipleUpload": {
-      "types": "./dist/MultipleFilesField.d.ts",
-      "import": "./dist/MultipleFilesField.js"
+    "./UploadMultipleFiles": {
+      "types": "./dist/UploadMultipleFiles.d.ts",
+      "import": "./dist/UploadMultipleFiles.js"
     },
-    "./range": {
-      "types": "./dist/RangeField.d.ts",
-      "import": "./dist/RangeField.js"
+    "./Range": {
+      "types": "./dist/Range.d.ts",
+      "import": "./dist/Range.js"
     },
-    "./switch": {
-      "types": "./dist/SwitchField.d.ts",
-      "import": "./dist/SwitchField.js"
+    "./Switch": {
+      "types": "./dist/Switch.d.ts",
+      "import": "./dist/Switch.js"
     },
-    "./checkbox": {
-      "types": "./dist/CheckboxField.d.ts",
-      "import": "./dist/CheckboxField.js"
+    "./Checkbox": {
+      "types": "./dist/Checkbox.d.ts",
+      "import": "./dist/Checkbox.js"
     },
-    "./checkboxGroup": {
+    "./CheckboxGroup": {
       "types": "./dist/CheckboxGroup.d.ts",
       "import": "./dist/CheckboxGroup.js"
     },
-    "./radio": {
-      "types": "./dist/RadioField.d.ts",
-      "import": "./dist/RadioField.js"
+    "./Radio": {
+      "types": "./dist/Radio.d.ts",
+      "import": "./dist/Radio.js"
     },
-    "./radioGroup": {
+    "./RadioGroup": {
       "types": "./dist/RadioGroup.d.ts",
       "import": "./dist/RadioGroup.js"
     },
-    "./button": {
+    "./Button": {
       "types": "./dist/Button.d.ts",
       "import": "./dist/Button.js"
     },
-    "./badge": {
+    "./Badge": {
       "types": "./dist/Badge.d.ts",
       "import": "./dist/Badge.js"
     },
-    "./header": {
+    "./Header": {
       "types": "./dist/Header.d.ts",
       "import": "./dist/Header.js"
     },
-    "./loader": {
+    "./Loader": {
       "types": "./dist/Loader.d.ts",
       "import": "./dist/Loader.js"
     },
@@ -107,12 +107,12 @@
       "types": "./dist/otherMasks.d.ts",
       "import": "./dist/otherMasks.js"
     },
-    "./index.css": {
+    "./dist/index.css": {
       "import": "./dist/index.css"
     }
   },
   "files": [
-    "lib/"
+    "dist/"
   ],
   "scripts": {
     "dev": "vite",
@@ -165,7 +165,7 @@
     "stylelint-config-standard": "^38.0.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.35.1",
-    "unplugin-dts": "^1.0.0-beta.4",
+    "unplugin-dts": "^1.0.0-beta.5",
     "vite": "^7.0.4",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.2.4"

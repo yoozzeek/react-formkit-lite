@@ -2,7 +2,6 @@ import styles from "./multiple_files.module.css";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
 import SimpleBar from "simplebar-react";
-//import UIMediaFilesItem, { MediaFileItemType } from "../MediaFilesItem";
 import type { UploadedFileItem } from "@/types";
 import { clsx } from "clsx";
 import PlusIcon from "@/assets/icons/plus.svg?react";

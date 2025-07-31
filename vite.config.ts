@@ -10,11 +10,13 @@ import { fileURLToPath } from "node:url";
 import type { PluginOptions } from "unplugin-dts";
 import type { UserConfig, BuildEnvironmentOptions } from "vite";
 
+const CSS_PREFIX = "formkit-lite-";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const dtsOptions = {
-  exclude: [],
+  exclude: ["./examples"],
   tsconfigPath: "./tsconfig.app.json",
   outDirs: "./dist",
   beforeWriteFile: (
@@ -26,18 +28,37 @@ const dtsOptions = {
         content: string;
       }
     | boolean => {
-    const basename = path.basename(filePath);
-    const filename = path.join("dist", basename);
-    const relativePath = path.relative(__dirname, filePath);
-
-    // skip index.tsx aliases for components
-    if (relativePath.startsWith("dist/components") && basename === "index.d.ts") {
+    const fileName = path.basename(filePath);
+    const basePath = path.relative(__dirname, path.dirname(filePath));
+    if (basePath.startsWith("dist/components") && fileName === "index.d.ts") {
       return false;
     }
 
+    const formattedFilePath = path.resolve("dist", fileName.replace("Field", ""));
+    const newFilePath = fileURLToPath(new URL(formattedFilePath, import.meta.url));
+
+    let formattedContent: string;
+    switch (fileName) {
+      case "index.d.ts":
+        formattedContent = content
+          .replaceAll("components/", "")
+          .replaceAll("Checkbox/", "")
+          .replaceAll("Radio/", "")
+          .replace("./RadioField", "./Radio")
+          .replace("./CheckboxField", "./Checkbox");
+        break;
+      case "types.d.ts":
+        formattedContent = content
+          .replace("./components/Select", "./Select")
+          .replace("./components/Select/SelectOption", "./SelectOption");
+        break;
+      default:
+        formattedContent = content.replaceAll("../../types", "./types");
+    }
+
     return {
-      filePath: fileURLToPath(new URL(filename, import.meta.url)),
-      content: content.replace("from '../../types'", "from './types'"),
+      filePath: newFilePath,
+      content: formattedContent,
     };
   },
 } as PluginOptions;
@@ -75,14 +96,31 @@ export default defineConfig(({ mode }) => {
               external: ["react", "react/jsx-runtime", "simplebar-react", "react-imask"],
               input: Object.fromEntries(
                 globSync([
-                  "src/components/**/*.tsx",
+                  "src/components/Select/SelectField.tsx",
+                  "src/components/Text/TextField.tsx",
+                  "src/components/Range/RangeField.tsx",
+                  "src/components/Date/DateField.tsx",
+                  "src/components/Checkbox/CheckboxField.tsx",
+                  "src/components/Checkbox/CheckboxGroup.tsx",
+                  "src/components/Radio/RadioField.tsx",
+                  "src/components/Radio/RadioGroup.tsx",
+                  "src/components/Switch/SwitchField.tsx",
+                  "src/components/UploadMultipleFiles/UploadMultipleFiles.tsx",
+                  "src/components/UploadArea/UploadArea.tsx",
+                  "src/components/Badge/Badge.tsx",
+                  "src/components/Button/Button.tsx",
+                  "src/components/Header/Header.tsx",
+                  "src/components/Loader/Loader.tsx",
                   "src/utils/phoneNumberMask.ts",
                   "src/utils/dateMask.ts",
                   "src/utils/otherMasks.ts",
                   "src/index.ts",
                 ]).map((file) => {
-                  const entryName = path.basename(file, path.extname(file));
+                  let entryName = path.basename(file, path.extname(file));
                   const entryUrl = fileURLToPath(new URL(file, import.meta.url));
+                  if (file.startsWith("src/components")) {
+                    entryName = entryName.replace("Field", "");
+                  }
                   return [entryName, entryUrl];
                 }),
               ),
@@ -95,7 +133,7 @@ export default defineConfig(({ mode }) => {
     css: {
       modules: {
         generateScopedName: (name) => {
-          return `formkit-lite-${name}`;
+          return `${CSS_PREFIX}${name}`;
         },
       },
     },

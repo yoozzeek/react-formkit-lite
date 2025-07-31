@@ -6,7 +6,7 @@ import CheckboxField from "../src/components/Checkbox/CheckboxField";
 import RadioGroup from "../src/components/Radio/RadioGroup";
 import RadioField from "../src/components/Radio/RadioField";
 import RangeField from "../src/components/Range";
-import MultipleFilesField from "../src/components/MultipleFiles";
+import UploadMultipleFiles from "@/components/UploadMultipleFiles";
 import { phoneNumberWithCodeMask } from "@/utils/phoneNumberMask.ts";
 import DemoUploadArea from "./components/DemoUploadArea.tsx";
 import DateField from "@/components/Date";
@@ -210,7 +210,7 @@ export default function DemoFormExample() {
         </div>
         <div>
           <h4>Upload media files</h4>
-          <MultipleFilesField
+          <UploadMultipleFiles
             label="Images, videos and PDFs"
             files={[]}
             onFilesAdded={() => {}}

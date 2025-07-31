@@ -45,7 +45,7 @@ import "@yoozzeek/react-formkit-lite/dist/index.css"
 Field for selecting a single or multiple values from a list of options. Highly responsive on mobile, supports virtualized lists of thousands of items. Includes dynamic term search and async loading from APIs. Can be easily wrapped to create specific components like `SelectCountry`, `SelectCity`, or `SelectCategories`.
 
 ```jsx
-import SelectField from "@yoozzeek/react-formkit-lite/select";
+import SelectField from "@yoozzeek/react-formkit-lite/Select";
 
 <SelectField
   id="id"
@@ -63,7 +63,7 @@ import SelectField from "@yoozzeek/react-formkit-lite/select";
 More than just an input field, supports basic text and number types, and can apply dynamic input masks (either custom or built-in). Flexible and adaptable for common text-based use cases.
 
 ```jsx
-import TextField from "@yoozzeek/react-formkit-lite/text";
+import TextField from "@yoozzeek/react-formkit-lite/Text";
 import { phoneNumberWithCodeMask } from "@yoozzeek/react-formkit-lite/phoneNumberMask";
 
 <TextField
@@ -84,7 +84,7 @@ import { phoneNumberWithCodeMask } from "@yoozzeek/react-formkit-lite/phoneNumbe
 A preconfigured date input based on TextField, using a built-in date mask. Simplifies working with `MM-dd-yyyy` formatted dates.
 
 ```jsx
-import DateField from "@yoozzeek/react-formkit-lite/date";
+import DateField from "@yoozzeek/react-formkit-lite/Date";
 
 <DateField
   id="date"
@@ -102,7 +102,7 @@ import DateField from "@yoozzeek/react-formkit-lite/date";
 A responsive, cross-browser checkbox field that returns a boolean value. Includes helpful extras for state handling. Can be grouped with `CheckboxGroup` for multiple checkbox scenarios.
 
 ```jsx
-import CheckboxField from "@yoozzeek/react-formkit-lite/checkbox";
+import CheckboxField from "@yoozzeek/react-formkit-lite/Checkbox";
 
 <CheckboxField
   id="id"
@@ -118,7 +118,7 @@ import CheckboxField from "@yoozzeek/react-formkit-lite/checkbox";
 Like `CheckboxField` but for single-choice inputs. Comes with a `RadioGroup` wrapper for defining option groups.
 
 ```jsx
-import RadioField from "@yoozzeek/react-formkit-lite/radio";
+import RadioField from "@yoozzeek/react-formkit-lite/Radio";
 
 <RadioField
   name="name"
@@ -134,7 +134,7 @@ import RadioField from "@yoozzeek/react-formkit-lite/radio";
 A mobile-friendly slider for selecting numeric ranges. Includes an expanded click/touch area for improved usability, especially on touch devices.
 
 ```jsx
-import RangeField from "@yoozzeek/react-formkit-lite/range";
+import RangeField from "@yoozzeek/react-formkit-lite/Range";
 
 <RangeField
   id="id"
@@ -153,7 +153,7 @@ import RangeField from "@yoozzeek/react-formkit-lite/range";
 A toggle-style input that functions like a checkbox but appears as a switch. Offers a modern, compact alternative to traditional checkboxes.
 
 ```jsx
-import SwitchField from "@yoozzeek/react-formkit-lite/switch";
+import SwitchField from "@yoozzeek/react-formkit-lite/Switch";
 
 <SwitchField
   id="id"
@@ -166,13 +166,13 @@ import SwitchField from "@yoozzeek/react-formkit-lite/switch";
 
 [View Demo](https://yoozzeek.github.io/react-formkit-lite/#switch_field_examples) | [Code Example](/examples/SwitchFieldExamples.tsx)
 
-### MultipleFilesField
+### UploadMultipleFiles
 Robust file upload component supporting multiple files. Works either in immediate-upload mode or with deferred processing using `objectURL` and `FormData`. Flexible for both instant preview and batch upload workflows.
 
 ```jsx
-import MultipleFilesField from "@yoozzeek/react-formkit-lite/multipleUpload";
+import UploadMultipleFiles from "@yoozzeek/react-formkit-lite/UploadMultipleFiles";
 
-<MultipleFilesField
+<UploadMultipleFiles
   label="Label"
   files={[]}
   onFilesAdded={() => {}}
@@ -185,7 +185,7 @@ import MultipleFilesField from "@yoozzeek/react-formkit-lite/multipleUpload";
 A drag-and-drop (or click-to-select) area for uploading a single file. Fully configurable: file type restrictions, custom messages, and UX tweaks are all supported.
 
 ```jsx
-import UploadArea from "@yoozzeek/react-formkit-lite/upload";
+import UploadArea from "@yoozzeek/react-formkit-lite/UploadArea";
 
 <UploadArea onSelectFile={() => {}} />
 ```

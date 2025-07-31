@@ -1,8 +1,5 @@
-import type {
-  SelectFormikHandler,
-  SelectSimpleHandler,
-  SelectOptionType,
-} from "@/components/Select";
+import type { SelectFormikHandler, SelectSimpleHandler } from "@/components/Select";
+import type { SelectOptionType } from "@/components/Select/SelectOption";
 import type { MouseEvent, FocusEvent } from "react";
 
 export type Size = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";

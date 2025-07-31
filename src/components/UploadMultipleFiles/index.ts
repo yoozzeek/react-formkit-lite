@@ -1,1 +1,1 @@
-export { default } from "./UploadMultipleFiles.tsx";
+export { default } from "./UploadMultipleFiles";

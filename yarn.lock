@@ -3630,10 +3630,10 @@ universalify@^2.0.0:
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-2.0.1.tgz#168efc2180964e6386d061e094df61afe239b18d"
   integrity sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==
 
-unplugin-dts@^1.0.0-beta.4:
-  version "1.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/unplugin-dts/-/unplugin-dts-1.0.0-beta.4.tgz#7e243c9523a3606fa73d248aeff62e6e6bfaf5e1"
-  integrity sha512-1/DNE0LGRQAqQ/X2LZVnoI0OaF9JGsaovSsoL4N2+VQfARJsMLzA2fm7hSHOitn9dPAZk01255uFrOU4Xv56sQ==
+unplugin-dts@^1.0.0:
+  version "1.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/unplugin-dts/-/unplugin-dts-1.0.0-beta.5.tgz#4a9fc0799022c8aba290c0d8940a7f8205d822fa"
+  integrity sha512-VoByx8nDaSQ11Kq4OXAIxasnh6pOjFFpcZXlRTC7RKhVKHaFT24WQJ/ggbfYegHzV6b3NGWH3ip9KFsWtNah/Q==
   dependencies:
     "@rollup/pluginutils" "^5.1.4"
     "@volar/typescript" "^2.4.17"
