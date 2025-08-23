@@ -20,26 +20,7 @@ import CheckboxFieldExamples from "./CheckboxFieldExamples";
 import SwitchFieldExamples from "./SwitchFieldExamples";
 import RadioFieldExamples from "./RadioFieldExamples";
 import UploadMultipleFilesExamples from "./UploadMultipleFilesExamples";
-
-const ComponentsNavItemsList = () => {
-  return (
-    <>
-      <a href="#text_field_examples">Text</a>
-      <a href="#select_field_examples">Select</a>
-      <a href="#upload_multiple_files_examples">MultipleFiles</a>
-      <a href="#date_field_examples">Date</a>
-      <a href="#range_field_examples">Range</a>
-      <a href="#checkbox_field_examples">Checkbox</a>
-      <a href="#radio_field_examples">Radio</a>
-      <a href="#switch_field_examples">Switch</a>
-      <a href="#upload_area_examples">UploadArea</a>
-      <a href="#header_examples">Header</a>
-      <a href="#loader_examples">Loader</a>
-      <a href="#badge_examples">Badge</a>
-      <a href="#button_examples">Button</a>
-    </>
-  );
-};
+import { ComponentsNavItemsList } from "./NavItemsList.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -122,28 +103,17 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               flexWrap: "nowrap",
               padding: "1em 0",
               fontSize: "1.2rem",
-              fontWeight: 600,
               whiteSpace: "nowrap",
               gap: "1em",
             }}
           >
             <span>Go to:</span>
-            <a href="https://github.com/yoozzeek/react-formkit-lite" target="_blank">
-              GitHub
-            </a>
             <ComponentsNavItemsList />
           </nav>
         </SimpleBar>
       </div>
 
-      <div
-        style={{
-          marginTop: "2em",
-          display: "flex",
-          flexDirection: "column",
-          gap: "3em",
-        }}
-      >
+      <div className="examples_sections">
         <TextFieldExamples />
         <SelectFieldExamples />
         <UploadMultipleFilesExamples />

@@ -24,3 +24,5 @@ export type {
   CustomMultipleSelectFieldProps,
   CustomSingleSelectFieldProps,
 } from "@/types";
+
+export { useCenterOnHorizontalScroll } from "@/hooks/useCenterOnHorizontalScroll";
