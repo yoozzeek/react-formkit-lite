@@ -17,7 +17,9 @@ const NAV_ITEMS: ReadonlyArray<{ href: `#${string}`; label: string }> = [
   { href: "#loader_examples", label: "Loader" },
 ] as const;
 
-export const ComponentsNavItemsList: FC = () => {
+export const ComponentsNavItemsList: FC<{
+  disableActive?: boolean;
+}> = ({ disableActive = true }) => {
   const centerOnClick = useCenterOnHorizontalScroll();
   const [activeHash, setActiveHash] = useState<string>(
     typeof window !== "undefined" && window.location.hash
@@ -26,17 +28,17 @@ export const ComponentsNavItemsList: FC = () => {
   );
 
   useEffect(() => {
+    if (!disableActive) return;
     const onHashChange = () => setActiveHash(window.location.hash || NAV_ITEMS[0]?.href || "");
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
+  }, [disableActive]);
 
   return (
     <>
       {NAV_ITEMS.map(({ href, label }) => {
         const isActive = activeHash === href;
-
-        if (isActive) {
+        if (disableActive && isActive) {
           return (
             <span
               key={href}

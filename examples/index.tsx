@@ -68,7 +68,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           gap: 21,
         }}
       >
-        <ComponentsNavItemsList />
+        <ComponentsNavItemsList disableActive={false} />
       </nav>
     </div>
 
