@@ -9,7 +9,7 @@
 
 .checkbox-field--group {
     border-bottom: 1px solid var(--formkit-lite-color-light);
-    padding: var(--formkit-lite-space-lg) var(--formkit-lite-space-xl);
+    padding: var(--formkit-lite-space-lg) 0;
 }
 
 @media (min-width: 768px) {

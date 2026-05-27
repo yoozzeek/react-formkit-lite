@@ -27,8 +27,8 @@
     "web"
   ],
   "type": "module",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -116,6 +116,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "prepare": "tsc -b && vite build",
     "build": "tsc -b && vite build",
     "build:demo": "vite build --mode demo",
     "lint": "eslint --quiet .",
