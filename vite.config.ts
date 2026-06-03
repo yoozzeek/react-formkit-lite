@@ -7,6 +7,7 @@ import { globSync } from "glob";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 import type { PluginOptions } from "unplugin-dts";
 import type { UserConfig, BuildEnvironmentOptions } from "vite";
 
@@ -14,6 +15,17 @@ const CSS_PREFIX = "formkit-lite-";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const pkg = createRequire(import.meta.url)("./package.json") as {
+  dependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+};
+
+const external = [
+  ...Object.keys(pkg.peerDependencies ?? {}),
+  ...Object.keys(pkg.dependencies ?? {}),
+  "react/jsx-runtime",
+];
 
 const dtsOptions = {
   exclude: ["./examples"],
@@ -93,7 +105,7 @@ export default defineConfig(({ mode }) => {
             },
             outDir: path.resolve(__dirname, "./dist"),
             rollupOptions: {
-              external: ["react", "react/jsx-runtime", "simplebar-react", "react-imask"],
+              external,
               input: Object.fromEntries(
                 globSync([
                   "src/components/Select/SelectField.tsx",
