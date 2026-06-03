@@ -111,6 +111,12 @@ function SelectField<T = any, V = string>({
   const selectedOptionsInitialized = useRef(false);
   const [selectedOptions, setSelectedOptions] = useState<SelectOptionType<T, V>[]>([]);
 
+  const selectedOptionsRef = useRef<SelectOptionType<T, V>[]>([]);
+
+  useEffect(() => {
+    selectedOptionsRef.current = selectedOptions;
+  }, [selectedOptions]);
+
   useEffect(() => {
     if (typeof value === "number" && value <= 0) return;
     if (typeof value === "string" && value.length === 0) return;
@@ -149,17 +155,11 @@ function SelectField<T = any, V = string>({
 
         // Handle removing as multiple selection
         if (multiple) {
-          let newSelectedOptions: SelectOptionType<T, V>[] = [];
+          const newSelectedOptions = selectedOptionsRef.current.filter(
+            (opt) => opt.value !== option.value,
+          );
 
-          // Update local state
-          //flushSync(() => {
-          setSelectedOptions((prev) => {
-            newSelectedOptions = prev.filter((opt) => opt.value !== option.value);
-            return newSelectedOptions;
-          });
-          //});
-
-          // Emit values to parent
+          setSelectedOptions(newSelectedOptions);
           emitMultipleValue(newSelectedOptions);
           return;
         }
@@ -178,17 +178,12 @@ function SelectField<T = any, V = string>({
 
       // Handle adding as multiple selection
       if (multiple) {
-        let newSelectedOptions: SelectOptionType<T, V>[] = [];
         selected.add(option.value);
-        //flushSync(() => {
-        setSelectedOptions((prev) => {
-          newSelectedOptions = [...prev, option];
-          return newSelectedOptions;
-        });
-        //});
 
-        // Emit values to parent
+        const newSelectedOptions = [...selectedOptionsRef.current, option];
+        setSelectedOptions(newSelectedOptions);
         emitMultipleValue(newSelectedOptions);
+
         return;
       }
 
