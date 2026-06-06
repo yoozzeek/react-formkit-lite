@@ -8,5 +8,5 @@ type SwitchFieldProps = {
     onChange: (value: boolean) => void;
     onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
 };
-declare const SwitchField: ({ id, name, label, helpText, value, onFocus, onChange }: SwitchFieldProps) => import("react/jsx-runtime").JSX.Element;
+declare const SwitchField: ({ id, name, label, helpText, value, onFocus, onChange }: SwitchFieldProps) => import("react").JSX.Element;
 export default SwitchField;

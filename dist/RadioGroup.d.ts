@@ -5,5 +5,5 @@ type RadioGroupProps = {
     error?: string;
     children: ReactNode;
 };
-declare const RadioGroup: ({ ariaLabel, label, error, children }: RadioGroupProps) => import("react/jsx-runtime").JSX.Element;
+declare const RadioGroup: ({ ariaLabel, label, error, children }: RadioGroupProps) => import("react").JSX.Element;
 export default RadioGroup;

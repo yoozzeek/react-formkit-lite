@@ -6,5 +6,5 @@ export type CheckboxGroupProps = {
     ariaLabel?: string;
     children: ReactNode;
 };
-declare const CheckboxGroup: ({ label, children, error, ariaLabel, }: CheckboxGroupProps) => import("react/jsx-runtime").JSX.Element;
+declare const CheckboxGroup: ({ label, children, error, ariaLabel, }: CheckboxGroupProps) => import("react").JSX.Element;
 export default CheckboxGroup;

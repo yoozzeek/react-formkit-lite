@@ -24,5 +24,5 @@ type HeaderProps = {
     action?: HeaderActionType;
     onGoBack?: () => void;
 };
-declare function Header({ title, goBackLabel, onGoBack, serifTitle, fixed, titleH1, transparent, transparentCover, parentIsModal, scrollDelta, variant, action, classes, children, }: HeaderProps): import("react/jsx-runtime").JSX.Element;
+declare function Header({ title, goBackLabel, onGoBack, serifTitle, fixed, titleH1, transparent, transparentCover, parentIsModal, scrollDelta, variant, action, classes, children, }: HeaderProps): import("react").JSX.Element;
 export default Header;

@@ -11,5 +11,5 @@ type UploadMultipleFilesProps = {
     onFilesAdded: (file: File[]) => void;
     onFilesRemoved: (ids: string[]) => void;
 };
-declare const UploadMultipleFiles: ({ max, label, helpText, name, files, interactiveMode, disabled, loading, onFilesAdded, onFilesRemoved, }: UploadMultipleFilesProps) => import("react/jsx-runtime").JSX.Element;
+declare const UploadMultipleFiles: ({ max, label, helpText, name, files, interactiveMode, disabled, loading, onFilesAdded, onFilesRemoved, }: UploadMultipleFilesProps) => import("react").JSX.Element;
 export default UploadMultipleFiles;

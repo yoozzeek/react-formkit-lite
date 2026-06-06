@@ -14,5 +14,5 @@ type RangeFieldProps = {
     onChange?: ChangeEventHandler<HTMLInputElement>;
     onFocus?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
-declare const RangeField: ({ id, name, min, max, minPlaceholder, maxPlaceholder, step, label, disabled, value, onValueChange, onFocus, }: RangeFieldProps) => import("react/jsx-runtime").JSX.Element;
+declare const RangeField: ({ id, name, min, max, minPlaceholder, maxPlaceholder, step, label, disabled, value, onValueChange, onFocus, }: RangeFieldProps) => import("react").JSX.Element;
 export default RangeField;
