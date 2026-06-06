@@ -1,6 +1,8 @@
-import type { ChangeEvent } from "react";
+import type { ComponentProps } from "react";
 
-export default function textAreaAutoHeight(event: ChangeEvent<HTMLTextAreaElement>) {
+type TextareaInputEvent = Parameters<NonNullable<ComponentProps<"textarea">["onInput"]>>[0];
+
+export default function textAreaAutoHeight(event: TextareaInputEvent) {
   event.currentTarget.style.height = "6px";
   event.currentTarget.style.height = event.currentTarget.scrollHeight + "px";
 }

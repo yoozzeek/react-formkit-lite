@@ -1,6 +1,14 @@
 import styles from "./text.module.css";
 import { useState, useMemo, useEffect, useRef, memo } from "react";
-import type { JSX, MouseEvent, FocusEvent, ChangeEvent, ReactElement, RefObject } from "react";
+import type {
+  JSX,
+  MouseEvent,
+  FocusEvent,
+  ChangeEvent,
+  ComponentProps,
+  ReactElement,
+  RefObject,
+} from "react";
 import RemoveIcon from "@/assets/icons/remove.svg?react";
 import MaskedDynamic from "imask/masked/dynamic";
 import MaskedRegExp from "imask/masked/regexp";
@@ -169,10 +177,7 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
 
   const inputEl = useMemo(() => {
     if (textarea) {
-      const dynamicProps: {
-        // eslint-disable-next-line no-unused-vars
-        onInput?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-      } = {};
+      const dynamicProps: { onInput?: ComponentProps<"textarea">["onInput"] } = {};
       if (textareaAutoHeight) {
         dynamicProps.onInput = textAreaAutoHeight;
       }

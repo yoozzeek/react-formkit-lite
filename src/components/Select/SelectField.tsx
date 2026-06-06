@@ -71,7 +71,7 @@ export type SelectFieldProps<T, V> =
   | SelectFieldSimpleHandlerProps<T, V>
   | MultipleSelectFieldSimpleHandlerProps<T, V>;
 
-function SelectField<T = any, V = string>({
+function SelectField<T = unknown, V = string>({
   id,
   label,
   popupLabel,

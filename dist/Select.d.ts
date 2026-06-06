@@ -44,5 +44,5 @@ interface MultipleSelectFieldWithFormikHandlerProps<T, V> extends SelectFieldCom
     onChange: SelectFormikHandler<V[]>;
 }
 export type SelectFieldProps<T, V> = SelectFieldWithFormikHandlerProps<T, V> | MultipleSelectFieldWithFormikHandlerProps<T, V> | SelectFieldSimpleHandlerProps<T, V> | MultipleSelectFieldSimpleHandlerProps<T, V>;
-declare function SelectField<T = any, V = string>({ id, label, popupLabel, dpWidth, placeholder, max, min, options, error, helpText, value, valueGetter, valueRender, searchTerm, required, multiple, dpFullscreen, dpPosition, isLoading, formikHandler, fullWidth, disabled, onLoadMore, onFocus, onSearch, onChange, onReset, }: SelectFieldProps<T, V>): JSX.Element;
+declare function SelectField<T = unknown, V = string>({ id, label, popupLabel, dpWidth, placeholder, max, min, options, error, helpText, value, valueGetter, valueRender, searchTerm, required, multiple, dpFullscreen, dpPosition, isLoading, formikHandler, fullWidth, disabled, onLoadMore, onFocus, onSearch, onChange, onReset, }: SelectFieldProps<T, V>): JSX.Element;
 export default SelectField;
