@@ -1,88 +1,88 @@
 .radio {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: var(--formkit-lite-font-size);
-    color: var(--formkit-lite-color-dark);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: var(--formkit-lite-font-size);
+  color: var(--formkit-lite-color-dark);
 }
 
 .radio--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .radio--checked {
-    color: var(--formkit-lite-color-dark);
+  color: var(--formkit-lite-color-dark);
 }
 
 .radio--unchecked {
-    color: var(--formkit-lite-color-light3);
+  color: var(--formkit-lite-color-light3);
 }
 
 .radio__input {
-    appearance: none;
-    display: grid;
-    place-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 2px solid var(--formkit-lite-color-light2);
-    background-color: white;
-    position: relative;
-    cursor: pointer;
-    flex-shrink: 0;
+  appearance: none;
+  display: grid;
+  place-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--formkit-lite-color-light2);
+  background-color: white;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .radio__input::before {
-    content: "";
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: var(--formkit-lite-color-success);
-    transform: scale(0);
-    transition: transform 0.2s ease;
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--formkit-lite-color-success);
+  transform: scale(0);
+  transition: transform 0.2s ease;
 }
 
 .radio__input:checked::before {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 .radio__input--spaced {
-    margin-right: var(--formkit-lite-space-md);
+  margin-right: var(--formkit-lite-space-md);
 }
 
 .radio__input--primary {
-    border-color: var(--formkit-lite-color-success);
+  border-color: var(--formkit-lite-color-success);
 }
 
 .radio__input--light {
-    border-color: var(--formkit-lite-color-light2);
+  border-color: var(--formkit-lite-color-light2);
 }
 
 .radio__input--light:checked {
-    border-color: var(--formkit-lite-color-success);
+  border-color: var(--formkit-lite-color-success);
 }
 
 /* Group */
 .radio-group {
-    display: block;
+  display: block;
 }
 
 .radio-group__label {
-    display: block;
-    font-weight: 600;
-    padding-bottom: var(--formkit-lite-space-xl);
-    color: var(--formkit-lite-color-dark);
+  display: block;
+  font-weight: 600;
+  padding-bottom: var(--formkit-lite-space-xl);
+  color: var(--formkit-lite-color-dark);
 }
 
 .radio-group__content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
 }
 
 .radio-group__error {
-    margin-top: var(--formkit-lite-space-xl);
-    font-size: 12px;
-    color: var(--formkit-lite-color-danger);
+  margin-top: var(--formkit-lite-space-xl);
+  font-size: 12px;
+  color: var(--formkit-lite-color-danger);
 }

@@ -1,254 +1,254 @@
 @import "../../assets/variables.css";
 
 .select {
-    position: relative;
+  position: relative;
 }
 
 .select__label {
-    margin-bottom: var(--formkit-lite-space-md);
-    display: block;
-    font-weight: 600;
-    color: var(--formkit-lite-color-dark);
+  margin-bottom: var(--formkit-lite-space-md);
+  display: block;
+  font-weight: 600;
+  color: var(--formkit-lite-color-dark);
 }
 
 .select__required {
-    margin-left: var(--formkit-lite-space-sm);
-    color: var(--formkit-lite-color-danger);
+  margin-left: var(--formkit-lite-space-sm);
+  color: var(--formkit-lite-color-danger);
 }
 
 .select__control {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    background-color: white;
-    border: 1px solid var(--formkit-lite-color-light2);
-    border-radius: var(--formkit-lite-radius-lg);
-    cursor: pointer;
-    appearance: none;
-    outline: none;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: white;
+  border: 1px solid var(--formkit-lite-color-light2);
+  border-radius: var(--formkit-lite-radius-lg);
+  cursor: pointer;
+  appearance: none;
+  outline: none;
 }
 
 .select__control--error {
-    border-color: var(--formkit-lite-color-danger);
+  border-color: var(--formkit-lite-color-danger);
 }
 
 .select__control--disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .select__control--full {
-    width: 100%;
+  width: 100%;
 }
 
 .select__control--multiple {
-    padding: var(--formkit-lite-space-sm) var(--formkit-lite-space-xl);
-    gap: var(--formkit-lite-space-sm);
-    justify-content: flex-start;
+  padding: var(--formkit-lite-space-sm) var(--formkit-lite-space-xl);
+  gap: var(--formkit-lite-space-sm);
+  justify-content: flex-start;
 }
 
 .select__control--single {
-    padding: var(--formkit-lite-space-lg) var(--formkit-lite-space-xl);
+  padding: var(--formkit-lite-space-lg) var(--formkit-lite-space-xl);
 }
 
 .select__multiple-placeholder {
-    display: flex;
-    align-items: center;
-    gap: var(--formkit-lite-space-sm);
-    font-size: var(--formkit-lite-font-size);
-    color: var(--formkit-lite-color-success);
+  display: flex;
+  align-items: center;
+  gap: var(--formkit-lite-space-sm);
+  font-size: var(--formkit-lite-font-size);
+  color: var(--formkit-lite-color-success);
 }
 
 .select__multiple-placeholder--disabled {
-    color: var(--formkit-lite-color-light3);
+  color: var(--formkit-lite-color-light3);
 }
 
 .select__multiple-placeholder-icon {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
 }
 
 .select__multiple-placeholder-text {
-    padding-top: var(--formkit-lite-space-xs);
-    padding-bottom: var(--formkit-lite-space-xs);
+  padding-top: var(--formkit-lite-space-xs);
+  padding-bottom: var(--formkit-lite-space-xs);
 }
 
 .select__value {
-    flex: 1;
-    font-size: var(--formkit-lite-font-size);
+  flex: 1;
+  font-size: var(--formkit-lite-font-size);
 }
 
 .select__value--placeholder {
-    color: var(--formkit-lite-color-light3);
+  color: var(--formkit-lite-color-light3);
 }
 
 .select__value--single {
-    color: var(--formkit-lite-color-dark);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  color: var(--formkit-lite-color-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .select__icon {
-    position: absolute;
-    right: var(--formkit-lite-space-xl);
-    top: var(--formkit-lite-space-md);
-    width: 24px;
-    height: 24px;
-    background-color: white;
+  position: absolute;
+  right: var(--formkit-lite-space-xl);
+  top: var(--formkit-lite-space-md);
+  width: 24px;
+  height: 24px;
+  background-color: white;
 }
 
 .select__icon--disabled {
-    color: var(--formkit-lite-color-light2);
+  color: var(--formkit-lite-color-light2);
 }
 
 .select__dropdown {
-    position: absolute;
-    top: calc(100% + var(--formkit-lite-space-sm));
-    z-index: 20;
-    background-color: white;
-    border-radius: var(--formkit-lite-radius-xl);
-    box-shadow: var(--formkit-lite-box-shadow);
-    max-height: 280px;
-    overflow: hidden;
-    width: 104%;
+  position: absolute;
+  top: calc(100% + var(--formkit-lite-space-sm));
+  z-index: 20;
+  background-color: white;
+  border-radius: var(--formkit-lite-radius-xl);
+  box-shadow: var(--formkit-lite-box-shadow);
+  max-height: 280px;
+  overflow: hidden;
+  width: 104%;
 }
 
 .select__dropdown--left {
-    left: -2%;
+  left: -2%;
 }
 
 .select__dropdown--right {
-    right: -2%;
+  right: -2%;
 }
 
 .select__search {
-    margin: var(--formkit-lite-space-xl);
+  margin: var(--formkit-lite-space-xl);
 }
 
 .select__loading-block {
-    margin: var(--formkit-lite-space-xl) 0;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+  margin: var(--formkit-lite-space-xl) 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 .select__scrollable-simplebar {
-    margin-top: var(--formkit-lite-space-xl);
-    padding-bottom: var(--formkit-lite-space-md);
+  margin-top: var(--formkit-lite-space-xl);
+  padding-bottom: var(--formkit-lite-space-md);
 }
 
 .select__scrollable {
-    margin-top: var(--formkit-lite-space-xl);
-    padding-bottom: var(--formkit-lite-space-md);
+  margin-top: var(--formkit-lite-space-xl);
+  padding-bottom: var(--formkit-lite-space-md);
 }
 
 @media (min-width: 576px) {
-    .select__scrollable-simplebar {
-        max-height: 200px;
-        overflow-y: auto;
-    }
+  .select__scrollable-simplebar {
+    max-height: 200px;
+    overflow-y: auto;
+  }
 
-    .select__scrollable {
-        max-height: 240px;
-        overflow-y: hidden;
-    }
+  .select__scrollable {
+    max-height: 240px;
+    overflow-y: hidden;
+  }
 }
 
 .select__no-results {
-    padding: var(--formkit-lite-space-xl);
-    text-align: center;
-    font-size: 12px;
-    color: var(--formkit-lite-color-light3);
+  padding: var(--formkit-lite-space-xl);
+  text-align: center;
+  font-size: 12px;
+  color: var(--formkit-lite-color-light3);
 }
 
 .select__error {
-    display: block;
-    padding-top: var(--formkit-lite-space-md);
-    font-size: 12px;
-    color: var(--formkit-lite-color-danger);
+  display: block;
+  padding-top: var(--formkit-lite-space-md);
+  font-size: 12px;
+  color: var(--formkit-lite-color-danger);
 }
 
 .select__help {
-    display: block;
-    padding-top: var(--formkit-lite-space-md);
-    font-size: 12px;
-    color: var(--formkit-lite-color-light3);
+  display: block;
+  padding-top: var(--formkit-lite-space-md);
+  font-size: 12px;
+  color: var(--formkit-lite-color-light3);
 }
 
 /* --- Option shared --- */
 .select-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--formkit-lite-color-light);
-    padding: var(--formkit-lite-space-xl);
-    font-size: var(--formkit-lite-font-size);
-    color: var(--formkit-lite-color-dark);
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--formkit-lite-color-light);
+  padding: var(--formkit-lite-space-xl);
+  font-size: var(--formkit-lite-font-size);
+  color: var(--formkit-lite-color-dark);
+  cursor: pointer;
 }
 
 .select-option:hover {
-    background-color: var(--formkit-lite-color-light);
+  background-color: var(--formkit-lite-color-light);
 }
 
 .select-option:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .select-option__icon {
-    margin-right: var(--formkit-lite-space-xl);
-    display: flex;
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
+  margin-right: var(--formkit-lite-space-xl);
+  display: flex;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
 .select-option__help {
-    color: var(--formkit-lite-color-light3);
-    font-size: 12px;
-    margin-left: var(--formkit-lite-space-md);
-    flex-shrink: 0;
+  color: var(--formkit-lite-color-light3);
+  font-size: 12px;
+  margin-left: var(--formkit-lite-space-md);
+  flex-shrink: 0;
 }
 
 /* --- Single select --- */
 .select-option--single-selected {
-    background-color: var(--formkit-lite-color-light);
-    color: var(--formkit-lite-color-success);
+  background-color: var(--formkit-lite-color-light);
+  color: var(--formkit-lite-color-success);
 }
 
 /* --- Multiple select --- */
 .select-option--disabled {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .select-option__checkbox {
-    display: inline-flex;
-    width: 24px;
-    height: 24px;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--formkit-lite-radius-xl);
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--formkit-lite-radius-xl);
 }
 
 .select-option__checkbox--selected {
-    background-color: var(--formkit-lite-color-success);
+  background-color: var(--formkit-lite-color-success);
 }
 
 .select-option__checkbox--hovered {
-    background-color: #139a6b;
+  background-color: #139a6b;
 }
 
 .select-option__checkbox--unselected {
-    background-color: white;
-    border: 2px solid var(--formkit-lite-color-light2);
+  background-color: white;
+  border: 2px solid var(--formkit-lite-color-light2);
 }
 
 .select-option__check-icon {
-    width: 13px;
-    height: 10px;
-    color: white;
+  width: 13px;
+  height: 10px;
+  color: white;
 }

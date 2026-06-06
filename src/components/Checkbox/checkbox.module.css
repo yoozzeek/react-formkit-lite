@@ -1,124 +1,124 @@
-@import '../../assets/variables.css';
+@import "../../assets/variables.css";
 
 .checkbox-field {
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: var(--formkit-lite-text-light);
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: var(--formkit-lite-text-light);
 }
 
 .checkbox-field--group {
-    border-bottom: 1px solid var(--formkit-lite-color-light);
-    padding: var(--formkit-lite-space-lg) 0;
+  border-bottom: 1px solid var(--formkit-lite-color-light);
+  padding: var(--formkit-lite-space-lg) 0;
 }
 
 @media (min-width: 768px) {
-    .checkbox-field--group {
-        border-bottom: none;
-    }
+  .checkbox-field--group {
+    border-bottom: none;
+  }
 }
 
 .checkbox-field--right-label {
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .checkbox-field--disabled {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .checkbox-field__input {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    opacity: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
 }
 
 .checkbox-field__label {
-    flex: 1;
-    color: var(--formkit-lite-color-dark);
+  flex: 1;
+  color: var(--formkit-lite-color-dark);
 }
 
 .checkbox-field__label--left {
-    padding-right: var(--formkit-lite-space-md);
+  padding-right: var(--formkit-lite-space-md);
 }
 
 .checkbox-field__label--right {
-    padding-left: var(--formkit-lite-space-md);
+  padding-left: var(--formkit-lite-space-md);
 }
 
 /* Checked */
 .checkbox-field__checked {
-    display: flex;
-    width: 24px;
-    height: 24px;
-    border-radius: var(--formkit-lite-radius-xl);
-    justify-content: center;
-    align-items: center;
-    background-color: var(--formkit-lite-color-success);
+  display: flex;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--formkit-lite-radius-xl);
+  justify-content: center;
+  align-items: center;
+  background-color: var(--formkit-lite-color-success);
 }
 
 .checkbox-field__checked--hovered {
-    background-color: #139a6b;
+  background-color: #139a6b;
 }
 
 .checkbox-field__check-icon {
-    width: 13px;
-    height: 10px;
-    color: white;
+  width: 13px;
+  height: 10px;
+  color: white;
 }
 
 /* Unchecked */
 .checkbox-field__unchecked {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 24px;
-    height: 24px;
-    border-radius: var(--formkit-lite-radius-xl);
-    background-color: white;
-    border: 2px solid var(--formkit-lite-color-light2);
+  display: inline-block;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--formkit-lite-radius-xl);
+  background-color: white;
+  border: 2px solid var(--formkit-lite-color-light2);
 }
 
 .checkbox-field__unchecked--hovered {
-    border-color: var(--formkit-lite-color-light3);
+  border-color: var(--formkit-lite-color-light3);
 }
 
 .checkbox-field__unchecked--focused {
-    border-color: var(--formkit-lite-color-success);
+  border-color: var(--formkit-lite-color-success);
 }
 
 @media (min-width: 768px) {
-    .checkbox-field__checked,
-    .checkbox-field__unchecked {
-        border-radius: var(--formkit-lite-radius-xs);
-    }
+  .checkbox-field__checked,
+  .checkbox-field__unchecked {
+    border-radius: var(--formkit-lite-radius-xs);
+  }
 }
 
 /* Group wrapper */
 .checkbox-group {
-    margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 .checkbox-group:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .checkbox-group__label {
-    display: block;
-    font-weight: 600;
-    padding-bottom: var(--formkit-lite-space-xl);
-    color: var(--formkit-lite-color-dark);
+  display: block;
+  font-weight: 600;
+  padding-bottom: var(--formkit-lite-space-xl);
+  color: var(--formkit-lite-color-dark);
 }
 
 .checkbox-group__content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
 }
 
 .checkbox-group__error {
-    margin-top: var(--formkit-lite-space-xl);
-    font-size: 12px;
-    color: var(--formkit-lite-color-danger);
+  margin-top: var(--formkit-lite-space-xl);
+  font-size: 12px;
+  color: var(--formkit-lite-color-danger);
 }

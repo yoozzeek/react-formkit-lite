@@ -1,36 +1,36 @@
 :root {
-    /* Spacing */
-    --formkit-lite-space-xs: 4px;
-    --formkit-lite-space-sm: 6px;
-    --formkit-lite-space-md: 8px;
-    --formkit-lite-space-lg: 12px;
-    --formkit-lite-space-xl: 16px;
+  /* Spacing */
+  --formkit-lite-space-xs: 4px;
+  --formkit-lite-space-sm: 6px;
+  --formkit-lite-space-md: 8px;
+  --formkit-lite-space-lg: 12px;
+  --formkit-lite-space-xl: 16px;
 
-    /* Radius */
-    --formkit-lite-radius-xs: 6px;
-    --formkit-lite-radius-sm: 8px;
-    --formkit-lite-radius-md: 10px;
-    --formkit-lite-radius-lg: 12px;
-    --formkit-lite-radius-xl: 16px;
+  /* Radius */
+  --formkit-lite-radius-xs: 6px;
+  --formkit-lite-radius-sm: 8px;
+  --formkit-lite-radius-md: 10px;
+  --formkit-lite-radius-lg: 12px;
+  --formkit-lite-radius-xl: 16px;
 
-    --formkit-lite-font-size: 15px;
+  --formkit-lite-font-size: 15px;
 
-    /* Badge colors */
-    --formkit-lite-text-dark: #ffffff;
-    --formkit-lite-text-light: #2b3450;
+  /* Badge colors */
+  --formkit-lite-text-dark: #ffffff;
+  --formkit-lite-text-light: #2b3450;
 
-    --formkit-lite-color-light: #f3f6f9;
-    --formkit-lite-color-light2: #bdc7d7;
-    --formkit-lite-color-light3: #99a6b8;
-    --formkit-lite-color-dark: #2b3450;
-    --formkit-lite-color-success: #15c283;
-    --formkit-lite-color-danger: #e24538;
-    --formkit-lite-color-warning: #ffa63e;
-    --formkit-lite-color-info: #3b82f6;
-    --formkit-lite-color-primary: #9643d8;
-    --formkit-lite-color-black: #000000;
+  --formkit-lite-color-light: #f3f6f9;
+  --formkit-lite-color-light2: #bdc7d7;
+  --formkit-lite-color-light3: #99a6b8;
+  --formkit-lite-color-dark: #2b3450;
+  --formkit-lite-color-success: #15c283;
+  --formkit-lite-color-danger: #e24538;
+  --formkit-lite-color-warning: #ffa63e;
+  --formkit-lite-color-info: #3b82f6;
+  --formkit-lite-color-primary: #9643d8;
+  --formkit-lite-color-black: #000000;
 
-    --formkit-lite-box-shadow: -2px 0px 12px rgba(43, 52, 80, 0.02),
-        0px 0px 4px rgba(43, 52, 80, 0.04),
-        0px 8px 16px rgba(85, 95, 124, 0.1);
+  --formkit-lite-box-shadow:
+    -2px 0px 12px rgba(43, 52, 80, 0.02), 0px 0px 4px rgba(43, 52, 80, 0.04),
+    0px 8px 16px rgba(85, 95, 124, 0.1);
 }

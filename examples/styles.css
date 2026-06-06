@@ -1,28 +1,28 @@
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .example_header {
-    border: 2px dotted darkgray;
+  border: 2px dotted darkgray;
 }
 
 .examples_sections > section {
-    padding-top: 4em;
+  padding-top: 4em;
 }
 
 @media (min-width: 576px) {
-    .examples_sections > section {
-        padding-top: 5em;
-    }
+  .examples_sections > section {
+    padding-top: 5em;
+  }
 }
 
 .examples-nav__item {
 }
 
 .examples-nav__item--active {
-    font-weight: 700;
-    pointer-events: none;
-    cursor: default;
-    text-decoration: none;
+  font-weight: 700;
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
 }

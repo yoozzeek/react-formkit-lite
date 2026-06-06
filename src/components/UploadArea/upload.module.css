@@ -1,72 +1,72 @@
 .upload {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    border: 1px dashed var(--formkit-lite-color-success);
-    border-radius: var(--formkit-lite-radius-xl);
-    transition: background-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border: 1px dashed var(--formkit-lite-color-success);
+  border-radius: var(--formkit-lite-radius-xl);
+  transition: background-color 0.2s ease;
 }
 
 /* Background variants */
 .upload--light {
-    background-color: var(--formkit-lite-color-light);
+  background-color: var(--formkit-lite-color-light);
 }
 
 .upload--dark {
-    background-color: var(--formkit-lite-color-dark);
+  background-color: var(--formkit-lite-color-dark);
 }
 
 .upload--drag-light {
-    background-color: var(--formkit-lite-color-light2);
+  background-color: var(--formkit-lite-color-light2);
 }
 
 .upload--drag-dark {
-    background-color: var(--formkit-lite-color-light3);
+  background-color: var(--formkit-lite-color-light3);
 }
 
 .upload__icon {
-    margin-bottom: var(--formkit-lite-space-lg);
+  margin-bottom: var(--formkit-lite-space-lg);
 }
 
 /* Title */
 .upload__title {
-    margin-left: var(--formkit-lite-space-xl);
-    margin-right: var(--formkit-lite-space-xl);
-    margin-bottom: var(--formkit-lite-space-md);
-    font-size: var(--formkit-lite-font-size);
-    font-weight: 600;
+  margin-left: var(--formkit-lite-space-xl);
+  margin-right: var(--formkit-lite-space-xl);
+  margin-bottom: var(--formkit-lite-space-md);
+  font-size: var(--formkit-lite-font-size);
+  font-weight: 600;
 }
 
 .upload__title--light {
-    color: var(--formkit-lite-color-dark);
+  color: var(--formkit-lite-color-dark);
 }
 
 .upload__title--dark {
-    color: var(--formkit-lite-text-dark);
+  color: var(--formkit-lite-text-dark);
 }
 
 /* Description */
 .upload__description {
-    margin-left: var(--formkit-lite-space-lg);
-    margin-right: var(--formkit-lite-space-lg);
-    font-size: 12px;
+  margin-left: var(--formkit-lite-space-lg);
+  margin-right: var(--formkit-lite-space-lg);
+  font-size: 12px;
 }
 
 .upload__description--light {
-    color: var(--formkit-lite-color-light3);
+  color: var(--formkit-lite-color-light3);
 }
 
 .upload__description--dark {
-    color: var(--formkit-lite-color-light2);
+  color: var(--formkit-lite-color-light2);
 }
 
 .upload__input {
-    display: none;
+  display: none;
 }
