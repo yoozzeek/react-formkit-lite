@@ -27,8 +27,7 @@
     "experimentalDecorators": true,
     "allowJs": true,
     "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": false
+    "resolveJsonModule": true
   },
   "include": ["vite.config.ts"]
 }
