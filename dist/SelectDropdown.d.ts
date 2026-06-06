@@ -1,0 +1,26 @@
+import { ReactElement, RefObject, JSX } from 'react';
+import { SelectOptionType } from './SelectOption';
+import { Position } from './types';
+type SelectFieldDropdownProps<T, V> = {
+    id: string;
+    label?: string | null;
+    isLoading?: boolean;
+    selectedValues: RefObject<Set<V>>;
+    options: SelectOptionType<T, V>[];
+    fullscreen?: boolean;
+    position?: Position;
+    multiple?: boolean;
+    max?: number;
+    minWidth?: number;
+    helpText?: string | null;
+    searchTerm?: string;
+    getValue: (option: SelectOptionType<T, V>) => V;
+    footerRenderer?: (onClose: () => void) => ReactElement;
+    onLoadMore?: () => void;
+    onReset?: (field: string, value: number | string, shouldValidate?: boolean | undefined) => void;
+    onSearch?: (term: string) => void;
+    handleSelect: (option: SelectOptionType<T, V>) => void;
+    onClose: () => void;
+};
+declare function SelectOptionsDropdown<T, V>({ id, label, position, helpText, multiple, max, selectedValues, options, isLoading, fullscreen, minWidth, searchTerm, footerRenderer, getValue, onLoadMore, handleSelect, onSearch, onReset, onClose, }: SelectFieldDropdownProps<T, V>): JSX.Element;
+export default SelectOptionsDropdown;
