@@ -1,8 +1,7 @@
 import styles from "./range.module.css";
-import { useEffect, useState } from "react";
-import type { ChangeEvent, ChangeEventHandler } from "react";
+import { useEffect, useRef } from "react";
+import type { ChangeEvent, FocusEvent } from "react";
 import { clsx } from "clsx";
-import useDebounce from "@/hooks/useDebounce";
 
 type RangeFieldProps = {
   id: string;
@@ -15,9 +14,10 @@ type RangeFieldProps = {
   step?: number;
   label?: string;
   disabled?: boolean;
+  // eslint-disable-next-line no-unused-vars
   onValueChange?: (value: number) => void;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  onFocus?: (e: ChangeEvent<HTMLInputElement>) => void;
+  // eslint-disable-next-line no-unused-vars
+  onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
 };
 
 const RangeField = ({
@@ -34,24 +34,39 @@ const RangeField = ({
   onValueChange,
   onFocus,
 }: RangeFieldProps) => {
-  const [internalValue, setInternalValue] = useState<number>(value);
-  const debouncedValue = useDebounce(internalValue, 50);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const frameRef = useRef<number | null>(null);
+  const pendingRef = useRef<number>(value);
 
+  // Uncontrolled thumb
   useEffect(() => {
-    setInternalValue(value);
+    const el = inputRef.current;
+    if (el && Number(el.value) !== value) {
+      el.value = String(value);
+    }
+
+    pendingRef.current = value;
   }, [value]);
 
   useEffect(() => {
-    onValueChange?.(debouncedValue);
-  }, [debouncedValue]);
+    return () => {
+      if (frameRef.current !== null) {
+        cancelAnimationFrame(frameRef.current);
+      }
+    };
+  }, []);
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const { value } = e.target;
-    setInternalValue(Number(value));
+  function flush() {
+    frameRef.current = null;
+    onValueChange?.(pendingRef.current);
   }
 
-  function handleFocus(e: ChangeEvent<HTMLInputElement>) {
-    onFocus?.(e);
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    pendingRef.current = Number(e.currentTarget.value);
+
+    if (frameRef.current === null) {
+      frameRef.current = requestAnimationFrame(flush);
+    }
   }
 
   return (
@@ -72,16 +87,17 @@ const RangeField = ({
           </span>
         )}
         <input
+          ref={inputRef}
           id={id}
           name={name}
           type="range"
-          value={internalValue}
-          min={min as number}
-          max={max as number}
-          step={step as number}
-          disabled={disabled as boolean}
+          defaultValue={value}
+          min={min}
+          max={max}
+          step={step}
+          disabled={disabled}
           onChange={handleChange}
-          onFocus={handleFocus}
+          onFocus={onFocus}
           className={styles.range__input}
         />
         {maxPlaceholder && (
