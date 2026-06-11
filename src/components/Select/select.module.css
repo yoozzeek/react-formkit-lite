@@ -124,6 +124,16 @@
   right: -2%;
 }
 
+.select__modal-content {
+  padding-top: calc(
+    var(--formkit-lite-header-height) + 2 * var(--formkit-lite-space-md) + env(safe-area-inset-top)
+  );
+}
+
+.select__safe-top {
+  padding-top: calc(var(--formkit-lite-space-md) + env(safe-area-inset-top));
+}
+
 .select__search {
   margin: var(--formkit-lite-space-xl);
 }
@@ -172,11 +182,20 @@
   color: var(--formkit-lite-color-danger);
 }
 
+.select__help,
+.select__modal-help {
+  font-size: 12px;
+  color: var(--formkit-lite-color-light3);
+}
+
 .select__help {
   display: block;
   padding-top: var(--formkit-lite-space-md);
-  font-size: 12px;
-  color: var(--formkit-lite-color-light3);
+}
+
+.select__modal-help {
+  margin: 0;
+  padding: var(--formkit-lite-space-xl) var(--formkit-lite-space-xl) 0;
 }
 
 /* --- Option shared --- */

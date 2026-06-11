@@ -175,7 +175,9 @@ function SelectOptionsDropdown<T, V>({
             </div>
           )}
 
-          {!isTabletOrDesktop && helpText && <p className={styles.select__help}>{helpText}</p>}
+          {!isTabletOrDesktop && helpText && (
+            <p className={styles["select__modal-help"]}>{helpText}</p>
+          )}
 
           {options.length ? (
             scrollableContentWrapper(
@@ -255,7 +257,13 @@ function SelectOptionsDropdown<T, V>({
       fallbackCtx={modalCtx}
       headerRenderer={(wrappedOnClose) =>
         fullscreen ? (
-          <Header fixed parentIsModal classes="safe-top" title={label} onGoBack={wrappedOnClose} />
+          <Header
+            fixed
+            parentIsModal
+            classes={styles["select__safe-top"]}
+            title={label}
+            onGoBack={wrappedOnClose}
+          />
         ) : (
           <></>
         )
@@ -263,7 +271,9 @@ function SelectOptionsDropdown<T, V>({
       footerRenderer={footerRenderer}
       onClose={onClose}
     >
-      {(wrappedOnClose) => <div className="mt-16">{contentRenderer(wrappedOnClose)}</div>}
+      {(wrappedOnClose) => (
+        <div className={styles["select__modal-content"]}>{contentRenderer(wrappedOnClose)}</div>
+      )}
     </Modal>
   );
 }
