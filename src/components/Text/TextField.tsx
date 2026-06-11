@@ -20,6 +20,7 @@ import textAreaAutoHeight from "@/utils/textAreaAutoHeight";
 
 interface TextFieldProps extends CommonFieldProps {
   ref?: RefObject<HTMLInputElement>;
+  ariaLabel?: string;
   secure?: boolean;
   textarea?: boolean;
   rows?: number;
@@ -35,10 +36,12 @@ interface TextFieldProps extends CommonFieldProps {
   customIconContainer?: boolean;
   resetDisabled?: boolean;
   textareaAutoHeight?: boolean;
-  type?: "text" | "email" | "number";
+  type?: "text" | "email" | "number" | "date";
   value: string | number;
   initialValue?: string | number;
   inputMode?: string;
+  min?: string | number;
+  max?: string | number;
   // eslint-disable-next-line no-unused-vars
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   // eslint-disable-next-line no-unused-vars
@@ -51,6 +54,7 @@ interface TextFieldProps extends CommonFieldProps {
 const TextField: (props: TextFieldProps) => JSX.Element = ({
   id,
   label,
+  ariaLabel,
   value,
   name,
   error,
@@ -63,6 +67,8 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
   spellCheck,
   pattern,
   inputMode,
+  min,
+  max,
   isPrimary = false,
   resetDisabled = false,
   textareaAutoHeight = false,
@@ -109,11 +115,13 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
   const [maskOpts, setMaskOpts] = useState({
     mask: buildInputMask(mask),
   });
+
   useEffect(() => {
     setMaskOpts({
       mask: buildInputMask(mask),
     });
   }, [mask]);
+
   const inputRef = useRef<HTMLInputElement>(null!);
 
   const { setValue, setUnmaskedValue } = useIMask(maskOpts, {
@@ -131,6 +139,7 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
   useEffect(() => {
     setUnmaskedValue(`${initialValue}`);
   }, [initialValue]);
+
   useEffect(() => {
     setUnmaskedValue(`${value}`);
   }, [value]);
@@ -150,28 +159,46 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
     </label>
   );
 
+  // aria-label would override the visible <label>
+  // (WCAG 2.5.3 Label in Name).
+  const fieldAriaLabel = label ? undefined : ariaLabel;
+
   function handleFocus(e: FocusEvent) {
     onFocused(true);
     onFocus?.();
+
     if (textareaAutoHeight && textarea) {
       const el = e.target as HTMLTextAreaElement;
       el.style.height = "auto";
+
       const height = el.scrollHeight > 135 ? el.scrollHeight : 135;
       el.style.height = `${height}px`;
     }
   }
+
   function handleBlur(e: FocusEvent<HTMLTextAreaElement>) {
     e.stopPropagation();
+
     onFocused(false);
     onBlur?.();
+
     if (textareaAutoHeight && textarea) {
       const ta = e.target as HTMLTextAreaElement;
       ta.style.height = "100%";
     }
   }
+
   function handleReset(e: MouseEvent) {
     e.stopPropagation();
-    setValue("");
+
+    if (type === "number" || type === "date") {
+      onChange?.({
+        target: { value: "", name, type },
+      } as ChangeEvent<HTMLInputElement>);
+    } else {
+      setValue("");
+    }
+
     onReset?.(id, "", true);
   }
 
@@ -181,11 +208,13 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
       if (textareaAutoHeight) {
         dynamicProps.onInput = textAreaAutoHeight;
       }
+
       return (
         <textarea
           {...dynamicProps}
           id={id}
           name={name}
+          aria-label={fieldAriaLabel}
           value={value}
           rows={rows}
           disabled={disabled}
@@ -201,13 +230,17 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
         />
       );
     }
-    if (type === "number") {
+
+    if (type === "number" || type === "date") {
       return (
         <input
           id={id}
           name={name}
+          aria-label={fieldAriaLabel}
           value={value}
           type={type}
+          min={min}
+          max={max}
           disabled={disabled}
           autoComplete={autoComplete}
           placeholder={placeholder || undefined}
@@ -217,12 +250,14 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
         />
       );
     }
+
     // Normal input or masked
     return (
       <input
         ref={inputRef}
         id={id}
         name={name}
+        aria-label={fieldAriaLabel}
         autoComplete={autoComplete}
         autoCorrect={autoCorrect}
         spellCheck={spellCheck}
@@ -241,6 +276,7 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
     textareaAutoHeight,
     id,
     name,
+    fieldAriaLabel,
     value,
     rows,
     disabled,
@@ -259,6 +295,8 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
     spellCheck,
     pattern,
     inputMode,
+    min,
+    max,
     secure,
     initialValue,
     onChange,
@@ -303,7 +341,8 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
             tabIndex={-1}
             onClick={handleReset}
             className={clsx(styles["text-field__reset-button"], {
-              [styles["text-field__reset-button--right"]]: !rightIcon,
+              [styles["text-field__reset-button--right"]]: !rightIcon && type !== "date",
+              [styles["text-field__reset-button--date"]]: !rightIcon && type === "date",
               [styles["text-field__reset-button--right-icon"]]: rightIcon && !customIconContainer,
               [styles["text-field__reset-button--right-icon-custom"]]:
                 rightIcon && customIconContainer,

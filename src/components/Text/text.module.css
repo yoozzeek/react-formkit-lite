@@ -119,6 +119,7 @@
   right: var(--formkit-lite-space-md);
 }
 
+.text-field__reset-button--date,
 .text-field__reset-button--right-icon {
   right: 40px;
 }

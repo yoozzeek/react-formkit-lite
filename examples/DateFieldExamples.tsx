@@ -1,4 +1,6 @@
 import DateField from "@/components/Date/DateField.tsx";
+import TextField from "@/components/Text";
+import { useState } from "react";
 import type { CSSProperties } from "react";
 
 const blockStyle: CSSProperties = {
@@ -8,6 +10,9 @@ const blockStyle: CSSProperties = {
 };
 
 export default function DateFieldExamples() {
+  const [systemDate, setSystemDate] = useState("");
+  const today = new Date().toISOString().slice(0, 10);
+
   return (
     <section id="date_field_examples">
       <header>
@@ -28,6 +33,20 @@ export default function DateFieldExamples() {
             label="Date"
             value=""
             onChange={() => {}}
+          />
+        </div>
+      </div>
+      <div>
+        <h3>System datepicker</h3>
+        <div style={blockStyle}>
+          <TextField
+            id="date_field_native"
+            name="date_field_native"
+            type="date"
+            label="Date"
+            value={systemDate}
+            min={today}
+            onChange={(e) => setSystemDate(e.target.value)}
           />
         </div>
       </div>
