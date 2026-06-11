@@ -93,8 +93,9 @@
 
 .select__icon {
   position: absolute;
-  right: var(--formkit-lite-space-xl);
-  top: var(--formkit-lite-space-md);
+  right: var(--formkit-lite-space-lg);
+  top: 50%;
+  transform: translateY(-50%);
   width: 24px;
   height: 24px;
   background-color: white;
