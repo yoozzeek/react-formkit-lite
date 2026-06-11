@@ -43,8 +43,8 @@ importers:
         specifier: ^4.1.8
         version: 4.1.8(@vitest/browser@4.1.8)(vitest@4.1.8)
       '@yoozzeek/react-context-modal':
-        specifier: 0.1.0-beta.2
-        version: 0.1.0-beta.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(simplebar-react@3.3.2(react@19.2.7))
+        specifier: github:yoozzeek/react-context-modal
+        version: https://codeload.github.com/yoozzeek/react-context-modal/tar.gz/996f67681207199f177be149bffb5b634ba578ca(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(simplebar-react@3.3.2(react@19.2.7))
       autoprefixer:
         specifier: ^10.5.0
         version: 10.5.0(postcss@8.5.15)
@@ -1098,8 +1098,9 @@ packages:
   '@volar/typescript@2.4.28':
     resolution: {integrity: sha512-Ja6yvWrbis2QtN4ClAKreeUZPVYMARDYZl9LMEv1iQ1QdepB6wn0jTRxA9MftYmYa4DQ4k/DaSZpFPUfxl8giw==}
 
-  '@yoozzeek/react-context-modal@0.1.0-beta.2':
-    resolution: {integrity: sha512-f5EpkxfQE1qpAk10AmgKpHIqDfTUeM+1k9NK7HXF4yJsjSrA3aOVw9VRL8M+HCP79mMB+N4u4RzeffFyyEfhXA==}
+  '@yoozzeek/react-context-modal@https://codeload.github.com/yoozzeek/react-context-modal/tar.gz/996f67681207199f177be149bffb5b634ba578ca':
+    resolution: {tarball: https://codeload.github.com/yoozzeek/react-context-modal/tar.gz/996f67681207199f177be149bffb5b634ba578ca}
+    version: 0.2.0
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
@@ -3657,7 +3658,7 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
 
-  '@yoozzeek/react-context-modal@0.1.0-beta.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(simplebar-react@3.3.2(react@19.2.7))':
+  '@yoozzeek/react-context-modal@https://codeload.github.com/yoozzeek/react-context-modal/tar.gz/996f67681207199f177be149bffb5b634ba578ca(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(simplebar-react@3.3.2(react@19.2.7))':
     dependencies:
       body-scroll-lock: https://codeload.github.com/yoozzeek/body-scroll-lock/tar.gz/d48bf791f8e0b11b9b05c20177f3c98845d27f67
       clsx: 2.1.1
