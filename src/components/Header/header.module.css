@@ -3,10 +3,9 @@
 .header {
   display: flex;
   align-items: center;
-  min-height: 2.8rem;
+  min-height: var(--formkit-lite-header-height);
   flex-shrink: 0;
-  padding-left: var(--formkit-lite-space-xl);
-  padding-right: var(--formkit-lite-space-xl);
+  padding: var(--formkit-lite-space-md) var(--formkit-lite-space-xl);
   transition: all 0.2s ease;
 }
 
@@ -74,15 +73,18 @@
 
 /* goBack button (icon) */
 .header__back-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 9999px;
   border: 1px solid var(--formkit-lite-color-light2);
   padding: var(--formkit-lite-space-xs);
 }
 
 .header__back-icon {
-  width: 20px;
-  height: 20px;
-  transform: rotate(180deg);
+  width: 18px;
+  height: 18px;
+  transform: rotate(90deg);
 }
 
 .header__back-icon--dark {

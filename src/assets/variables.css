@@ -15,6 +15,9 @@
 
   --formkit-lite-font-size: 15px;
 
+  /* Layout */
+  --formkit-lite-header-height: 2.8rem;
+
   /* Badge colors */
   --formkit-lite-text-dark: #ffffff;
   --formkit-lite-text-light: #2b3450;
