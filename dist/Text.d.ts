@@ -3,6 +3,7 @@ import { default as Masked } from 'imask/masked/base';
 import { CommonFieldProps } from './types';
 interface TextFieldProps extends CommonFieldProps {
     ref?: RefObject<HTMLInputElement>;
+    ariaLabel?: string;
     secure?: boolean;
     textarea?: boolean;
     rows?: number;
@@ -18,10 +19,12 @@ interface TextFieldProps extends CommonFieldProps {
     customIconContainer?: boolean;
     resetDisabled?: boolean;
     textareaAutoHeight?: boolean;
-    type?: "text" | "email" | "number";
+    type?: "text" | "email" | "number" | "date";
     value: string | number;
     initialValue?: string | number;
     inputMode?: string;
+    min?: string | number;
+    max?: string | number;
     onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     onComplete?: (value: string) => void;
     onFocus?: () => void;

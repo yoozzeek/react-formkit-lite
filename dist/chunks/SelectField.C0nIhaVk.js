@@ -1,9 +1,9 @@
 import { t as e } from "./Loader.DI5rvy7C.js";
 import { t } from "./Button.wmX7vita.js";
 import { t as n } from "./Badge.BfJadn6o.js";
-import { n as r, t as i } from "./Header.BnO5-rLB.js";
+import { n as r, t as i } from "./Header.Ct3D9pIR.js";
 import { t as a } from "./plus.Bn80kaIC.js";
-import { t as o } from "./TextField.1oilo5Dc.js";
+import { t as o } from "./TextField.2iuN13dU.js";
 import { t as s } from "./check._Bvx9p5F.js";
 import { useCallback as c, useEffect as l, useMemo as u, useRef as d, useState as f } from "react";
 import { clsx as p } from "clsx";
@@ -339,14 +339,11 @@ function A({ id: e, label: i, popupLabel: o, dpWidth: s, placeholder: _ = "Selec
 				Y(n), $(n);
 				return;
 			}
-			t.clear(), t.add(e.value), Y([e]), Q(e.value), oe();
+			t.clear(), t.add(e.value), Y([e]), Q(e.value), se();
 		}
-	}, [M]);
-	function ne() {
-		G.current.clear(), Y([]), Q(M ? [] : "");
-	}
-	l(() => {
-		E || ne();
+	}, [M]), [ne, re] = f(E);
+	E !== ne && (re(E), E || Y([])), l(() => {
+		E || (G.current.clear(), Q(M ? [] : ""));
 	}, [E]);
 	function Z(e) {
 		return D && e.rawData !== void 0 && e.rawData !== null ? D(e.rawData) : e.value;
@@ -358,7 +355,7 @@ function A({ id: e, label: i, popupLabel: o, dpWidth: s, placeholder: _ = "Selec
 		let t = e.map((e) => e.value);
 		t.length ? (t[0], Q(t)) : Q(M ? [] : "");
 	}
-	let re = c((t) => {
+	let ie = c((t) => {
 		let n = G.current;
 		if (n.has(t)) {
 			if (n.delete(t), B && B({ target: { id: e } }), M) {
@@ -369,18 +366,18 @@ function A({ id: e, label: i, popupLabel: o, dpWidth: s, placeholder: _ = "Selec
 			Y([]), Q("");
 		}
 	}, [M, Y]);
-	function ie() {
+	function ae() {
 		R || (K(!0), B && B({ target: { id: e } }));
 	}
-	function ae() {
+	function oe() {
 		K(!1), V?.("");
 	}
-	function oe() {
+	function se() {
 		V?.(""), K(!1);
 	}
-	let se = c((e) => {
+	let ce = c((e) => {
 		function n() {
-			ae(), e();
+			oe(), e();
 		}
 		return M ? /* @__PURE__ */ g(t, {
 			fullWidth: !0,
@@ -394,7 +391,7 @@ function A({ id: e, label: i, popupLabel: o, dpWidth: s, placeholder: _ = "Selec
 		J.length,
 		y,
 		M
-	]), ce = u(() => {
+	]), le = u(() => {
 		if (!M) {
 			let e = J[0];
 			if (O && e) return /* @__PURE__ */ h("div", {
@@ -415,7 +412,7 @@ function A({ id: e, label: i, popupLabel: o, dpWidth: s, placeholder: _ = "Selec
 			return O ? O(e) : /* @__PURE__ */ h(n, {
 				id: t,
 				icon: e.badgeIconEl || e.iconEl,
-				onRemove: re,
+				onRemove: ie,
 				children: e.label
 			}, r);
 		}) : /* @__PURE__ */ g("span", {
@@ -451,9 +448,9 @@ function A({ id: e, label: i, popupLabel: o, dpWidth: s, placeholder: _ = "Selec
 					[x["select__control--multiple"]]: M,
 					[x["select__control--single"]]: !M
 				}),
-				onClick: ie,
+				onClick: ae,
 				children: [
-					ce,
+					le,
 					/* @__PURE__ */ h(C, { className: p(x.select__icon, { [x["select__icon--disabled"]]: R }) }),
 					ee && /* @__PURE__ */ h(k, {
 						id: e,
@@ -469,9 +466,9 @@ function A({ id: e, label: i, popupLabel: o, dpWidth: s, placeholder: _ = "Selec
 						position: P,
 						minWidth: s,
 						onLoadMore: z,
-						footerRenderer: se,
+						footerRenderer: ce,
 						getValue: Z,
-						onClose: oe,
+						onClose: se,
 						onReset: U,
 						onSearch: V,
 						handleSelect: te

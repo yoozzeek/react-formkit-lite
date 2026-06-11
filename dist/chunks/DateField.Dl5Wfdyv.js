@@ -18,16 +18,17 @@ var l = {
 	"date-field__error": "formkit-lite-date-field__error",
 	"date-field__help": "formkit-lite-date-field__help"
 }, u = r((r) => {
-	let u = i(null), [d, f] = a(!1), p = t({ mask: n }, {
+	let u = i(null), [d, f] = a(!1);
+	t({ mask: n }, {
 		ref: u,
 		onComplete: (e) => {
 			r.onChange?.(r.id, e, !0);
 		}
 	});
-	function m(e) {
+	function p(e) {
 		e.stopPropagation(), r.onReset?.(r.id, "", !0);
 	}
-	function h(e) {
+	function m(e) {
 		f(!0), r.onFocus?.(e);
 	}
 	return /* @__PURE__ */ c("div", {
@@ -44,7 +45,7 @@ var l = {
 			/* @__PURE__ */ c("div", {
 				className: l["date-field__wrapper"],
 				children: [/* @__PURE__ */ s("input", {
-					ref: p.ref,
+					ref: u,
 					className: o(l["date-field__input"], {
 						[l["date-field__input--error"]]: r.error,
 						[l["date-field__input--valid"]]: !r.error
@@ -55,11 +56,11 @@ var l = {
 					disabled: r.disabled,
 					placeholder: r.placeholder || "DD-MM-YYYY",
 					defaultValue: r.value,
-					onFocus: h
+					onFocus: m
 				}), r.value && d && /* @__PURE__ */ s("button", {
 					className: l["date-field__reset-button"],
 					role: "button",
-					onClick: m,
+					onClick: p,
 					children: /* @__PURE__ */ s(e, { className: l["date-field__reset-icon"] })
 				})]
 			}),

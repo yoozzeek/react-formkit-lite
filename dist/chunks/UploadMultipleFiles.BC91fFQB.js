@@ -116,22 +116,20 @@ var v = ({ max: e = 10, label: f, helpText: p, name: g, files: v = [], interacti
 			...e,
 			isPlaceholder: !0
 		}))] : (e) => [...e, ...n]), r.length && S(r);
-	}, [w, y]);
-	r(() => {
-		D({}), T(v.map(_));
-	}, [v]), r(() => {
+	}, [w, y]), [A, j] = a(v);
+	v !== A && (j(v), D({}), T(v.map(_))), r(() => {
 		if (!y) return () => {
 			w.forEach((e) => {
 				e.url.includes("blob:") && (URL || webkitURL).revokeObjectURL(e.url);
 			});
 		};
 	}, []);
-	let A = n((e) => {
+	let M = n((e) => {
 		b || D((t) => {
 			let n = { ...t };
 			return n[e.name] ? delete n[e.name] : n[e.name] = !0, n;
 		});
-	}, [b]), j = n(() => {
+	}, [b]), N = n(() => {
 		let e = (e) => {
 			e.url.includes("blob:") && (URL || webkitURL).revokeObjectURL(e.url);
 		};
@@ -158,7 +156,7 @@ var v = ({ max: e = 10, label: f, helpText: p, name: g, files: v = [], interacti
 					className: u["multiple-upload-files__delete"],
 					type: "button",
 					disabled: b || x,
-					onClick: j,
+					onClick: N,
 					children: O > 0 ? "Delete selected" : "Delete all"
 				})]
 			}),
@@ -169,7 +167,7 @@ var v = ({ max: e = 10, label: f, helpText: p, name: g, files: v = [], interacti
 					children: w.map((e) => /* @__PURE__ */ s(m, {
 						mediaItem: e,
 						selected: E[e.name],
-						onSelect: A
+						onSelect: M
 					}, e.name))
 				})
 			}),
