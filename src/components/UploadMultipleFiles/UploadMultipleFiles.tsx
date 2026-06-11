@@ -99,11 +99,15 @@ const UploadMultipleFiles = ({
     [filesCopy, interactiveMode],
   );
 
-  // Reset selectedMap when files change
-  useEffect(() => {
+  // Reset selection and local copy
+  // when the files prop changes.
+  const [prevFiles, setPrevFiles] = useState(files);
+
+  if (files !== prevFiles) {
+    setPrevFiles(files);
     setSelectedMap({});
     setFilesCopy(files.map(mediaFileFactory));
-  }, [files]);
+  }
 
   // Revoke all object URLs when unmounting
   useEffect(() => {

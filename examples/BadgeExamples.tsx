@@ -107,7 +107,7 @@ export default function BadgeExamples() {
               key={item.value}
               id={item.value}
               variant={item.variant as Variant}
-              selected={selectedBadgesSetRef.current.has(item.value)}
+              selected={selectedBadges.includes(item.value)}
               onClick={handleToggleSelectBadge}
             >
               {item.label}

@@ -50,6 +50,22 @@ interface TextFieldProps extends CommonFieldProps {
   onBlur?: () => void;
 }
 
+function buildInputMask(mask?: Masked | Masked[]): MaskedDynamic {
+  return new MaskedDynamic({
+    mask: Array.isArray(mask)
+      ? mask
+      : mask
+        ? [mask]
+        : [
+            {
+              mask: new MaskedRegExp({
+                mask: /.*/,
+              }),
+            },
+          ],
+  });
+}
+
 // eslint-disable-next-line no-unused-vars
 const TextField: (props: TextFieldProps) => JSX.Element = ({
   id,
@@ -95,32 +111,7 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
     [value, focused, resetDisabled],
   );
 
-  function buildInputMask(mask?: Masked | Masked[]): MaskedDynamic {
-    return new MaskedDynamic({
-      mask: Array.isArray(mask)
-        ? mask
-        : mask
-          ? [mask]
-          : [
-              {
-                mask: new MaskedRegExp({
-                  mask: /.*/,
-                }),
-              },
-            ],
-    });
-  }
-
-  // Mask logic
-  const [maskOpts, setMaskOpts] = useState({
-    mask: buildInputMask(mask),
-  });
-
-  useEffect(() => {
-    setMaskOpts({
-      mask: buildInputMask(mask),
-    });
-  }, [mask]);
+  const maskOpts = useMemo(() => ({ mask: buildInputMask(mask) }), [mask]);
 
   const inputRef = useRef<HTMLInputElement>(null!);
 

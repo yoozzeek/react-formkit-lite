@@ -19,7 +19,7 @@ const DateField = (props: DateFieldProps): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>(null!);
   const [focused, onFocused] = useState(false);
 
-  const maskProps = useIMask(
+  useIMask(
     {
       mask: dateMask,
     },
@@ -56,7 +56,7 @@ const DateField = (props: DateFieldProps): JSX.Element => {
 
       <div className={styles["date-field__wrapper"]}>
         <input
-          ref={maskProps.ref}
+          ref={inputRef}
           className={clsx(styles["date-field__input"], {
             [styles["date-field__input--error"]]: props.error,
             [styles["date-field__input--valid"]]: !props.error,

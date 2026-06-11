@@ -1,40 +1,21 @@
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 export default function useIsTabletOrDesktop(minWidth = "576px"): boolean {
-  const [matches, setMatches] = useState(getMatches);
+  const query = `(min-width: ${minWidth})`;
 
-  useEffect(() => {
-    if (typeof typeof window === "undefined") return;
+  const subscribe = useCallback(
+    (onStoreChange: () => void) => {
+      const media = window.matchMedia(query);
+      media.addEventListener("change", onStoreChange);
 
-    const media = getMedia();
+      return () => media.removeEventListener("change", onStoreChange);
+    },
+    [query],
+  );
 
-    const handlerFn = () => {
-      setMatches(getMatches);
-    };
-
-    // Listen for changes
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    media.addEventListener
-      ? media.addEventListener("change", handlerFn)
-      : media.addListener(handlerFn); // Fallback for Safari
-
-    setMatches(getMatches);
-
-    return () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      media.removeEventListener
-        ? media.removeEventListener("change", handlerFn)
-        : media.removeListener(handlerFn);
-    };
-  }, []);
-
-  function getMedia(): MediaQueryList {
-    return window.matchMedia(`(min-width: ${minWidth})`);
-  }
-
-  function getMatches(): boolean {
-    return typeof typeof window !== "undefined" ? getMedia().matches : true;
-  }
-
-  return matches;
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(query).matches,
+    () => true,
+  );
 }

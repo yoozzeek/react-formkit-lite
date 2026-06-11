@@ -197,15 +197,20 @@ function SelectField<T = unknown, V = string>({
     [multiple],
   );
 
-  function resetAll() {
-    selectedValues.current.clear();
-    setSelectedOptions([]);
-    emitValue(multiple ? [] : "");
+  // Reset displayed selection when the value prop becomes empty
+  const [prevValue, setPrevValue] = useState(value);
+
+  if (value !== prevValue) {
+    setPrevValue(value);
+
+    if (!value) setSelectedOptions([]);
   }
 
-  // Reset selected options if value is empty
   useEffect(() => {
-    if (!value) resetAll();
+    if (!value) {
+      selectedValues.current.clear();
+      emitValue(multiple ? [] : "");
+    }
   }, [value]);
 
   /**
