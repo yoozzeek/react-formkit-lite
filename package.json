@@ -30,7 +30,13 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css",
+    "**/phoneNumberMask.js",
+    "**/dateMask.js",
+    "**/otherMasks.js",
+    "**/chunks/*.js"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
