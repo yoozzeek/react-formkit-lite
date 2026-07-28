@@ -312,6 +312,11 @@ const TextField: (props: TextFieldProps) => JSX.Element = ({
         )}
         {leftIcon && customIconContainer && leftIcon}
         {inputEl}
+        {type === "date" && !value && placeholder && (
+          <span className={styles["text-field__date-placeholder"]} aria-hidden="true">
+            {placeholder}
+          </span>
+        )}
         {rightIcon && !customIconContainer && (
           <span
             className={clsx(styles["text-field__icon-right"], {
