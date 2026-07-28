@@ -16,6 +16,7 @@ var d = {
 	"text-field__wrapper--primary": "formkit-lite-text-field__wrapper--primary",
 	"text-field__input": "formkit-lite-text-field__input",
 	"text-field__textarea": "formkit-lite-text-field__textarea",
+	"text-field__date-placeholder": "formkit-lite-text-field__date-placeholder",
 	"text-field__input--error": "formkit-lite-text-field__input--error",
 	"text-field__textarea--error": "formkit-lite-text-field__textarea--error",
 	"text-field__input--valid": "formkit-lite-text-field__input--valid",
@@ -197,6 +198,11 @@ var m = i(({ id: n, label: r, ariaLabel: i, value: m, name: h, error: g, initial
 					}),
 					y && j && y,
 					ce,
+					M === "date" && !m && v && /* @__PURE__ */ l("span", {
+						className: d["text-field__date-placeholder"],
+						"aria-hidden": "true",
+						children: v
+					}),
 					b && !j && /* @__PURE__ */ l("span", {
 						className: c(d["text-field__icon-right"], { [d["text-field__icon--compact"]]: V }),
 						children: V ? /* @__PURE__ */ l("span", {
