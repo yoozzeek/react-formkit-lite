@@ -78,6 +78,7 @@
 .select__value {
   flex: 1;
   font-size: var(--formkit-lite-font-size);
+  line-height: var(--formkit-lite-line-height);
 }
 
 .select__value--placeholder {

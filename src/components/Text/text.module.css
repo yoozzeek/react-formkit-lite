@@ -45,6 +45,7 @@
   flex: 1;
   padding: var(--formkit-lite-space-lg) var(--formkit-lite-space-xl);
   font-size: var(--formkit-lite-font-size);
+  line-height: var(--formkit-lite-line-height);
   border: none;
   background: none;
   color: var(--formkit-lite-text-light);
@@ -60,6 +61,24 @@
 .text-field__input::placeholder,
 .text-field__textarea::placeholder {
   color: var(--formkit-lite-color-light3);
+}
+
+.text-field__date-placeholder {
+  display: none;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .text-field__date-placeholder {
+    display: block;
+    position: absolute;
+    left: var(--formkit-lite-space-xl);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--formkit-lite-font-size);
+    line-height: var(--formkit-lite-line-height);
+    color: var(--formkit-lite-color-light3);
+    pointer-events: none;
+  }
 }
 
 .text-field__input--error,
@@ -122,6 +141,12 @@
 .text-field__reset-button--date,
 .text-field__reset-button--right-icon {
   right: 40px;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .text-field__reset-button--date {
+    right: var(--formkit-lite-space-md);
+  }
 }
 
 .text-field__reset-button--right-icon-custom {
