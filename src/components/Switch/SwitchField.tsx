@@ -14,12 +14,22 @@ type SwitchFieldProps = {
 };
 
 const SwitchField = ({ id, name, label, helpText, value, onFocus, onChange }: SwitchFieldProps) => {
+  const helpId = `${id}-help`;
+
   return (
     <div className={styles.switch}>
       {(!!label || !!helpText) && (
         <div className={styles["switch__info"]}>
-          {!!label && <span className={styles["switch__label"]}>{label}</span>}
-          {!!helpText && <p className={styles["switch__help"]}>{helpText}</p>}
+          {!!label && (
+            <label htmlFor={id} className={styles["switch__label"]}>
+              {label}
+            </label>
+          )}
+          {!!helpText && (
+            <p id={helpId} className={styles["switch__help"]}>
+              {helpText}
+            </p>
+          )}
         </div>
       )}
 
@@ -30,6 +40,7 @@ const SwitchField = ({ id, name, label, helpText, value, onFocus, onChange }: Sw
           checked={value}
           type="checkbox"
           className={styles["switch__input"]}
+          aria-describedby={helpText ? helpId : undefined}
           onChange={(e) => onChange(e.target.checked)}
           onFocus={onFocus}
         />

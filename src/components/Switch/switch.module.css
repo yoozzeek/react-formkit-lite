@@ -16,6 +16,7 @@
   margin-right: var(--formkit-lite-space-xl);
   font-size: var(--formkit-lite-font-size);
   color: var(--formkit-lite-color-dark);
+  cursor: pointer;
 }
 
 .switch__help {
