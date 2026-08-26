@@ -5,6 +5,8 @@ type SelectFieldDropdownProps<T, V> = {
     id: string;
     label?: string | null;
     isLoading?: boolean;
+    anchorRef: RefObject<HTMLElement>;
+    dropdownRef: RefObject<HTMLDivElement | null>;
     selectedValues: RefObject<Set<V>>;
     options: SelectOptionType<T, V>[];
     fullscreen?: boolean;
@@ -22,5 +24,5 @@ type SelectFieldDropdownProps<T, V> = {
     handleSelect: (option: SelectOptionType<T, V>) => void;
     onClose: () => void;
 };
-declare function SelectOptionsDropdown<T, V>({ id, label, position, helpText, multiple, max, selectedValues, options, isLoading, fullscreen, minWidth, searchTerm, footerRenderer, getValue, onLoadMore, handleSelect, onSearch, onReset, onClose, }: SelectFieldDropdownProps<T, V>): JSX.Element;
+declare function SelectOptionsDropdown<T, V>({ id, label, position, helpText, multiple, max, anchorRef, dropdownRef, selectedValues, options, isLoading, fullscreen, minWidth, searchTerm, footerRenderer, getValue, onLoadMore, handleSelect, onSearch, onReset, onClose, }: SelectFieldDropdownProps<T, V>): JSX.Element;
 export default SelectOptionsDropdown;

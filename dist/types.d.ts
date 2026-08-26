@@ -2,7 +2,7 @@ import { SelectFormikHandler, SelectSimpleHandler } from './Select';
 import { SelectOptionType } from './SelectOption';
 import { MouseEvent, FocusEvent } from 'react';
 export type Size = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
-export type Position = "center" | "right" | "left" | "top" | "bottom";
+export type Position = "left" | "right";
 export type Variant = "light" | "dark" | "success" | "danger" | "warning" | "none" | "primary" | "info" | "black";
 export interface CommonFieldProps {
     id: string;
