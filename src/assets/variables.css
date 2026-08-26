@@ -19,6 +19,9 @@
   /* Layout */
   --formkit-lite-header-height: 2.8rem;
 
+  /* Z-index */
+  --formkit-lite-z-dropdown: 60;
+
   /* Badge colors */
   --formkit-lite-text-dark: #ffffff;
   --formkit-lite-text-light: #2b3450;

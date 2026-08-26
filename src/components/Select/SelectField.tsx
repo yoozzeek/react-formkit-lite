@@ -101,11 +101,17 @@ function SelectField<T = unknown, V = string>({
   onReset,
 }: SelectFieldProps<T, V>): JSX.Element {
   const dpRef = useRef<HTMLDivElement>(null!);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
   const selectedValues = useRef<Set<V>>(new Set());
 
-  // Hide dropdown on outside click or ESC
   const isTabletOrDesktop = useIsTabletOrDesktop();
-  const [collapsed, setCollapsed] = useClickOutside(dpRef, false, true, !isTabletOrDesktop);
+  const [expanded, setExpanded] = useClickOutside(
+    dpRef,
+    false,
+    true,
+    !isTabletOrDesktop,
+    dropdownRef,
+  );
 
   // Fill selected options once when options are loaded
   const selectedOptionsInitialized = useRef(false);
@@ -292,11 +298,12 @@ function SelectField<T = unknown, V = string>({
   );
 
   /**
-   * Handle click on element and toggle collapsed state
+   * Handle click on element and expand the dropdown
    */
   function focus() {
     if (disabled) return;
-    setCollapsed(true);
+    setExpanded(true);
+
     if (onFocus) {
       onFocus({
         target: {
@@ -310,7 +317,7 @@ function SelectField<T = unknown, V = string>({
    * Handle choose all selected options and close dropdown
    */
   function chooseSelected() {
-    setCollapsed(false);
+    setExpanded(false);
     onSearch?.("");
   }
 
@@ -319,7 +326,7 @@ function SelectField<T = unknown, V = string>({
    */
   function close() {
     onSearch?.("");
-    setCollapsed(false);
+    setExpanded(false);
   }
 
   const multipleFooterRenderer = useCallback(
@@ -410,6 +417,7 @@ function SelectField<T = unknown, V = string>({
       <div
         ref={dpRef}
         tabIndex={0}
+        aria-owns={expanded && isTabletOrDesktop ? `${id}-dropdown` : undefined}
         className={clsx(styles.select__control, {
           [styles["select__control--full"]]: fullWidth,
           [styles["select__control--error"]]: error,
@@ -425,31 +433,33 @@ function SelectField<T = unknown, V = string>({
             [styles["select__icon--disabled"]]: disabled,
           })}
         />
-
-        {collapsed && (
-          <SelectOptionsDropdown<T, V>
-            id={id}
-            max={max}
-            multiple={multiple}
-            label={popupLabel}
-            options={options}
-            helpText={helpText}
-            isLoading={isLoading}
-            searchTerm={searchTerm}
-            fullscreen={dpFullscreen}
-            selectedValues={selectedValues}
-            position={dpPosition}
-            minWidth={dpWidth}
-            onLoadMore={onLoadMore}
-            footerRenderer={multipleFooterRenderer}
-            getValue={getValue}
-            onClose={close}
-            onReset={onReset}
-            onSearch={onSearch}
-            handleSelect={handleSelect}
-          />
-        )}
       </div>
+
+      {expanded && (
+        <SelectOptionsDropdown<T, V>
+          id={id}
+          max={max}
+          multiple={multiple}
+          label={popupLabel}
+          options={options}
+          helpText={helpText}
+          isLoading={isLoading}
+          searchTerm={searchTerm}
+          fullscreen={dpFullscreen}
+          anchorRef={dpRef}
+          dropdownRef={dropdownRef}
+          selectedValues={selectedValues}
+          position={dpPosition}
+          minWidth={dpWidth}
+          onLoadMore={onLoadMore}
+          footerRenderer={multipleFooterRenderer}
+          getValue={getValue}
+          onClose={close}
+          onReset={onReset}
+          onSearch={onSearch}
+          handleSelect={handleSelect}
+        />
+      )}
 
       {error && <span className={styles.select__error}>{error}</span>}
       {helpText && <span className={styles.select__help}>{helpText}</span>}

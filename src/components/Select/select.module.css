@@ -107,23 +107,14 @@
 }
 
 .select__dropdown {
-  position: absolute;
-  top: calc(100% + var(--formkit-lite-space-sm));
-  z-index: 20;
+  position: fixed;
+  z-index: var(--formkit-lite-z-dropdown);
+  display: flex;
+  flex-direction: column;
   background-color: white;
   border-radius: var(--formkit-lite-radius-xl);
   box-shadow: var(--formkit-lite-box-shadow);
-  max-height: 280px;
   overflow: hidden;
-  width: 104%;
-}
-
-.select__dropdown--left {
-  left: -2%;
-}
-
-.select__dropdown--right {
-  right: -2%;
 }
 
 .select__modal-content {
@@ -138,6 +129,7 @@
 
 .select__search {
   margin: var(--formkit-lite-space-xl);
+  flex-shrink: 0;
 }
 
 .select__loading-block {
@@ -161,6 +153,7 @@
 @media (min-width: 576px) {
   .select__scrollable-simplebar {
     max-height: 200px;
+    min-height: 0;
     overflow-y: auto;
   }
 

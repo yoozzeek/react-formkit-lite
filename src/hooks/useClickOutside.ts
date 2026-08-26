@@ -6,13 +6,18 @@ function useClickOutside(
   initialState: boolean = false,
   manualAutoOpening: boolean = false,
   disabled: boolean = false,
+  portalRef?: RefObject<HTMLElement | null>,
 ): [boolean, Dispatch<SetStateAction<boolean>>] {
   const [isOpened, setOpen] = useState<boolean>(initialState);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (disabled) return;
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+
+      const target = event.target as Node;
+      if (portalRef?.current?.contains(target)) return;
+
+      if (ref.current && !ref.current.contains(target)) {
         setOpen(false);
         return;
       }
@@ -27,7 +32,7 @@ function useClickOutside(
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [disabled, manualAutoOpening]);
+  }, [disabled, manualAutoOpening, ref, portalRef]);
 
   return [isOpened, setOpen];
 }

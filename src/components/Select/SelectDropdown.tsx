@@ -4,9 +4,10 @@ import type { JSX } from "react";
 import type { SelectOptionType } from "@/components/Select/SelectOption";
 import type { Position } from "@/types";
 import { useCallback, useMemo, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Modal, useModalStackCtx } from "@yoozzeek/react-context-modal";
 import useIsTabletOrDesktop from "@/hooks/useIsTabletOrDesktop.ts";
-import { clsx } from "clsx";
+import useAnchoredDropdown from "@/hooks/useAnchoredDropdown";
 import Header from "@/components/Header";
 import Loader from "@/components/Loader";
 import LoadMoreElement from "@/components/Select/LoadMoreElement";
@@ -20,6 +21,8 @@ type SelectFieldDropdownProps<T, V> = {
   id: string;
   label?: string | null;
   isLoading?: boolean;
+  anchorRef: RefObject<HTMLElement>;
+  dropdownRef: RefObject<HTMLDivElement | null>;
   selectedValues: RefObject<Set<V>>;
   options: SelectOptionType<T, V>[];
   fullscreen?: boolean;
@@ -108,6 +111,8 @@ function SelectOptionsDropdown<T, V>({
   helpText,
   multiple,
   max = 3,
+  anchorRef,
+  dropdownRef,
   selectedValues,
   options = [],
   isLoading = false,
@@ -125,6 +130,7 @@ function SelectOptionsDropdown<T, V>({
   const containerRef = useRef<HTMLDivElement>(null!);
   const modalCtx = useModalStackCtx();
   const isTabletOrDesktop = useIsTabletOrDesktop();
+  const anchoredStyle = useAnchoredDropdown(anchorRef, position, minWidth, isTabletOrDesktop);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     onSearch && onSearch(e.target.value);
@@ -227,28 +233,22 @@ function SelectOptionsDropdown<T, V>({
     ],
   );
 
-  // Wrap dropdown content in Modal on mobile devices,
-  // and show as dropdown on desktop below the input
   if (isTabletOrDesktop) {
-    return (
+    if (!anchoredStyle) return <></>;
+
+    return createPortal(
       <div
-        className={clsx(styles.select__dropdown, {
-          [styles["select__dropdown--left"]]: position === "left",
-          [styles["select__dropdown--right"]]: position === "right",
-        })}
-        role="combobox"
-        aria-controls="listbox"
-        aria-expanded="true"
-        style={{
-          ...(minWidth && isTabletOrDesktop ? { minWidth: minWidth } : {}),
-        }}
+        ref={dropdownRef}
+        id={`${id}-dropdown`}
+        className={styles.select__dropdown}
+        style={anchoredStyle}
       >
         {contentRenderer()}
-      </div>
+      </div>,
+      document.body,
     );
   }
 
-  // Otherwise wrap in modal
   return (
     <Modal
       id="select-field-modal"
