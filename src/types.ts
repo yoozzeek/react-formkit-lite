@@ -4,7 +4,7 @@ import type { MouseEvent, FocusEvent } from "react";
 
 export type Size = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
 
-export type Position = "center" | "right" | "left" | "top" | "bottom";
+export type Position = "left" | "right";
 
 export type Variant =
   | "light"
